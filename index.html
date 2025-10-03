@@ -92,19 +92,19 @@
         .container {
             display: grid;
             grid-template-columns: 1fr 340px;
-            gap: 2rem;
+            gap: 1rem;
             max-width: 1800px;
             margin: 0 auto;
-            padding: 1rem 2rem;
+            padding: 1rem;
             min-height: 100vh;
         }
 
 
 
-        /* CENTER COLUMN - Now larger for bigger images */
+        /* MAIN COLUMN - Now larger for bigger images */
         .main-content {
             background: #ffffff;
-            padding: 2rem 5rem;
+            padding: 2rem 3rem;
             border-radius: 20px;
             padding-bottom: 120px; /* Space for floating navigation */
         }
@@ -177,8 +177,8 @@
         }
 
         .progress-step.active {
-            background: linear-gradient(135deg, #DAA520 0%, #B8860B 100%);
-            color: white;
+            background: linear-gradient(135deg, #F4E4A6 0%, #E6D073 100%);
+            color: #000000;
             font-weight: 700;
             transform: scale(1.05);
             z-index: 10;
@@ -229,9 +229,12 @@
             display: flex;
             flex-direction: column;
             gap: 12px;
-            margin-top: 25px;
-            padding-top: 20px;
+            padding: 20px 0;
             border-top: 1px solid #e5e7eb;
+            background: var(--white);
+            position: sticky;
+            bottom: 0;
+            margin-top: auto;
         }
 
         .cart-nav-buttons .nav-btn {
@@ -358,6 +361,13 @@
             overflow: hidden;
         }
 
+        .progress-step.completed {
+            background: linear-gradient(135deg, #DAA520 0%, #B8860B 100%);
+            color: white;
+            font-weight: 600;
+            z-index: 5;
+        }
+
         .progress-step::before {
             content: '';
             position: absolute;
@@ -375,7 +385,27 @@
         }
 
         .progress-step.fill-animate {
-            color: white;
+            color: white !important;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Category Sections */
+        .category-section {
+            margin-bottom: 3rem;
+        }
+
+        .category-section-title {
+            font-family: 'Baloo 2', cursive;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #DAA520;
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        .category-section .product-card {
+            display: block !important;
         }
 
         /* Filter Tabs */
@@ -418,11 +448,31 @@
             box-shadow: 0 2px 12px rgba(218, 165, 32, 0.5);
         }
 
-        /* Product Grid - Now with more space for larger images */
-        .product-grid {
+        /* Category Sections */
+        .category-section {
+            margin-bottom: 4rem;
+        }
+
+        .category-section-title {
+            font-family: 'Baloo 2', cursive;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #DAA520;
+            margin-bottom: 2rem;
+            text-align: left;
+            border-bottom: 2px solid #DAA520;
+            padding-bottom: 0.5rem;
+        }
+
+        .category-items {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 2.5rem 2rem;
+        }
+
+        /* Product Grid - Now with more space for larger images */
+        .product-grid {
+            display: block;
         }
 
         .product-card {
@@ -520,10 +570,39 @@
         .cart-summary {
             position: sticky;
             top: 3rem;
-            height: fit-content;
+            height: calc(100vh - 6rem);
             background: var(--white);
             padding: 0.5rem;
             border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cart-content {
+            flex: 1;
+            overflow-y: auto;
+            padding-right: 20px;
+            margin-bottom: 1rem;
+            padding-bottom: 30px;
+            margin-right: -8px;
+        }
+
+        .cart-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .cart-content::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 3px;
+        }
+
+        .cart-content::-webkit-scrollbar-thumb {
+            background: #d1d5db;
+            border-radius: 3px;
+        }
+
+        .cart-content::-webkit-scrollbar-thumb:hover {
+            background: #9ca3af;
         }
 
         .cart-title {
@@ -675,15 +754,15 @@
         }
 
         .cart-total-label {
-            font-size: 1.125rem;
+            font-size: 0.875rem;
             font-weight: 600;
             margin-bottom: 0.5rem;
         }
 
         .cart-total-price {
             font-family: 'Baloo 2', cursive;
-            font-size: 2rem;
-            font-weight: 800;
+            font-size: 1rem;
+            font-weight: 600;
             color: #000;
         }
 
@@ -882,56 +961,30 @@
 
         @media (max-width: 1400px) {
             .container {
-                grid-template-columns: 140px 1fr 320px;
-                gap: 1.5rem;
+                grid-template-columns: 1fr 320px;
+                gap: 0.8rem;
             }
 
             .main-content {
-                padding: 3.5rem 4rem;
-            }
-
-            .slot {
-                width: 110px;
-                height: 110px;
+                padding: 2rem 2.5rem;
             }
         }
 
         @media (max-width: 1280px) {
             .container {
-                grid-template-columns: 130px 1fr 300px;
-                gap: 1.5rem;
-                padding: 2rem 1.5rem;
-            }
-
-            .slot {
-                width: 100px;
-                height: 100px;
+                grid-template-columns: 1fr 300px;
+                gap: 0.6rem;
+                padding: 1rem;
             }
 
             .main-content {
-                padding: 3rem;
+                padding: 2rem;
             }
         }
 
         @media (max-width: 1024px) {
             .container {
                 grid-template-columns: 1fr;
-            }
-
-            .slots-panel {
-                position: relative;
-                top: 0;
-                display: flex;
-                gap: 1rem;
-                overflow-x: auto;
-            }
-
-            .slots-label {
-                display: none;
-            }
-
-            .slot {
-                flex-shrink: 0;
             }
 
             .cart-summary {
@@ -1377,7 +1430,7 @@
     </button>
 
     <!-- Same HTML as before - keeping it identical -->
-    <div class="container">
+    <div class="container">        
         <!-- MAIN CONTENT -->
         <main class="main-content">
             <h1 class="main-title">Build Your Own Basket</h1>
@@ -1387,8 +1440,7 @@
                 <div class="step-header-row">
                     <h2 class="step-heading" id="step1Heading">Step 1: Choose your items</h2>
                     <div class="filter-tabs">
-                        <button class="filter-tab active" data-filter="all">All</button>
-                        <button class="filter-tab" data-filter="dates">Dates</button>
+                        <button class="filter-tab active" data-filter="dates">Dates</button>
                         <button class="filter-tab" data-filter="nuts">Nuts</button>
                         <button class="filter-tab" data-filter="chips">Chips</button>
                         <button class="filter-tab" data-filter="gifting">Gifting</button>
@@ -1396,223 +1448,244 @@
                 </div>
 
                 <div class="product-grid" id="itemsGrid">
-                    <div class="product-card" data-type="item" data-category="dates" data-product="Ameri Dates" data-price="299">
-                        <div class="product-image-wrapper">
-                            <img src="DATES/AMERI/1.png" alt="Ameri Dates" class="product-image">
-                            <div class="product-add-indicator">+</div>
-                        </div>
-                        <div class="product-info">
-                            <div class="product-name">Ameri Dates</div>
-                            <div class="product-price">₹299</div>
+                    <!-- Dates Section -->
+                    <div class="category-section" id="dates-section">
+                        <h3 class="category-section-title">Dates</h3>
+                        <div class="category-items">
+                            <div class="product-card" data-type="item" data-category="dates" data-product="Ameri Dates" data-price="299">
+                                <div class="product-image-wrapper">
+                                    <img src="DATES/AMERI/1.png" alt="Ameri Dates" class="product-image">
+                                    <div class="product-add-indicator">+</div>
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-name">Ameri Dates</div>
+                                    <div class="product-price">₹299</div>
+                                </div>
+                            </div>
+
+                            <div class="product-card" data-type="item" data-category="dates" data-product="Date Bite" data-price="199">
+                                <div class="product-image-wrapper">
+                                    <img src="DATES/DATE BITE/1.png" alt="Date Bite" class="product-image">
+                                    <div class="product-add-indicator">+</div>
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-name">Date Bite</div>
+                                    <div class="product-price">₹199</div>
+                                </div>
+                            </div>
+
+                            <div class="product-card" data-type="item" data-category="dates" data-product="Deri Dates 250g" data-price="249">
+                                <div class="product-image-wrapper">
+                                    <img src="DATES/DERI/DERI 250 g/1.png" alt="Deri Dates 250g" class="product-image">
+                                    <div class="product-add-indicator">+</div>
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-name">Deri Dates 250g</div>
+                                    <div class="product-price">₹249</div>
+                                </div>
+                            </div>
+
+                            <div class="product-card" data-type="item" data-category="dates" data-product="Kalmi Dates" data-price="289">
+                                <div class="product-image-wrapper">
+                                    <img src="DATES/KALMI/1.png" alt="Kalmi Dates" class="product-image">
+                                    <div class="product-add-indicator">+</div>
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-name">Kalmi Dates</div>
+                                    <div class="product-price">₹289</div>
+                                </div>
+                            </div>
+
+                            <div class="product-card" data-type="item" data-category="dates" data-product="Mini Medjoul Dates" data-price="349">
+                                <div class="product-image-wrapper">
+                                    <img src="DATES/MINI MEDJOUL/1.png" alt="Mini Medjoul Dates" class="product-image">
+                                    <div class="product-add-indicator">+</div>
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-name">Mini Medjoul Dates</div>
+                                    <div class="product-price">₹349</div>
+                                </div>
+                            </div>
+
+                            <div class="product-card" data-type="item" data-category="dates" data-product="Omani Dates 250g" data-price="329">
+                                <div class="product-image-wrapper">
+                                    <img src="DATES/OMANI/OMANI 250 g/1.png" alt="Omani Dates 250g" class="product-image">
+                                    <div class="product-add-indicator">+</div>
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-name">Omani Dates 250g</div>
+                                    <div class="product-price">₹329</div>
+                                </div>
+                            </div>
+
+                            <div class="product-card" data-type="item" data-category="dates" data-product="Deglet Dates" data-price="279">
+                                <div class="product-image-wrapper">
+                                    <img src="DATES/DEGLET/1.png" alt="Deglet Dates" class="product-image">
+                                    <div class="product-add-indicator">+</div>
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-name">Deglet Dates</div>
+                                    <div class="product-price">₹279</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="product-card" data-type="item" data-category="nuts" data-product="Brazil Nuts 100g" data-price="349">
-                        <div class="product-image-wrapper">
-                            <img src="NUTS/NUTS/BRAZIL NUT/BRAZIL 100 GM/1.png" alt="Brazil Nuts 100g" class="product-image">
-                            <div class="product-add-indicator">+</div>
-                        </div>
-                        <div class="product-info">
-                            <div class="product-name">Brazil Nuts 100g</div>
-                            <div class="product-price">₹349</div>
+                    <!-- Nuts Section -->
+                    <div class="category-section" id="nuts-section">
+                        <h3 class="category-section-title">Nuts</h3>
+                        <div class="category-items">
+                            <div class="product-card" data-type="item" data-category="nuts" data-product="Brazil Nuts 100g" data-price="349">
+                                <div class="product-image-wrapper">
+                                    <img src="NUTS/NUTS/BRAZIL NUT/BRAZIL 100 GM/1.png" alt="Brazil Nuts 100g" class="product-image">
+                                    <div class="product-add-indicator">+</div>
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-name">Brazil Nuts 100g</div>
+                                    <div class="product-price">₹349</div>
+                                </div>
+                            </div>
+
+                            <div class="product-card" data-type="item" data-category="nuts" data-product="Hazel Nuts 100g" data-price="399">
+                                <div class="product-image-wrapper">
+                                    <img src="NUTS/NUTS/HAZEL NUT/HAZELNUT 100 GM/2(1).png" alt="Hazel Nuts 100g" class="product-image">
+                                    <div class="product-add-indicator">+</div>
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-name">Hazel Nuts 100g</div>
+                                    <div class="product-price">₹399</div>
+                                </div>
+                            </div>
+
+                            <div class="product-card" data-type="item" data-category="nuts" data-product="Macadamia Nuts 100g" data-price="499">
+                                <div class="product-image-wrapper">
+                                    <img src="NUTS/NUTS/MACADEMIA NUT/MACADAMIA 100 GM/1.png" alt="Macadamia Nuts 100g" class="product-image">
+                                    <div class="product-add-indicator">+</div>
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-name">Macadamia Nuts 100g</div>
+                                    <div class="product-price">₹499</div>
+                                </div>
+                            </div>
+
+                            <div class="product-card" data-type="item" data-category="nuts" data-product="Pecan Nuts 100g" data-price="449">
+                                <div class="product-image-wrapper">
+                                    <img src="NUTS/NUTS/PECAN NUT/PECAN 100 GM/1.png" alt="Pecan Nuts 100g" class="product-image">
+                                    <div class="product-add-indicator">+</div>
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-name">Pecan Nuts 100g</div>
+                                    <div class="product-price">₹449</div>
+                                </div>
+                            </div>
+
+                            <div class="product-card" data-type="item" data-category="nuts" data-product="Pine Nuts 100g" data-price="529">
+                                <div class="product-image-wrapper">
+                                    <img src="NUTS/NUTS/PINE NUT/PINE 100 GM/1.png" alt="Pine Nuts 100g" class="product-image">
+                                    <div class="product-add-indicator">+</div>
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-name">Pine Nuts 100g</div>
+                                    <div class="product-price">₹529</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="product-card" data-type="item" data-category="gifting" data-product="Blossom Gift Box" data-price="449">
-                        <div class="product-image-wrapper">
-                            <img src="GIFTING/Blossom Gift box/1.png" alt="Blossom Gift Box" class="product-image">
-                            <div class="product-add-indicator">+</div>
-                        </div>
-                        <div class="product-info">
-                            <div class="product-name">Blossom Gift Box</div>
-                            <div class="product-price">₹449</div>
+                    <!-- Chips Section -->
+                    <div class="category-section" id="chips-section">
+                        <h3 class="category-section-title">Chips</h3>
+                        <div class="category-items">
+                            <div class="product-card" data-type="item" data-category="chips" data-product="Banana Chips" data-price="149">
+                                <div class="product-image-wrapper">
+                                    <img src="CHIPS/BANANA.jpg" alt="Banana Chips" class="product-image">
+                                    <div class="product-add-indicator">+</div>
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-name">Banana Chips</div>
+                                    <div class="product-price">₹149</div>
+                                </div>
+                            </div>
+
+                            <div class="product-card" data-type="item" data-category="chips" data-product="Chickpea Chips" data-price="129">
+                                <div class="product-image-wrapper">
+                                    <img src="CHIPS/CHIKPEA.jpg" alt="Chickpea Chips" class="product-image">
+                                    <div class="product-add-indicator">+</div>
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-name">Chickpea Chips</div>
+                                    <div class="product-price">₹129</div>
+                                </div>
+                            </div>
+
+                            <div class="product-card" data-type="item" data-category="chips" data-product="Corn Chips" data-price="139">
+                                <div class="product-image-wrapper">
+                                    <img src="CHIPS/CORN.jpg" alt="Corn Chips" class="product-image">
+                                    <div class="product-add-indicator">+</div>
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-name">Corn Chips</div>
+                                    <div class="product-price">₹139</div>
+                                </div>
+                            </div>
+
+                            <div class="product-card" data-type="item" data-category="chips" data-product="Okra Chips" data-price="159">
+                                <div class="product-image-wrapper">
+                                    <img src="CHIPS/OKRA.png" alt="Okra Chips" class="product-image">
+                                    <div class="product-add-indicator">+</div>
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-name">Okra Chips</div>
+                                    <div class="product-price">₹159</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="product-card" data-type="item" data-category="nuts" data-product="Hazel Nuts 100g" data-price="399">
-                        <div class="product-image-wrapper">
-                            <img src="NUTS/NUTS/HAZEL NUT/HAZELNUT 100 GM/2(1).png" alt="Hazel Nuts 100g" class="product-image">
-                            <div class="product-add-indicator">+</div>
-                        </div>
-                        <div class="product-info">
-                            <div class="product-name">Hazel Nuts 100g</div>
-                            <div class="product-price">₹399</div>
-                        </div>
-                    </div>
-
-                    <div class="product-card" data-type="item" data-category="dates" data-product="Date Bite" data-price="199">
-                        <div class="product-image-wrapper">
-                            <img src="DATES/DATE BITE/1.png" alt="Date Bite" class="product-image">
-                            <div class="product-add-indicator">+</div>
-                        </div>
-                        <div class="product-info">
-                            <div class="product-name">Date Bite</div>
-                            <div class="product-price">₹199</div>
-                        </div>
-                    </div>
-
-                    <div class="product-card" data-type="item" data-category="dates" data-product="Deri Dates 250g" data-price="249">
-                        <div class="product-image-wrapper">
-                            <img src="DATES/DERI/DERI 250 g/1.png" alt="Deri Dates 250g" class="product-image">
-                            <div class="product-add-indicator">+</div>
-                        </div>
-                        <div class="product-info">
-                            <div class="product-name">Deri Dates 250g</div>
-                            <div class="product-price">₹249</div>
-                        </div>
-                    </div>
-
-                    <div class="product-card" data-type="item" data-category="dates" data-product="Kalmi Dates" data-price="289">
-                        <div class="product-image-wrapper">
-                            <img src="DATES/KALMI/1.png" alt="Kalmi Dates" class="product-image">
-                            <div class="product-add-indicator">+</div>
-                        </div>
-                        <div class="product-info">
-                            <div class="product-name">Kalmi Dates</div>
-                            <div class="product-price">₹289</div>
-                        </div>
-                    </div>
-
-                    <div class="product-card" data-type="item" data-category="dates" data-product="Mini Medjoul Dates" data-price="349">
-                        <div class="product-image-wrapper">
-                            <img src="DATES/MINI MEDJOUL/1.png" alt="Mini Medjoul Dates" class="product-image">
-                            <div class="product-add-indicator">+</div>
-                        </div>
-                        <div class="product-info">
-                            <div class="product-name">Mini Medjoul Dates</div>
-                            <div class="product-price">₹349</div>
-                        </div>
-                    </div>
-
-                    <div class="product-card" data-type="item" data-category="dates" data-product="Omani Dates 250g" data-price="329">
-                        <div class="product-image-wrapper">
-                            <img src="DATES/OMANI/OMANI 250 g/1.png" alt="Omani Dates 250g" class="product-image">
-                            <div class="product-add-indicator">+</div>
-                        </div>
-                        <div class="product-info">
-                            <div class="product-name">Omani Dates 250g</div>
-                            <div class="product-price">₹329</div>
-                        </div>
-                    </div>
-
-                    <div class="product-card" data-type="item" data-category="nuts" data-product="Macadamia Nuts 100g" data-price="499">
-                        <div class="product-image-wrapper">
-                            <img src="NUTS/NUTS/MACADEMIA NUT/MACADAMIA 100 GM/1.png" alt="Macadamia Nuts 100g" class="product-image">
-                            <div class="product-add-indicator">+</div>
-                        </div>
-                        <div class="product-info">
-                            <div class="product-name">Macadamia Nuts 100g</div>
-                            <div class="product-price">₹499</div>
-                        </div>
-                    </div>
-
-                    <div class="product-card" data-type="item" data-category="nuts" data-product="Pecan Nuts 100g" data-price="449">
-                        <div class="product-image-wrapper">
-                            <img src="NUTS/NUTS/PECAN NUT/PECAN 100 GM/1.png" alt="Pecan Nuts 100g" class="product-image">
-                            <div class="product-add-indicator">+</div>
-                        </div>
-                        <div class="product-info">
-                            <div class="product-name">Pecan Nuts 100g</div>
-                            <div class="product-price">₹449</div>
-                        </div>
-                    </div>
-
-                    <div class="product-card" data-type="item" data-category="nuts" data-product="Pine Nuts 100g" data-price="529">
-                        <div class="product-image-wrapper">
-                            <img src="NUTS/NUTS/PINE NUT/PINE 100 GM/1.png" alt="Pine Nuts 100g" class="product-image">
-                            <div class="product-add-indicator">+</div>
-                        </div>
-                        <div class="product-info">
-                            <div class="product-name">Pine Nuts 100g</div>
-                            <div class="product-price">₹529</div>
-                        </div>
-                    </div>
-
-                    <div class="product-card" data-type="item" data-category="gifting" data-product="Cadeau Gift Box" data-price="329">
-                        <div class="product-image-wrapper">
-                            <img src="GIFTING/Cadeau Gift box/1.png" alt="Cadeau Gift Box" class="product-image">
-                            <div class="product-add-indicator">+</div>
-                        </div>
-                        <div class="product-info">
-                            <div class="product-name">Cadeau Gift Box</div>
-                            <div class="product-price">₹329</div>
-                        </div>
-                    </div>
-
-                    <div class="product-card" data-type="item" data-category="dates" data-product="Deglet Dates" data-price="279">
-                        <div class="product-image-wrapper">
-                            <img src="DATES/DEGLET/1.png" alt="Deglet Dates" class="product-image">
-                            <div class="product-add-indicator">+</div>
-                        </div>
-                        <div class="product-info">
-                            <div class="product-name">Deglet Dates</div>
-                            <div class="product-price">₹279</div>
-                        </div>
-                    </div>
-
-                    <div class="product-card" data-type="item" data-category="gifting" data-product="Ethic Gift Box" data-price="379">
-                        <div class="product-image-wrapper">
-                            <img src="GIFTING/Ethic Gift Box/1.png" alt="Ethic Gift Box" class="product-image">
-                            <div class="product-add-indicator">+</div>
-                        </div>
-                        <div class="product-info">
-                            <div class="product-name">Ethic Gift Box</div>
-                            <div class="product-price">₹379</div>
-                        </div>
-                    </div>
-
-                    <div class="product-card" data-type="item" data-category="gifting" data-product="Fleur Gift Box" data-price="399">
-                        <div class="product-image-wrapper">
-                            <img src="GIFTING/Fleur Gift box/1.png" alt="Fleur Gift Box" class="product-image">
-                            <div class="product-add-indicator">+</div>
-                        </div>
-                        <div class="product-info">
-                            <div class="product-name">Fleur Gift Box</div>
-                            <div class="product-price">₹399</div>
-                        </div>
-                    </div>
-
-                    <div class="product-card" data-type="item" data-category="chips" data-product="Banana Chips" data-price="149">
-                        <div class="product-image-wrapper">
-                            <img src="CHIPS/BANANA.jpg" alt="Banana Chips" class="product-image">
-                            <div class="product-add-indicator">+</div>
-                        </div>
-                        <div class="product-info">
-                            <div class="product-name">Banana Chips</div>
-                            <div class="product-price">₹149</div>
-                        </div>
-                    </div>
-
-                    <div class="product-card" data-type="item" data-category="chips" data-product="Chickpea Chips" data-price="129">
-                        <div class="product-image-wrapper">
-                            <img src="CHIPS/CHIKPEA.jpg" alt="Chickpea Chips" class="product-image">
-                            <div class="product-add-indicator">+</div>
-                        </div>
-                        <div class="product-info">
-                            <div class="product-name">Chickpea Chips</div>
-                            <div class="product-price">₹129</div>
-                        </div>
-                    </div>
-
-                    <div class="product-card" data-type="item" data-category="chips" data-product="Corn Chips" data-price="139">
-                        <div class="product-image-wrapper">
-                            <img src="CHIPS/CORN.jpg" alt="Corn Chips" class="product-image">
-                            <div class="product-add-indicator">+</div>
-                        </div>
-                        <div class="product-info">
-                            <div class="product-name">Corn Chips</div>
-                            <div class="product-price">₹139</div>
-                        </div>
-                    </div>
-
-                    <div class="product-card" data-type="item" data-category="chips" data-product="Okra Chips" data-price="159">
-                        <div class="product-image-wrapper">
-                            <img src="CHIPS/OKRA.png" alt="Okra Chips" class="product-image">
-                            <div class="product-add-indicator">+</div>
-                        </div>
-                        <div class="product-info">
-                            <div class="product-name">Okra Chips</div>
-                            <div class="product-price">₹159</div>
+                    <!-- Gifting Section -->
+                    <div class="category-section" id="gifting-section">
+                        <h3 class="category-section-title">Gifting</h3>
+                        <div class="category-items">
+                            <div class="product-card" data-type="item" data-category="gifting" data-product="Blossom Gift Box" data-price="449">
+                                <div class="product-image-wrapper">
+                                    <img src="GIFTING/Blossom Gift box/1.png" alt="Blossom Gift Box" class="product-image">
+                                    <div class="product-add-indicator">+</div>
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-name">Blossom Gift Box</div>
+                                    <div class="product-price">₹449</div>
+                                </div>
+                            </div>
+                            <div class="product-card" data-type="item" data-category="gifting" data-product="Cadeau Gift Box" data-price="329">
+                                <div class="product-image-wrapper">
+                                    <img src="GIFTING/Cadeau Gift box/1.png" alt="Cadeau Gift Box" class="product-image">
+                                    <div class="product-add-indicator">+</div>
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-name">Cadeau Gift Box</div>
+                                    <div class="product-price">₹329</div>
+                                </div>
+                            </div>
+                            <div class="product-card" data-type="item" data-category="gifting" data-product="Ethic Gift Box" data-price="379">
+                                <div class="product-image-wrapper">
+                                    <img src="GIFTING/Ethic Gift Box/1.png" alt="Ethic Gift Box" class="product-image">
+                                    <div class="product-add-indicator">+</div>
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-name">Ethic Gift Box</div>
+                                    <div class="product-price">₹379</div>
+                                </div>
+                            </div>
+                            <div class="product-card" data-type="item" data-category="gifting" data-product="Fleur Gift Box" data-price="399">
+                                <div class="product-image-wrapper">
+                                    <img src="GIFTING/Fleur Gift box/1.png" alt="Fleur Gift Box" class="product-image">
+                                    <div class="product-add-indicator">+</div>
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-name">Fleur Gift Box</div>
+                                    <div class="product-price">₹399</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1621,10 +1694,9 @@
             <!-- STEP 2: Basket Selection -->
             <div class="step-content" data-step="1">
                 <div class="step-header-row">
-                    <h2 class="step-heading">Step 2: Choose your basket</h2>
+                    <h2 class="step-heading" id="step2Heading">Step 2: Choose your basket</h2>
                     <div class="filter-tabs">
-                        <button class="filter-tab active" data-filter="all" onclick="filterBaskets('all', this)">All</button>
-                        <button class="filter-tab" data-filter="cane" onclick="filterBaskets('cane', this)">Cane</button>
+                        <button class="filter-tab active" data-filter="cane" onclick="filterBaskets('cane', this)">Cane</button>
                         <button class="filter-tab" data-filter="bamboo" onclick="filterBaskets('bamboo', this)">Bamboo</button>
                         <button class="filter-tab" data-filter="premium" onclick="filterBaskets('premium', this)">Premium</button>
                     </div>
@@ -1882,7 +1954,7 @@
 
             <!-- STEP 3: Net Selection -->
             <div class="step-content" data-step="2">
-                <h2 class="step-heading">Step 3: Choose your net</h2>
+                <h2 class="step-heading" id="step3Heading">Step 3: Choose your net</h2>
                 <div class="product-grid">
                     <div class="product-card" data-type="net" data-product="Transparent Net" data-price="99">
                         <div class="product-image-wrapper">
@@ -1923,7 +1995,7 @@
 
             <!-- STEP 4: Ribbon Selection -->
             <div class="step-content" data-step="3">
-                <h2 class="step-heading">Step 4: Choose your ribbon</h2>
+                <h2 class="step-heading" id="step4Heading">Step 4: Choose your ribbon</h2>
                 <div class="product-grid">
                     <div class="product-card" data-type="ribbon" data-product="Red Satin Ribbon" data-price="49">
                         <div class="product-image-wrapper">
@@ -1964,7 +2036,7 @@
 
             <!-- STEP 5: Checkout Summary -->
             <div class="step-content" data-step="4">
-                <h2 class="step-heading">Step 5: Review your order</h2>
+                <h2 class="step-heading" id="step5Heading">Step 5: Review your order</h2>
                 <div id="basketSummary">
                 </div>
 
@@ -1988,39 +2060,41 @@
             <img src="logo.png" alt="Flyberry Logo" class="cart-logo">
             <h3 class="cart-title">Your Gift Basket</h3>
             
-            <!-- Empty Cart Message -->
-            <div class="empty-cart-message" id="emptyCartMessage">
-                <p>🧺 Your basket is feeling lonely!</p>
-                <p>It's dreaming of delicious dates and nuts...</p>
-                <p>Why not make its dreams come true? 😋</p>
+            <div class="cart-content">
+                <!-- Empty Cart Message -->
+                <div class="empty-cart-message" id="emptyCartMessage">
+                    <p>🧺 Your basket is feeling lonely!</p>
+                    <p>It's dreaming of delicious dates and nuts...</p>
+                    <p>Why not make its dreams come true? 😋</p>
+                </div>
+                
+                <div class="cart-section" id="cartBasket" style="display: none;">
+                    <div class="cart-section-title">Basket</div>
+                    <div id="cartBasketContent"></div>
+                </div>
+
+                <div class="cart-section" id="cartItems" style="display: none;">
+                    <div class="cart-section-title">Items</div>
+                    <div id="cartItemsContent"></div>
+                </div>
+
+                <div class="cart-section" id="cartNet" style="display: none;">
+                    <div class="cart-section-title">Net</div>
+                    <div id="cartNetContent"></div>
+                </div>
+
+                <div class="cart-section" id="cartRibbon" style="display: none;">
+                    <div class="cart-section-title">Ribbon</div>
+                    <div id="cartRibbonContent"></div>
+                </div>
+
+                <div class="cart-total">
+                    <div class="cart-total-label">Total</div>
+                    <div class="cart-total-price" id="cartTotal">₹0</div>
+                </div>
             </div>
             
-            <div class="cart-section" id="cartBasket" style="display: none;">
-                <div class="cart-section-title">Basket</div>
-                <div id="cartBasketContent"></div>
-            </div>
-
-            <div class="cart-section" id="cartItems" style="display: none;">
-                <div class="cart-section-title">Items</div>
-                <div id="cartItemsContent"></div>
-            </div>
-
-            <div class="cart-section" id="cartNet" style="display: none;">
-                <div class="cart-section-title">Net</div>
-                <div id="cartNetContent"></div>
-            </div>
-
-            <div class="cart-section" id="cartRibbon" style="display: none;">
-                <div class="cart-section-title">Ribbon</div>
-                <div id="cartRibbonContent"></div>
-            </div>
-
-            <div class="cart-total">
-                <div class="cart-total-label">Total</div>
-                <div class="cart-total-price" id="cartTotal">₹0</div>
-            </div>
-            
-            <!-- Navigation Buttons Above Step Navigation -->
+            <!-- Navigation Buttons Sticky at Bottom -->
             <div class="cart-nav-buttons">
                 <button class="nav-btn btn-next" id="cartNextBtn" onclick="nextStep()">Next</button>
                 <button class="nav-btn btn-back" id="cartBackBtn" onclick="prevStep()" style="display: none;">Back</button>
@@ -2558,6 +2632,9 @@
         updateProgress();
         setupEventListeners();
         
+        // Initialize scroll detection
+        initializeScrollDetection();
+        
         // Initialize go-to-top button visibility
         toggleGoToTopButton();
 
@@ -2569,14 +2646,12 @@
                 });
             });
 
-            // Filter tabs
+            // Filter tabs - now work as navigation
             document.querySelectorAll('.filter-tab').forEach(tab => {
-                tab.addEventListener('click', function() {
+                tab.addEventListener('click', function(e) {
+                    e.preventDefault();
                     const filter = this.dataset.filter;
-                    filterItems(filter);
-                    
-                    document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
-                    this.classList.add('active');
+                    navigateToCategory(filter);
                 });
             });
         }
@@ -2621,17 +2696,19 @@
 
 
 
-        function filterItems(category) {
-            const grid = document.getElementById('itemsGrid');
-            const cards = grid.querySelectorAll('.product-card');
+        // Navigation function (filters are now navigation only)
+        function navigateToCategory(category) {
+            const targetSection = document.getElementById(category + '-section');
+            if (targetSection) {
+                targetSection.scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
             
-            cards.forEach(card => {
-                if (category === 'all' || card.dataset.category === category) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
+            // Update active tab
+            document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+            document.querySelector(`[data-filter="${category}"]`).classList.add('active');
         }
 
         function filterBaskets(category, tabElement) {
@@ -2780,6 +2857,43 @@
             }
         }
 
+        // Scroll detection for category titles
+        let scrollTimeout;
+        function initializeScrollDetection() {
+            const sections = [
+                { id: 'dates-section', category: 'dates' },
+                { id: 'nuts-section', category: 'nuts' },
+                { id: 'chips-section', category: 'chips' },
+                { id: 'gifting-section', category: 'gifting' }
+            ];
+            
+            function detectCurrentSection() {
+                const scrollPosition = window.scrollY + window.innerHeight / 3;
+                
+                for (let i = sections.length - 1; i >= 0; i--) {
+                    const element = document.getElementById(sections[i].id);
+                    if (element && element.offsetTop <= scrollPosition) {
+
+                        
+                        // Update active filter tab
+                        document.querySelectorAll('.filter-tab').forEach(tab => {
+                            tab.classList.toggle('active', tab.dataset.filter === sections[i].category);
+                        });
+                        
+                        break;
+                    }
+                }
+            }
+            
+            window.addEventListener('scroll', () => {
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(detectCurrentSection, 50);
+            });
+            
+            // Initial detection
+            setTimeout(detectCurrentSection, 100);
+        }
+
         // Add scroll event listener
         window.addEventListener('scroll', toggleGoToTopButton);
 
@@ -2792,9 +2906,10 @@
                         alert('🧺 Your basket is still empty! Please add some delicious items first.');
                         return;
                     }
-                    // Trigger fill animation for step 1 when items are done
-                    triggerStepCompletion(0);
                 }
+                
+                // Trigger fill animation for current step before moving to next
+                triggerStepCompletion(currentStep);
                 
                 // Validation
                 if (currentStep === 1 && !selections.basket) {
@@ -2831,6 +2946,11 @@
                 updateSummary();
             }
             
+            // Apply gradient animation to current step heading
+            applyGradientToCurrentStep(stepIndex);
+            
+
+            
             updateProgress();
             updateCartButtons();
             window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -2846,15 +2966,11 @@
 
         function updateProgress() {
             document.querySelectorAll('.progress-step').forEach((step, index) => {
-                step.classList.remove('active', 'completed', 'fill-animate');
+                step.classList.remove('active', 'completed');
                 if (index === currentStep) {
                     step.classList.add('active');
                 } else if (index < currentStep) {
                     step.classList.add('completed');
-                    // Add fill animation with delay
-                    setTimeout(() => {
-                        step.classList.add('fill-animate');
-                    }, 100);
                 }
             });
         }
@@ -3120,19 +3236,35 @@
             }, 50);
         }
 
+
+
+
+
         // Initialize cart buttons and animations on page load
         updateCartButtons();
         updateProgress();
         initializeAnimations();
 
         function initializeAnimations() {
-            // Start gradient animation for step 1 heading after a short delay
+            // Start gradient animation for current step heading after a short delay
             setTimeout(() => {
-                const step1Heading = document.getElementById('step1Heading');
-                if (step1Heading && currentStep === 0) {
-                    step1Heading.classList.add('gradient-animate');
-                }
+                applyGradientToCurrentStep(currentStep);
             }, 300);
+        }
+
+        function applyGradientToCurrentStep(stepIndex) {
+            // Remove gradient from all headings first
+            document.querySelectorAll('.step-heading').forEach(heading => {
+                heading.classList.remove('gradient-animate');
+            });
+            
+            // Add gradient to current step heading
+            const currentHeading = document.getElementById(`step${stepIndex + 1}Heading`);
+            if (currentHeading) {
+                setTimeout(() => {
+                    currentHeading.classList.add('gradient-animate');
+                }, 200);
+            }
         }
     </script>
 </body>
