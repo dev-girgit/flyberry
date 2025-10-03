@@ -19,8 +19,8 @@
         :root {
             --bg-light: #f7f8fb;
             --white: #ffffff;
-            --accent-blue: #0b74de;
-            --accent-blue-light: #4aa3ff;
+            --accent-blue: #374151;
+            --accent-blue-light: #6b7280;
             --accent-green: #0ba76b;
             --text-primary: #1a1a1a;
             --text-secondary: #6b7280;
@@ -72,10 +72,10 @@
 
         .main-title {
             font-family: 'Baloo 2', cursive;
-            font-size: 4rem;
+            font-size: 3rem;
             color: #000000;
             font-weight: 525;
-            margin: 0 0 2rem 0;
+            margin: 0 0 1rem 0;
             text-align: left;
         }
 
@@ -86,12 +86,6 @@
             display: block;
             margin: 0 auto 1rem auto;
             margin-top: -0.5rem;
-        }
-
-        .step-title {
-            font-size: 1.75rem;
-            margin-bottom: 2rem;
-            color: var(--text-primary);
         }
 
         /* Main Layout - 2 column layout */
@@ -112,81 +106,95 @@
             background: #ffffff;
             padding: 2rem 5rem;
             border-radius: 20px;
+            padding-bottom: 120px; /* Space for floating navigation */
         }
 
         /* Progress Bar */
         .progress-container {
-            margin-bottom: 3rem;
+            margin-bottom: 0;
+            order: -1; /* Ensure progress appears above nav buttons */
+        }
+
+        .step-navigation .progress-container {
+            margin-bottom: 0;
         }
 
         .progress-steps {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
-            gap: 1rem;
-            margin-bottom: 2rem;
+            gap: 0;
+            margin: 0;
             position: relative;
         }
 
-        .progress-arrow {
-            color: #9ca3af;
-            font-size: 1.2rem;
-            font-weight: bold;
-            margin: 0 0.5rem;
-        }
+
 
         .progress-step {
             font-family: 'Nunito', -apple-system, BlinkMacSystemFont, sans-serif;
-            font-size: 1.125rem;
-            font-weight: 700;
+            font-size: 0.95rem;
+            font-weight: 600;
             text-transform: none;
-            letter-spacing: 0.05em;
-            color: #333;
+            letter-spacing: 0.3px;
+            color: #6b7280;
             transition: all 0.3s ease;
             cursor: pointer;
-            background: #ffffff;
-            border: 1px solid #d1d5db;
-            padding: 0.75rem 2.25rem;
-            border-radius: 50px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            background: #f8f9fa;
+            border: none;
+            padding: 0;
+            height: 50px;
+            width: 160px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            clip-path: polygon(0 0, calc(100% - 25px) 0, 100% 50%, calc(100% - 25px) 100%, 0 100%);
+            margin-right: -25px;
+        }
+        
+        .progress-step:first-child {
+            clip-path: polygon(0 0, calc(100% - 25px) 0, 100% 50%, calc(100% - 25px) 100%, 0 100%);
+            border-radius: 25px 0 0 25px;
+            margin-left: 0;
+            padding-left: 10px;
+        }
+        
+
+        
+        .progress-step:last-child {
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+            border-radius: 0 25px 25px 0;
+            margin-right: 0;
+            padding-right: 10px;
         }
 
         .progress-step:hover {
-            background: #ffffff;
-            border-color: #9ca3af;
-            color: #000000;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            background: #e5e7eb;
+            color: #374151;
+            transform: translateY(-2px) scale(1.02);
+            z-index: 8;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
         }
 
         .progress-step.active {
-            background: #ffffff;
-            border-color: #9ca3af;
-            color: #000000;
+            background: linear-gradient(135deg, #DAA520 0%, #B8860B 100%);
+            color: white;
             font-weight: 700;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+            transform: scale(1.05);
+            z-index: 10;
+            box-shadow: 0 8px 30px rgba(218, 165, 32, 0.4);
         }
 
         .progress-step.completed {
-            background: #ffffff;
-            border-color: #9ca3af;
-            color: #000000;
-            font-weight: 700;
+            background: linear-gradient(135deg, #DAA520 0%, #B8860B 100%);
+            color: white;
+            font-weight: 600;
+            z-index: 5;
         }
-
-        .progress-bar-track {
-            height: 8px;
-            background: var(--border-light);
-            border-radius: 4px;
-            overflow: hidden;
-        }
-
-        .progress-bar-fill {
-            height: 100%;
-            background: #07b612;
-            width: 0%;
-            transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        
+        .progress-step.active:hover,
+        .progress-step.completed:hover {
+            transform: translateY(-2px) scale(1.05);
         }
 
         /* Step Content */
@@ -200,29 +208,82 @@
 
         /* Navigation Buttons */
         .step-navigation {
-            display: flex;
-            justify-content: center;
-            margin-top: 3rem;
-            gap: 2rem;
             position: fixed;
             bottom: 30px;
             left: 50%;
             transform: translateX(-50%);
+            background: linear-gradient(to top, #ffffff 0%, #fafafa 100%);
+            border: 1px solid #e5e7eb;
+            border-radius: 25px;
+            padding: 20px 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.12);
             z-index: 1000;
+            width: auto;
+            max-width: 90vw;
+        }
+
+        .cart-nav-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .cart-nav-buttons .nav-btn {
+            width: 100%;
+            padding: 12px 20px;
+            font-size: 0.95rem;
+        }
+        
+        .empty-cart-message {
+            text-align: center;
+            padding: 30px 20px;
+            color: #6b7280;
+            font-style: italic;
+            border: 2px dashed #e5e7eb;
+            border-radius: 12px;
+            margin: 20px 0;
+            background: linear-gradient(135deg, #fafafa 0%, #f3f4f6 100%);
+        }
+        
+        .empty-cart-message p {
+            margin: 8px 0;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+        
+        .empty-cart-message p:first-child {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #374151;
+        }
+        
+        .nav-btn:disabled {
+            background: #e5e7eb;
+            color: #9ca3af;
+            cursor: not-allowed;
+            opacity: 0.6;
         }
 
         .nav-btn {
-            padding: 1rem 2.5rem;
-            font-family: 'Baloo 2', cursive;
+            padding: 14px 35px;
+            font-family: 'Nunito', -apple-system, BlinkMacSystemFont, sans-serif;
             font-size: 1rem;
-            font-weight: 700;
+            font-weight: 600;
             border: none;
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             text-transform: uppercase;
-            letter-spacing: 0.05em;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            letter-spacing: 0.8px;
+            border-radius: 50px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            position: relative;
+            overflow: hidden;
         }
 
         .btn-back {
@@ -239,18 +300,17 @@
         }
 
         .btn-next {
-            background: var(--white);
-            color: var(--text-primary);
-            border: 2px solid var(--border-light);
+            background: linear-gradient(135deg, #DAA520 0%, #B8860B 100%);
+            color: white;
+            border: none;
             margin-left: auto;
         }
 
         .btn-next:hover {
-            background: var(--white);
-            border-color: #DAA520;
-            color: #DAA520;
+            background: linear-gradient(135deg, #FFD700 0%, #DAA520 100%);
+            color: white;
             transform: translateY(-2px);
-            box-shadow: var(--shadow-lg);
+            box-shadow: 0 4px 15px rgba(218, 165, 32, 0.3);
         }
 
         .btn-next:disabled {
@@ -260,43 +320,102 @@
             transform: none;
         }
 
+        /* Step Header Row */
+        .step-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .step-heading {
+            margin: 0;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        /* Gradient Text Animation */
+        .gradient-animate {
+            background: linear-gradient(90deg, #B8860B, #DAA520, #8B6914, #DAA520, #B8860B);
+            background-size: 200% 100%;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientShift 15s ease-in-out infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { 
+                background-position: -200% 0%;
+            }
+            100% { 
+                background-position: 200% 0%;
+            }
+        }
+
+        /* Progress Pill Fill Animation */
+        .progress-step {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-step::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #DAA520 0%, #B8860B 100%);
+            transition: right 0.8s ease-in-out;
+            z-index: -1;
+        }
+
+        .progress-step.fill-animate::before {
+            right: 0;
+        }
+
+        .progress-step.fill-animate {
+            color: white;
+        }
+
         /* Filter Tabs */
         .filter-tabs {
             display: flex;
-            gap: 0.5rem;
-            margin-bottom: 2.5rem;
-            border-bottom: 1px solid var(--border-light);
-            padding-bottom: 0.5rem;
+            gap: 8px;
+            justify-content: flex-start;
+            align-items: center;
         }
 
         .filter-tab {
-            padding: 0.5rem 1.25rem;
-            font-size: 1rem;
+            padding: 10px 20px;
+            font-size: 0.95rem;
             font-weight: 600;
-            background: none;
-            border: none;
-            color: var(--text-secondary);
+            font-family: 'Nunito', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: white;
+            border: 2px solid #efdba7;
+            color: #000000;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
+            border-radius: 25px;
             position: relative;
+            white-space: nowrap;
         }
 
         .filter-tab:hover {
-            color: var(--text-primary);
+            background: linear-gradient(135deg, #FFD700 0%, #DAA520 100%);
+            border-color: #DAA520;
+            color: white;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(218, 165, 32, 0.3);
         }
 
         .filter-tab.active {
-            color: var(--accent-blue);
-        }
-
-        .filter-tab.active::after {
-            content: '';
-            position: absolute;
-            bottom: -0.6rem;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: var(--accent-blue);
+            background: linear-gradient(135deg, #DAA520 0%, #B8860B 100%);
+            border-color: #B8860B;
+            color: white;
+            font-weight: 700;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 12px rgba(218, 165, 32, 0.5);
         }
 
         /* Product Grid - Now with more space for larger images */
@@ -319,13 +438,12 @@
         .product-card.selected .product-image-wrapper {
             border-color: var(--accent-blue);
             border-width: 2px;
-            box-shadow: var(--shadow-lg);
         }
 
         .product-image-wrapper {
             width: 100%;
             aspect-ratio: 1;
-            background: var(--white);
+            background: transparent;
             border: none;
             overflow: hidden;
             margin-bottom: 1rem;
@@ -333,9 +451,7 @@
             border-radius: 15px;
         }
 
-        .product-card:hover .product-image-wrapper {
-            box-shadow: var(--shadow-lg);
-        }
+
 
         .product-image {
             width: 100%;
@@ -382,10 +498,7 @@
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .product-card:hover .product-add-indicator {
-            opacity: 1;
-            transform: scale(1);
-        }
+
 
         .product-card.selected .product-add-indicator {
             opacity: 1;
@@ -571,7 +684,7 @@
             font-family: 'Baloo 2', cursive;
             font-size: 2rem;
             font-weight: 800;
-            color: var(--accent-blue);
+            color: #000;
         }
 
         .cart-empty {
@@ -622,7 +735,7 @@
             height: 50px;
             object-fit: cover;
             border-radius: 6px;
-            border: 1px solid var(--border-light);
+            border: none;
         }
 
         .summary-item-details {
@@ -856,7 +969,32 @@
             }
 
             .step-navigation {
+                bottom: 20px;
+                padding: 15px 20px;
+                max-width: 95vw;
+            }
+
+            .nav-buttons {
                 flex-direction: column;
+                gap: 1rem;
+            }
+
+            .progress-steps {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 5px;
+            }
+            
+            .progress-step {
+                min-width: 120px;
+                height: 45px;
+                font-size: 0.85rem;
+                margin-right: -15px;
+            }
+            
+            .progress-step:first-child,
+            .progress-step:last-child {
+                margin-right: 0;
             }
 
             .btn-next {
@@ -933,6 +1071,40 @@
             opacity: 1;
         }
 
+        .carousel-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .carousel-arrow:hover {
+            background: rgba(0, 0, 0, 0.8);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .carousel-prev {
+            left: 12px;
+        }
+
+        .carousel-next {
+            right: 12px;
+        }
+
         .carousel-dots {
             position: absolute;
             bottom: 16px;
@@ -963,7 +1135,7 @@
         }
 
         .carousel-dot.active {
-            background: var(--accent-blue);
+            background: white;
             transform: scale(1.3);
         }
 
@@ -987,6 +1159,7 @@
             align-items: center;
             justify-content: center;
             transition: all 0.2s ease;
+            z-index: 10001;
             z-index: 10001;
         }
 
@@ -1168,16 +1341,18 @@
     
     <!-- Product Tooltip -->
     <div class="product-tooltip" id="productTooltip">
+        <button class="tooltip-close" onclick="hideTooltip()">×</button>
         <div class="tooltip-header">
             <div class="image-carousel">
                 <div class="carousel-container" id="carouselContainer">
                     <img class="tooltip-image active" id="tooltipImage" src="" alt="">
+                    <button class="carousel-arrow carousel-prev" onclick="prevImage()" style="display: none;">‹</button>
+                    <button class="carousel-arrow carousel-next" onclick="nextImage()" style="display: none;">›</button>
                 </div>
                 <div class="carousel-dots" id="carouselDots">
                     <!-- Dots will be added dynamically -->
                 </div>
             </div>
-            <button class="tooltip-close" onclick="hideTooltip()">×</button>
         </div>
         <div class="tooltip-content">
             <h3 class="tooltip-title" id="tooltipTitle"></h3>
@@ -1206,34 +1381,18 @@
         <!-- MAIN CONTENT -->
         <main class="main-content">
             <h1 class="main-title">Build Your Own Basket</h1>
-            <!-- Progress Bar -->
-            <div class="progress-container">
-                <div class="progress-steps">
-                    <button class="progress-step" data-step="0" onclick="goToStep(0)">1. Items</button>
-                    <span class="progress-arrow">></span>
-                    <button class="progress-step" data-step="1" onclick="goToStep(1)">2. Basket</button>
-                    <span class="progress-arrow">></span>
-                    <button class="progress-step" data-step="2" onclick="goToStep(2)">3. Net</button>
-                    <span class="progress-arrow">></span>
-                    <button class="progress-step" data-step="3" onclick="goToStep(3)">4. Ribbon</button>
-                    <span class="progress-arrow">></span>
-                    <button class="progress-step" data-step="4" onclick="goToStep(4)">Summary</button>
-                </div>
-                <div class="progress-bar-track">
-                    <div class="progress-bar-fill" id="progressBar"></div>
-                </div>
-            </div>
 
             <!-- STEP 1: Items Selection -->
             <div class="step-content active" data-step="0">
-                <h2 class="step-title">Select Your Items</h2>
-                
-                <div class="filter-tabs">
-                    <button class="filter-tab active" data-filter="all">All</button>
-                    <button class="filter-tab" data-filter="dates">Dates</button>
-                    <button class="filter-tab" data-filter="nuts">Nuts</button>
-                    <button class="filter-tab" data-filter="chips">Chips</button>
-                    <button class="filter-tab" data-filter="gifting">Gifting</button>
+                <div class="step-header-row">
+                    <h2 class="step-heading" id="step1Heading">Step 1: Choose your items</h2>
+                    <div class="filter-tabs">
+                        <button class="filter-tab active" data-filter="all">All</button>
+                        <button class="filter-tab" data-filter="dates">Dates</button>
+                        <button class="filter-tab" data-filter="nuts">Nuts</button>
+                        <button class="filter-tab" data-filter="chips">Chips</button>
+                        <button class="filter-tab" data-filter="gifting">Gifting</button>
+                    </div>
                 </div>
 
                 <div class="product-grid" id="itemsGrid">
@@ -1457,21 +1616,18 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="step-navigation">
-                    <button class="nav-btn btn-next" onclick="nextStep()">Next</button>
-                </div>
             </div>
 
             <!-- STEP 2: Basket Selection -->
             <div class="step-content" data-step="1">
-                <h2 class="step-title">Choose Your Basket</h2>
-                
-                <div class="filter-tabs">
-                    <button class="filter-tab active" data-filter="all" onclick="filterBaskets('all', this)">All</button>
-                    <button class="filter-tab" data-filter="cane" onclick="filterBaskets('cane', this)">Cane</button>
-                    <button class="filter-tab" data-filter="bamboo" onclick="filterBaskets('bamboo', this)">Bamboo</button>
-                    <button class="filter-tab" data-filter="premium" onclick="filterBaskets('premium', this)">Premium</button>
+                <div class="step-header-row">
+                    <h2 class="step-heading">Step 2: Choose your basket</h2>
+                    <div class="filter-tabs">
+                        <button class="filter-tab active" data-filter="all" onclick="filterBaskets('all', this)">All</button>
+                        <button class="filter-tab" data-filter="cane" onclick="filterBaskets('cane', this)">Cane</button>
+                        <button class="filter-tab" data-filter="bamboo" onclick="filterBaskets('bamboo', this)">Bamboo</button>
+                        <button class="filter-tab" data-filter="premium" onclick="filterBaskets('premium', this)">Premium</button>
+                    </div>
                 </div>
 
                 <div class="product-grid" id="basketsGrid">
@@ -1721,15 +1877,12 @@
                     </div>
                 </div>
 
-                <div class="step-navigation">
-                    <button class="nav-btn btn-back" onclick="prevStep()">Back</button>
-                    <button class="nav-btn btn-next" onclick="nextStep()">Next</button>
-                </div>
+
             </div>
 
             <!-- STEP 3: Net Selection -->
             <div class="step-content" data-step="2">
-                <h2 class="step-title">Choose Net Wrap</h2>
+                <h2 class="step-heading">Step 3: Choose your net</h2>
                 <div class="product-grid">
                     <div class="product-card" data-type="net" data-product="Transparent Net" data-price="99">
                         <div class="product-image-wrapper">
@@ -1765,15 +1918,12 @@
                     </div>
                 </div>
 
-                <div class="step-navigation">
-                    <button class="nav-btn btn-back" onclick="prevStep()">Back</button>
-                    <button class="nav-btn btn-next" onclick="nextStep()">Next</button>
-                </div>
+
             </div>
 
             <!-- STEP 4: Ribbon Selection -->
             <div class="step-content" data-step="3">
-                <h2 class="step-title">Choose Ribbon</h2>
+                <h2 class="step-heading">Step 4: Choose your ribbon</h2>
                 <div class="product-grid">
                     <div class="product-card" data-type="ribbon" data-product="Red Satin Ribbon" data-price="49">
                         <div class="product-image-wrapper">
@@ -1809,16 +1959,12 @@
                     </div>
                 </div>
 
-                <div class="step-navigation">
-                    <button class="nav-btn btn-back" onclick="prevStep()">Back</button>
-                    <button class="nav-btn btn-next" onclick="nextStep()">Next</button>
-                </div>
+
             </div>
 
             <!-- STEP 5: Checkout Summary -->
             <div class="step-content" data-step="4">
-                <h2 class="step-title">Order Summary</h2>
-                
+                <h2 class="step-heading">Step 5: Review your order</h2>
                 <div id="basketSummary">
                 </div>
 
@@ -1833,10 +1979,7 @@
 
 
 
-                <div class="step-navigation">
-                    <button class="nav-btn btn-back" onclick="prevStep()">Back</button>
-                    <button class="nav-btn btn-next" style="background: var(--accent-green);" onclick="alert('Thank you for your order!')">Place Order</button>
-                </div>
+
             </div>
         </main>
 
@@ -1844,6 +1987,13 @@
         <aside class="cart-summary">
             <img src="logo.png" alt="Flyberry Logo" class="cart-logo">
             <h3 class="cart-title">Your Gift Basket</h3>
+            
+            <!-- Empty Cart Message -->
+            <div class="empty-cart-message" id="emptyCartMessage">
+                <p>🧺 Your basket is feeling lonely!</p>
+                <p>It's dreaming of delicious dates and nuts...</p>
+                <p>Why not make its dreams come true? 😋</p>
+            </div>
             
             <div class="cart-section" id="cartBasket" style="display: none;">
                 <div class="cart-section-title">Basket</div>
@@ -1869,7 +2019,24 @@
                 <div class="cart-total-label">Total</div>
                 <div class="cart-total-price" id="cartTotal">₹0</div>
             </div>
+            
+            <!-- Navigation Buttons Above Step Navigation -->
+            <div class="cart-nav-buttons">
+                <button class="nav-btn btn-next" id="cartNextBtn" onclick="nextStep()">Next</button>
+                <button class="nav-btn btn-back" id="cartBackBtn" onclick="prevStep()" style="display: none;">Back</button>
+            </div>
         </aside>
+    </div>
+
+    <!-- Global Step Navigation -->
+    <div class="step-navigation main-navigation">
+        <div class="progress-steps">
+            <button class="progress-step active" data-step="0" onclick="goToStep(0)">1. Items</button>
+            <button class="progress-step" data-step="1" onclick="goToStep(1)">2. Basket</button>
+            <button class="progress-step" data-step="2" onclick="goToStep(2)">3. Net</button>
+            <button class="progress-step" data-step="3" onclick="goToStep(3)">4. Ribbon</button>
+            <button class="progress-step" data-step="4" onclick="goToStep(4)">Summary</button>
+        </div>
     </div>
 
     <script>
@@ -1894,7 +2061,7 @@
         let selectedVariant = null;
         let currentImageIndex = 0;
         let currentImages = [];
-        let autoplayTimer = null;
+
 
         // Product data with descriptions and variants
         const productData = {
@@ -2192,23 +2359,32 @@
                 carouselContainer.appendChild(img);
             });
             
-            // Create navigation dots (only if more than 1 image)
+            // Add navigation elements if more than 1 image
             if (images.length > 1) {
+                // Add navigation arrows
+                const prevArrow = document.createElement('button');
+                prevArrow.className = 'carousel-arrow carousel-prev';
+                prevArrow.innerHTML = '‹';
+                prevArrow.onclick = prevImage;
+                prevArrow.setAttribute('aria-label', 'Previous image');
+                carouselContainer.appendChild(prevArrow);
+                
+                const nextArrow = document.createElement('button');
+                nextArrow.className = 'carousel-arrow carousel-next';
+                nextArrow.innerHTML = '›';
+                nextArrow.onclick = nextImage;
+                nextArrow.setAttribute('aria-label', 'Next image');
+                carouselContainer.appendChild(nextArrow);
+                
+                // Add navigation dots
                 carouselDots.classList.remove('hidden');
                 images.forEach((_, index) => {
                     const dot = document.createElement('button');
                     dot.className = `carousel-dot ${index === 0 ? 'active' : ''}`;
-                    dot.onclick = () => {
-                        stopAutoplay();
-                        goToImage(index);
-                        startAutoplay();
-                    };
+                    dot.onclick = () => goToImage(index);
                     dot.setAttribute('aria-label', `Go to image ${index + 1}`);
                     carouselDots.appendChild(dot);
                 });
-                
-                // Start autoplay for multiple images
-                startAutoplay();
             } else {
                 carouselDots.classList.add('hidden');
             }
@@ -2242,21 +2418,7 @@
             goToImage(prevIndex);
         }
 
-        function startAutoplay() {
-            if (currentImages.length <= 1) return;
-            
-            stopAutoplay(); // Clear any existing timer
-            autoplayTimer = setInterval(() => {
-                nextImage();
-            }, 1500); // Change image every 1.5 seconds
-        }
 
-        function stopAutoplay() {
-            if (autoplayTimer) {
-                clearInterval(autoplayTimer);
-                autoplayTimer = null;
-            }
-        }
 
         // Tooltip Functions
         function showTooltip(productCard) {
@@ -2330,7 +2492,7 @@
         }
 
         function hideTooltip() {
-            stopAutoplay(); // Stop autoplay when closing tooltip
+
             document.getElementById('productTooltip').classList.remove('visible');
             setTimeout(() => {
                 document.getElementById('tooltipOverlay').classList.remove('visible');
@@ -2591,6 +2753,9 @@
 
             document.getElementById('cartTotal').textContent = `₹${total}`;
             
+            // Update cart buttons state
+            updateCartButtons();
+            
             // Update summary if we're on the summary page (step 4)
             if (currentStep === 4) {
                 updateSummary();
@@ -2620,6 +2785,17 @@
 
         function nextStep() {
             if (currentStep < 4) {
+                // Check if cart is empty on first step
+                if (currentStep === 0) {
+                    const hasItems = selections.items && selections.items.length > 0;
+                    if (!hasItems) {
+                        alert('🧺 Your basket is still empty! Please add some delicious items first.');
+                        return;
+                    }
+                    // Trigger fill animation for step 1 when items are done
+                    triggerStepCompletion(0);
+                }
+                
                 // Validation
                 if (currentStep === 1 && !selections.basket) {
                     alert('Please select a basket');
@@ -2628,6 +2804,10 @@
                 
                 currentStep++;
                 showStep(currentStep);
+                updateCartButtons();
+            } else if (currentStep === 4) {
+                // Final step - place order
+                alert('Thank you for your order!');
             }
         }
 
@@ -2635,6 +2815,7 @@
             if (currentStep > 0) {
                 currentStep--;
                 showStep(currentStep);
+                updateCartButtons();
             }
         }
 
@@ -2651,6 +2832,7 @@
             }
             
             updateProgress();
+            updateCartButtons();
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
@@ -2663,17 +2845,71 @@
         }
 
         function updateProgress() {
-            const progress = (currentStep / 4) * 100;
-            document.getElementById('progressBar').style.width = `${progress}%`;
-            
             document.querySelectorAll('.progress-step').forEach((step, index) => {
-                step.classList.remove('active', 'completed');
+                step.classList.remove('active', 'completed', 'fill-animate');
                 if (index === currentStep) {
                     step.classList.add('active');
                 } else if (index < currentStep) {
                     step.classList.add('completed');
+                    // Add fill animation with delay
+                    setTimeout(() => {
+                        step.classList.add('fill-animate');
+                    }, 100);
                 }
             });
+        }
+
+        function triggerStepCompletion(stepIndex) {
+            const progressSteps = document.querySelectorAll('.progress-step');
+            if (progressSteps[stepIndex]) {
+                setTimeout(() => {
+                    progressSteps[stepIndex].classList.add('fill-animate');
+                }, 200);
+            }
+        }
+
+        function updateCartButtons() {
+            const nextBtn = document.getElementById('cartNextBtn');
+            const backBtn = document.getElementById('cartBackBtn');
+            const emptyMessage = document.getElementById('emptyCartMessage');
+            
+            // Check if cart is empty
+            const hasItems = selections.items && selections.items.length > 0;
+            const hasBasket = selections.basket !== null;
+            const hasNet = selections.net !== null;
+            const hasRibbon = selections.ribbon !== null;
+            
+            const cartHasContent = hasItems || hasBasket || hasNet || hasRibbon;
+            
+            // Show/hide empty cart message
+            if (cartHasContent) {
+                emptyMessage.style.display = 'none';
+            } else {
+                emptyMessage.style.display = 'block';
+            }
+            
+            // Show/hide back button
+            if (currentStep === 0) {
+                backBtn.style.display = 'none';
+            } else {
+                backBtn.style.display = 'block';
+            }
+            
+            // Disable next button if cart is empty (except on first step)
+            if (!cartHasContent && currentStep === 0) {
+                nextBtn.disabled = true;
+                nextBtn.textContent = 'Add items first!';
+            } else {
+                nextBtn.disabled = false;
+                // Update next button text for final step
+                if (currentStep === 4) {
+                    nextBtn.textContent = 'Place Order';
+                    nextBtn.style.background = 'linear-gradient(135deg, #DAA520 0%, #B8860B 100%)';
+                } else {
+                    nextBtn.textContent = 'Next';
+                    nextBtn.style.background = 'linear-gradient(135deg, #DAA520 0%, #B8860B 100%)';
+                }
+            }
         }
 
         function updateSummary() {
@@ -2882,6 +3118,21 @@
             setTimeout(() => {
                 document.getElementById('productTooltip').classList.add('visible');
             }, 50);
+        }
+
+        // Initialize cart buttons and animations on page load
+        updateCartButtons();
+        updateProgress();
+        initializeAnimations();
+
+        function initializeAnimations() {
+            // Start gradient animation for step 1 heading after a short delay
+            setTimeout(() => {
+                const step1Heading = document.getElementById('step1Heading');
+                if (step1Heading && currentStep === 0) {
+                    step1Heading.classList.add('gradient-animate');
+                }
+            }, 300);
         }
     </script>
 </body>
