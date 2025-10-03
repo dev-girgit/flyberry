@@ -75,8 +75,14 @@
             font-size: 3rem;
             color: #000000;
             font-weight: 525;
-            margin: 0 0 1rem 0;
+            margin: 0;
             text-align: left;
+            position: sticky;
+            top: 0;
+            background: #ffffff;
+            z-index: 100;
+            padding-top: 1rem;
+            padding-bottom: 0.25rem;
         }
 
         .cart-logo {
@@ -329,6 +335,12 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 2.5rem;
+            position: sticky;
+            top: 4rem;
+            background: #ffffff;
+            z-index: 200;
+            padding-top: 0.25rem;
+            padding-bottom: 1rem;
         }
 
         .step-heading {
@@ -392,7 +404,8 @@
 
         /* Category Sections */
         .category-section {
-            margin-bottom: 3rem;
+            margin-bottom: 4rem;
+            position: relative;
         }
 
         .category-section-title {
@@ -462,12 +475,29 @@
             text-align: left;
             border-bottom: 2px solid #DAA520;
             padding-bottom: 0.5rem;
+            position: sticky;
+            top: 8rem;
+            background: #ffffff;
+            z-index: 50;
+            margin-top: 0;
+            padding-top: 1rem;
         }
 
         .category-items {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 2.5rem 2rem;
+            padding-bottom: 2rem;
+        }
+
+        /* Product grid for non-categorized steps (baskets, nets, ribbons) */
+        .step-content[data-step="1"] .product-grid,
+        .step-content[data-step="2"] .product-grid,
+        .step-content[data-step="3"] .product-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.5rem 2rem;
+            padding-top: 1rem;
         }
 
         /* Product Grid - Now with more space for larger images */
@@ -992,7 +1022,10 @@
                 top: 0;
             }
 
-            .product-grid {
+            .category-items,
+            .step-content[data-step="1"] .product-grid,
+            .step-content[data-step="2"] .product-grid,
+            .step-content[data-step="3"] .product-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
         }
@@ -1016,7 +1049,10 @@
                 padding: 2rem 1.5rem;
             }
 
-            .product-grid {
+            .category-items,
+            .step-content[data-step="1"] .product-grid,
+            .step-content[data-step="2"] .product-grid,
+            .step-content[data-step="3"] .product-grid {
                 grid-template-columns: 1fr;
                 gap: 2rem;
             }
@@ -1954,7 +1990,12 @@
 
             <!-- STEP 3: Net Selection -->
             <div class="step-content" data-step="2">
-                <h2 class="step-heading" id="step3Heading">Step 3: Choose your net</h2>
+                <div class="step-header-row">
+                    <h2 class="step-heading" id="step3Heading">Step 3: Choose your net</h2>
+                    <div class="filter-tabs">
+                        <!-- No filters needed for nets, but keeping structure consistent -->
+                    </div>
+                </div>
                 <div class="product-grid">
                     <div class="product-card" data-type="net" data-product="Transparent Net" data-price="99">
                         <div class="product-image-wrapper">
@@ -1995,7 +2036,12 @@
 
             <!-- STEP 4: Ribbon Selection -->
             <div class="step-content" data-step="3">
-                <h2 class="step-heading" id="step4Heading">Step 4: Choose your ribbon</h2>
+                <div class="step-header-row">
+                    <h2 class="step-heading" id="step4Heading">Step 4: Choose your ribbon</h2>
+                    <div class="filter-tabs">
+                        <!-- No filters needed for ribbons, but keeping structure consistent -->
+                    </div>
+                </div>
                 <div class="product-grid">
                     <div class="product-card" data-type="ribbon" data-product="Red Satin Ribbon" data-price="49">
                         <div class="product-image-wrapper">
@@ -2036,7 +2082,12 @@
 
             <!-- STEP 5: Checkout Summary -->
             <div class="step-content" data-step="4">
-                <h2 class="step-heading" id="step5Heading">Step 5: Review your order</h2>
+                <div class="step-header-row">
+                    <h2 class="step-heading" id="step5Heading">Step 5: Review your order</h2>
+                    <div class="filter-tabs">
+                        <!-- No filters needed for summary, but keeping structure consistent -->
+                    </div>
+                </div>
                 <div id="basketSummary">
                 </div>
 
