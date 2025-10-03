@@ -33,11 +33,7 @@
         body {
             font-family: 'Nunito', -apple-system, BlinkMacSystemFont, sans-serif;
             font-weight: 300;
-            background: #f7f5f0;
-            background-image: 
-                linear-gradient(rgba(128, 128, 128, 0.1) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(128, 128, 128, 0.1) 1px, transparent 1px);
-            background-size: 40px 40px;
+            background: #ffffff;
             color: var(--text-primary);
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
@@ -62,13 +58,13 @@
         }
 
         .brand-logo {
-            height: 78px;
+            height: 117px;
             width: auto;
             object-fit: contain;
         }
 
         .brand-title {
-            font-size: 3.5rem;
+            font-size: 2.5rem;
             color: #000000;
             font-weight: bold;
             margin: 0;
@@ -96,7 +92,7 @@
 
         /* CENTER COLUMN - Now larger for bigger images */
         .main-content {
-            background: rgba(255, 255, 255, 0.5);
+            background: #ffffff;
             padding: 4rem 5rem;
             box-shadow: var(--shadow-md);
             border-radius: 2px;
@@ -708,6 +704,44 @@
             margin-top: 1rem;
         }
 
+        /* Go to Top Button */
+        .go-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #DAA520 0%, #B8860B 100%);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+        }
+
+        .go-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .go-to-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(135deg, #FFD700 0%, #DAA520 100%);
+        }
+
+        .go-to-top:active {
+            transform: translateY(-1px);
+        }
+
         @media (max-width: 1400px) {
             .container {
                 grid-template-columns: 140px 1fr 320px;
@@ -1136,6 +1170,11 @@
         <h1 class="brand-title">Build Your Own Basket</h1>
     </div>
 
+    <!-- Go to Top Button -->
+    <button class="go-to-top" id="goToTopBtn" onclick="scrollToTop()" aria-label="Go to top">
+        ↑
+    </button>
+
     <!-- Same HTML as before - keeping it identical -->
     <div class="container">
         <!-- MAIN CONTENT -->
@@ -1143,8 +1182,8 @@
             <!-- Progress Bar -->
             <div class="progress-container">
                 <div class="progress-steps">
-                    <button class="progress-step" data-step="0" onclick="goToStep(0)">Basket</button>
-                    <button class="progress-step" data-step="1" onclick="goToStep(1)">Items</button>
+                    <button class="progress-step" data-step="0" onclick="goToStep(0)">Items</button>
+                    <button class="progress-step" data-step="1" onclick="goToStep(1)">Basket</button>
                     <button class="progress-step" data-step="2" onclick="goToStep(2)">Net</button>
                     <button class="progress-step" data-step="3" onclick="goToStep(3)">Ribbon</button>
                     <button class="progress-step" data-step="4" onclick="goToStep(4)">Summary</button>
@@ -1154,271 +1193,8 @@
                 </div>
             </div>
 
-            <!-- STEP 1: Basket Selection -->
+            <!-- STEP 1: Items Selection -->
             <div class="step-content active" data-step="0">
-                <h2 class="step-title">Choose Your Basket</h2>
-                
-                <div class="filter-tabs">
-                    <button class="filter-tab active" data-filter="all" onclick="filterBaskets('all', this)">All</button>
-                    <button class="filter-tab" data-filter="cane" onclick="filterBaskets('cane', this)">Cane</button>
-                    <button class="filter-tab" data-filter="bamboo" onclick="filterBaskets('bamboo', this)">Bamboo</button>
-                    <button class="filter-tab" data-filter="premium" onclick="filterBaskets('premium', this)">Premium</button>
-                </div>
-
-                <div class="product-grid" id="basketsGrid">
-                    <!-- CANE BASKETS -->
-                    <div class="product-card" data-type="basket" data-category="cane" data-product="Cane Basket Style 1" data-price="449">
-                        <div class="product-image-wrapper">
-                            <img src="CANE/8.png" alt="Cane Basket Style 1" class="product-image">
-                            <div class="product-add-indicator">+</div>
-                        </div>
-                        <div class="product-info">
-                            <div class="product-name">Cane Basket Style 1</div>
-                            <div class="product-price">₹449</div>
-                        </div>
-                    </div>
-
-                    <div class="product-card" data-type="basket" data-category="cane" data-product="Cane Basket Style 2" data-price="459">
-                        <div class="product-image-wrapper">
-                            <img src="CANE/9.png" alt="Cane Basket Style 2" class="product-image">
-                            <div class="product-add-indicator">+</div>
-                        </div>
-                        <div class="product-info">
-                            <div class="product-name">Cane Basket Style 2</div>
-                            <div class="product-price">₹459</div>
-                        </div>
-                    </div>
-
-                    <div class="product-card" data-type="basket" data-category="cane" data-product="Cane Basket Style 3" data-price="469">
-                        <div class="product-image-wrapper">
-                            <img src="CANE/10.png" alt="Cane Basket Style 3" class="product-image">
-                            <div class="product-add-indicator">+</div>
-                        </div>
-                        <div class="product-info">
-                            <div class="product-name">Cane Basket Style 3</div>
-                            <div class="product-price">₹469</div>
-                        </div>
-                    </div>
-
-                    <div class="product-card" data-type="basket" data-category="cane" data-product="Cane Basket Style 4" data-price="479">
-                        <div class="product-image-wrapper">
-                            <img src="CANE/11.png" alt="Cane Basket Style 4" class="product-image">
-                            <div class="product-add-indicator">+</div>
-                        </div>
-                        <div class="product-info">
-                            <div class="product-name">Cane Basket Style 4</div>
-                            <div class="product-price">₹479</div>
-                        </div>
-                    </div>
-
-                    <!-- BAMBOO BASKETS -->
-                    <div class="product-card" data-type="basket" data-category="bamboo" data-product="Bamboo Basket Style 1" data-price="549">
-                        <div class="product-image-wrapper">
-                            <img src="BAMBOO/6.png" alt="Bamboo Basket Style 1" class="product-image">
-                            <div class="product-add-indicator">+</div>
-                        </div>
-                        <div class="product-info">
-                            <div class="product-name">Bamboo Basket Style 1</div>
-                            <div class="product-price">₹549</div>
-                        </div>
-                    </div>
-
-                    <div class="product-card" data-type="basket" data-category="bamboo" data-product="Bamboo Basket Style 2" data-price="559">
-                        <div class="product-image-wrapper">
-                            <img src="BAMBOO/7.png" alt="Bamboo Basket Style 2" class="product-image">
-                            <div class="product-add-indicator">+</div>
-                        </div>
-                        <div class="product-info">
-                            <div class="product-name">Bamboo Basket Style 2</div>
-                            <div class="product-price">₹559</div>
-                        </div>
-                    </div>
-
-                    <div class="product-card" data-type="basket" data-category="bamboo" data-product="Bamboo Basket Style 3" data-price="569">
-                        <div class="product-image-wrapper">
-                            <img src="BAMBOO/12.png" alt="Bamboo Basket Style 3" class="product-image">
-                            <div class="product-add-indicator">+</div>
-                        </div>
-                        <div class="product-info">
-                            <div class="product-name">Bamboo Basket Style 3</div>
-                            <div class="product-price">₹569</div>
-                        </div>
-                    </div>
-
-                    <div class="product-card" data-type="basket" data-category="bamboo" data-product="Bamboo Basket Style 4" data-price="579">
-                        <div class="product-image-wrapper">
-                            <img src="BAMBOO/13.png" alt="Bamboo Basket Style 4" class="product-image">
-                            <div class="product-add-indicator">+</div>
-                        </div>
-                        <div class="product-info">
-                            <div class="product-name">Bamboo Basket Style 4</div>
-                            <div class="product-price">₹579</div>
-                        </div>
-                    </div>
-
-                    <div class="product-card" data-type="basket" data-category="bamboo" data-product="Bamboo Basket Style 5" data-price="589">
-                        <div class="product-image-wrapper">
-                            <img src="BAMBOO/14.png" alt="Bamboo Basket Style 5" class="product-image">
-                            <div class="product-add-indicator">+</div>
-                        </div>
-                        <div class="product-info">
-                            <div class="product-name">Bamboo Basket Style 5</div>
-                            <div class="product-price">₹589</div>
-                        </div>
-                    </div>
-
-                    <div class="product-card" data-type="basket" data-category="bamboo" data-product="Bamboo Basket Style 6" data-price="599">
-                        <div class="product-image-wrapper">
-                            <img src="BAMBOO/15.png" alt="Bamboo Basket Style 6" class="product-image">
-                            <div class="product-add-indicator">+</div>
-                        </div>
-                        <div class="product-info">
-                            <div class="product-name">Bamboo Basket Style 6</div>
-                            <div class="product-price">₹599</div>
-                        </div>
-                    </div>
-
-                    <div class="product-card" data-type="basket" data-category="bamboo" data-product="Bamboo Basket Style 7" data-price="609">
-                        <div class="product-image-wrapper">
-                            <img src="BAMBOO/16.png" alt="Bamboo Basket Style 7" class="product-image">
-                            <div class="product-add-indicator">+</div>
-                        </div>
-                        <div class="product-info">
-                            <div class="product-name">Bamboo Basket Style 7</div>
-                            <div class="product-price">₹609</div>
-                        </div>
-                    </div>
-
-                    <div class="product-card" data-type="basket" data-category="bamboo" data-product="Bamboo Basket Style 8" data-price="619">
-                        <div class="product-image-wrapper">
-                            <img src="BAMBOO/17.png" alt="Bamboo Basket Style 8" class="product-image">
-                            <div class="product-add-indicator">+</div>
-                        </div>
-                        <div class="product-info">
-                            <div class="product-name">Bamboo Basket Style 8</div>
-                            <div class="product-price">₹619</div>
-                        </div>
-                    </div>
-
-                    <div class="product-card" data-type="basket" data-category="bamboo" data-product="Bamboo Basket Style 9" data-price="629">
-                        <div class="product-image-wrapper">
-                            <img src="BAMBOO/18.png" alt="Bamboo Basket Style 9" class="product-image">
-                            <div class="product-add-indicator">+</div>
-                        </div>
-                        <div class="product-info">
-                            <div class="product-name">Bamboo Basket Style 9</div>
-                            <div class="product-price">₹629</div>
-                        </div>
-                    </div>
-
-                    <!-- PREMIUM BASKETS -->
-                    <div class="product-card" data-type="basket" data-category="premium" data-product="Premium Gift Basket Style 1" data-price="699">
-                        <div class="product-image-wrapper">
-                            <img src="PREMIUM/1.png" alt="Premium Gift Basket Style 1" class="product-image">
-                            <div class="product-add-indicator">+</div>
-                        </div>
-                        <div class="product-info">
-                            <div class="product-name">Premium Gift Basket Style 1</div>
-                            <div class="product-price">₹699</div>
-                        </div>
-                    </div>
-
-                    <div class="product-card" data-type="basket" data-category="premium" data-product="Premium Gift Basket Style 2" data-price="719">
-                        <div class="product-image-wrapper">
-                            <img src="PREMIUM/2.png" alt="Premium Gift Basket Style 2" class="product-image">
-                            <div class="product-add-indicator">+</div>
-                        </div>
-                        <div class="product-info">
-                            <div class="product-name">Premium Gift Basket Style 2</div>
-                            <div class="product-price">₹719</div>
-                        </div>
-                    </div>
-
-                    <div class="product-card" data-type="basket" data-category="premium" data-product="Premium Gift Basket Style 3" data-price="739">
-                        <div class="product-image-wrapper">
-                            <img src="PREMIUM/3.png" alt="Premium Gift Basket Style 3" class="product-image">
-                            <div class="product-add-indicator">+</div>
-                        </div>
-                        <div class="product-info">
-                            <div class="product-name">Premium Gift Basket Style 3</div>
-                            <div class="product-price">₹739</div>
-                        </div>
-                    </div>
-
-                    <div class="product-card" data-type="basket" data-category="premium" data-product="Premium Gift Basket Style 4" data-price="759">
-                        <div class="product-image-wrapper">
-                            <img src="PREMIUM/4.png" alt="Premium Gift Basket Style 4" class="product-image">
-                            <div class="product-add-indicator">+</div>
-                        </div>
-                        <div class="product-info">
-                            <div class="product-name">Premium Gift Basket Style 4</div>
-                            <div class="product-price">₹759</div>
-                        </div>
-                    </div>
-
-                    <div class="product-card" data-type="basket" data-category="premium" data-product="Premium Gift Basket Style 5" data-price="779">
-                        <div class="product-image-wrapper">
-                            <img src="PREMIUM/5.png" alt="Premium Gift Basket Style 5" class="product-image">
-                            <div class="product-add-indicator">+</div>
-                        </div>
-                        <div class="product-info">
-                            <div class="product-name">Premium Gift Basket Style 5</div>
-                            <div class="product-price">₹779</div>
-                        </div>
-                    </div>
-
-                    <div class="product-card" data-type="basket" data-category="premium" data-product="Premium Gift Basket Style 6" data-price="799">
-                        <div class="product-image-wrapper">
-                            <img src="PREMIUM/8.png" alt="Premium Gift Basket Style 6" class="product-image">
-                            <div class="product-add-indicator">+</div>
-                        </div>
-                        <div class="product-info">
-                            <div class="product-name">Premium Gift Basket Style 6</div>
-                            <div class="product-price">₹799</div>
-                        </div>
-                    </div>
-
-                    <div class="product-card" data-type="basket" data-category="premium" data-product="Premium Gift Basket Style 7" data-price="819">
-                        <div class="product-image-wrapper">
-                            <img src="PREMIUM/9.png" alt="Premium Gift Basket Style 7" class="product-image">
-                            <div class="product-add-indicator">+</div>
-                        </div>
-                        <div class="product-info">
-                            <div class="product-name">Premium Gift Basket Style 7</div>
-                            <div class="product-price">₹819</div>
-                        </div>
-                    </div>
-
-                    <div class="product-card" data-type="basket" data-category="premium" data-product="Premium Gift Basket Style 8" data-price="839">
-                        <div class="product-image-wrapper">
-                            <img src="PREMIUM/19.png" alt="Premium Gift Basket Style 8" class="product-image">
-                            <div class="product-add-indicator">+</div>
-                        </div>
-                        <div class="product-info">
-                            <div class="product-name">Premium Gift Basket Style 8</div>
-                            <div class="product-price">₹839</div>
-                        </div>
-                    </div>
-
-                    <div class="product-card" data-type="basket" data-category="premium" data-product="Premium Gift Basket Style 9" data-price="859">
-                        <div class="product-image-wrapper">
-                            <img src="PREMIUM/20.png" alt="Premium Gift Basket Style 9" class="product-image">
-                            <div class="product-add-indicator">+</div>
-                        </div>
-                        <div class="product-info">
-                            <div class="product-name">Premium Gift Basket Style 9</div>
-                            <div class="product-price">₹859</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="step-navigation">
-                    <button class="nav-btn btn-next" onclick="nextStep()">Next</button>
-                </div>
-            </div>
-
-            <!-- STEP 2: Items Selection -->
-            <div class="step-content" data-step="1">
                 <h2 class="step-title">Select Your Items</h2>
                 
                 <div class="filter-tabs">
@@ -1647,6 +1423,269 @@
                         <div class="product-info">
                             <div class="product-name">Okra Chips</div>
                             <div class="product-price">₹159</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-navigation">
+                    <button class="nav-btn btn-next" onclick="nextStep()">Next</button>
+                </div>
+            </div>
+
+            <!-- STEP 2: Basket Selection -->
+            <div class="step-content" data-step="1">
+                <h2 class="step-title">Choose Your Basket</h2>
+                
+                <div class="filter-tabs">
+                    <button class="filter-tab active" data-filter="all" onclick="filterBaskets('all', this)">All</button>
+                    <button class="filter-tab" data-filter="cane" onclick="filterBaskets('cane', this)">Cane</button>
+                    <button class="filter-tab" data-filter="bamboo" onclick="filterBaskets('bamboo', this)">Bamboo</button>
+                    <button class="filter-tab" data-filter="premium" onclick="filterBaskets('premium', this)">Premium</button>
+                </div>
+
+                <div class="product-grid" id="basketsGrid">
+                    <!-- CANE BASKETS -->
+                    <div class="product-card" data-type="basket" data-category="cane" data-product="Cane Basket Style 1" data-price="449">
+                        <div class="product-image-wrapper">
+                            <img src="CANE/8.png" alt="Cane Basket Style 1" class="product-image">
+                            <div class="product-add-indicator">+</div>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-name">Cane Basket Style 1</div>
+                            <div class="product-price">₹449</div>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-type="basket" data-category="cane" data-product="Cane Basket Style 2" data-price="459">
+                        <div class="product-image-wrapper">
+                            <img src="CANE/9.png" alt="Cane Basket Style 2" class="product-image">
+                            <div class="product-add-indicator">+</div>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-name">Cane Basket Style 2</div>
+                            <div class="product-price">₹459</div>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-type="basket" data-category="cane" data-product="Cane Basket Style 3" data-price="469">
+                        <div class="product-image-wrapper">
+                            <img src="CANE/10.png" alt="Cane Basket Style 3" class="product-image">
+                            <div class="product-add-indicator">+</div>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-name">Cane Basket Style 3</div>
+                            <div class="product-price">₹469</div>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-type="basket" data-category="cane" data-product="Cane Basket Style 4" data-price="479">
+                        <div class="product-image-wrapper">
+                            <img src="CANE/11.png" alt="Cane Basket Style 4" class="product-image">
+                            <div class="product-add-indicator">+</div>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-name">Cane Basket Style 4</div>
+                            <div class="product-price">₹479</div>
+                        </div>
+                    </div>
+
+                    <!-- BAMBOO BASKETS -->
+                    <div class="product-card" data-type="basket" data-category="bamboo" data-product="Bamboo Basket Style 1" data-price="399">
+                        <div class="product-image-wrapper">
+                            <img src="BAMBOO/6.png" alt="Bamboo Basket Style 1" class="product-image">
+                            <div class="product-add-indicator">+</div>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-name">Bamboo Basket Style 1</div>
+                            <div class="product-price">₹399</div>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-type="basket" data-category="bamboo" data-product="Bamboo Basket Style 2" data-price="409">
+                        <div class="product-image-wrapper">
+                            <img src="BAMBOO/7.png" alt="Bamboo Basket Style 2" class="product-image">
+                            <div class="product-add-indicator">+</div>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-name">Bamboo Basket Style 2</div>
+                            <div class="product-price">₹409</div>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-type="basket" data-category="bamboo" data-product="Bamboo Basket Style 3" data-price="419">
+                        <div class="product-image-wrapper">
+                            <img src="BAMBOO/12.png" alt="Bamboo Basket Style 3" class="product-image">
+                            <div class="product-add-indicator">+</div>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-name">Bamboo Basket Style 3</div>
+                            <div class="product-price">₹419</div>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-type="basket" data-category="bamboo" data-product="Bamboo Basket Style 4" data-price="429">
+                        <div class="product-image-wrapper">
+                            <img src="BAMBOO/13.png" alt="Bamboo Basket Style 4" class="product-image">
+                            <div class="product-add-indicator">+</div>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-name">Bamboo Basket Style 4</div>
+                            <div class="product-price">₹429</div>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-type="basket" data-category="bamboo" data-product="Bamboo Basket Style 5" data-price="439">
+                        <div class="product-image-wrapper">
+                            <img src="BAMBOO/14.png" alt="Bamboo Basket Style 5" class="product-image">
+                            <div class="product-add-indicator">+</div>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-name">Bamboo Basket Style 5</div>
+                            <div class="product-price">₹439</div>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-type="basket" data-category="bamboo" data-product="Bamboo Basket Style 6" data-price="449">
+                        <div class="product-image-wrapper">
+                            <img src="BAMBOO/15.png" alt="Bamboo Basket Style 6" class="product-image">
+                            <div class="product-add-indicator">+</div>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-name">Bamboo Basket Style 6</div>
+                            <div class="product-price">₹449</div>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-type="basket" data-category="bamboo" data-product="Bamboo Basket Style 7" data-price="459">
+                        <div class="product-image-wrapper">
+                            <img src="BAMBOO/16.png" alt="Bamboo Basket Style 7" class="product-image">
+                            <div class="product-add-indicator">+</div>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-name">Bamboo Basket Style 7</div>
+                            <div class="product-price">₹459</div>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-type="basket" data-category="bamboo" data-product="Bamboo Basket Style 8" data-price="469">
+                        <div class="product-image-wrapper">
+                            <img src="BAMBOO/17.png" alt="Bamboo Basket Style 8" class="product-image">
+                            <div class="product-add-indicator">+</div>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-name">Bamboo Basket Style 8</div>
+                            <div class="product-price">₹469</div>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-type="basket" data-category="bamboo" data-product="Bamboo Basket Style 9" data-price="479">
+                        <div class="product-image-wrapper">
+                            <img src="BAMBOO/18.png" alt="Bamboo Basket Style 9" class="product-image">
+                            <div class="product-add-indicator">+</div>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-name">Bamboo Basket Style 9</div>
+                            <div class="product-price">₹479</div>
+                        </div>
+                    </div>
+
+                    <!-- PREMIUM BASKETS -->
+                    <div class="product-card" data-type="basket" data-category="premium" data-product="Premium Basket Style 1" data-price="599">
+                        <div class="product-image-wrapper">
+                            <img src="PREMIUM/1.png" alt="Premium Basket Style 1" class="product-image">
+                            <div class="product-add-indicator">+</div>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-name">Premium Basket Style 1</div>
+                            <div class="product-price">₹599</div>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-type="basket" data-category="premium" data-product="Premium Basket Style 2" data-price="629">
+                        <div class="product-image-wrapper">
+                            <img src="PREMIUM/2.png" alt="Premium Basket Style 2" class="product-image">
+                            <div class="product-add-indicator">+</div>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-name">Premium Basket Style 2</div>
+                            <div class="product-price">₹629</div>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-type="basket" data-category="premium" data-product="Premium Basket Style 3" data-price="659">
+                        <div class="product-image-wrapper">
+                            <img src="PREMIUM/3.png" alt="Premium Basket Style 3" class="product-image">
+                            <div class="product-add-indicator">+</div>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-name">Premium Basket Style 3</div>
+                            <div class="product-price">₹659</div>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-type="basket" data-category="premium" data-product="Premium Basket Style 4" data-price="689">
+                        <div class="product-image-wrapper">
+                            <img src="PREMIUM/4.png" alt="Premium Basket Style 4" class="product-image">
+                            <div class="product-add-indicator">+</div>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-name">Premium Basket Style 4</div>
+                            <div class="product-price">₹689</div>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-type="basket" data-category="premium" data-product="Premium Basket Style 5" data-price="719">
+                        <div class="product-image-wrapper">
+                            <img src="PREMIUM/5.png" alt="Premium Basket Style 5" class="product-image">
+                            <div class="product-add-indicator">+</div>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-name">Premium Basket Style 5</div>
+                            <div class="product-price">₹719</div>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-type="basket" data-category="premium" data-product="Premium Basket Style 6" data-price="749">
+                        <div class="product-image-wrapper">
+                            <img src="PREMIUM/8.png" alt="Premium Basket Style 6" class="product-image">
+                            <div class="product-add-indicator">+</div>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-name">Premium Basket Style 6</div>
+                            <div class="product-price">₹749</div>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-type="basket" data-category="premium" data-product="Premium Basket Style 7" data-price="779">
+                        <div class="product-image-wrapper">
+                            <img src="PREMIUM/9.png" alt="Premium Basket Style 7" class="product-image">
+                            <div class="product-add-indicator">+</div>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-name">Premium Basket Style 7</div>
+                            <div class="product-price">₹779</div>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-type="basket" data-category="premium" data-product="Premium Basket Style 8" data-price="809">
+                        <div class="product-image-wrapper">
+                            <img src="PREMIUM/19.png" alt="Premium Basket Style 8" class="product-image">
+                            <div class="product-add-indicator">+</div>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-name">Premium Basket Style 8</div>
+                            <div class="product-price">₹809</div>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-type="basket" data-category="premium" data-product="Premium Basket Style 9" data-price="839">
+                        <div class="product-image-wrapper">
+                            <img src="PREMIUM/20.png" alt="Premium Basket Style 9" class="product-image">
+                            <div class="product-add-indicator">+</div>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-name">Premium Basket Style 9</div>
+                            <div class="product-price">₹839</div>
                         </div>
                     </div>
                 </div>
@@ -2324,6 +2363,9 @@
         // Initialize
         updateProgress();
         setupEventListeners();
+        
+        // Initialize go-to-top button visibility
+        toggleGoToTopButton();
 
         function setupEventListeners() {
             // Product card clicks
@@ -2523,10 +2565,31 @@
             }
         }
 
+        // Go to Top functionality
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Show/hide go-to-top button based on scroll position
+        function toggleGoToTopButton() {
+            const goToTopBtn = document.getElementById('goToTopBtn');
+            if (window.pageYOffset > 300) {
+                goToTopBtn.classList.add('visible');
+            } else {
+                goToTopBtn.classList.remove('visible');
+            }
+        }
+
+        // Add scroll event listener
+        window.addEventListener('scroll', toggleGoToTopButton);
+
         function nextStep() {
             if (currentStep < 4) {
                 // Validation
-                if (currentStep === 0 && !selections.basket) {
+                if (currentStep === 1 && !selections.basket) {
                     alert('Please select a basket');
                     return;
                 }
