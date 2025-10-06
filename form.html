@@ -9,9 +9,24 @@
 		<meta name="keywords" content="form, minimal, interface, single input, big form, responsive form, transition" />
 		<meta name="author" content="Codrops" />
 		<link rel="shortcut icon" href="../favicon.ico">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="css/normalize.css" />
 		<link rel="stylesheet" type="text/css" href="css/demo.css" />
 		<link rel="stylesheet" type="text/css" href="css/component.css" />
+		<style>
+			@keyframes ripple {
+				0% {
+					transform: scale(0);
+					opacity: 0.6;
+				}
+				100% {
+					transform: scale(4);
+					opacity: 0;
+				}
+			}
+		</style>
 		<script src="js/modernizr.custom.js"></script>
 	</head>
 	<body>
@@ -53,6 +68,8 @@
 		</div><!-- /container -->
 		<script src="js/classie.js"></script>
 		<script src="js/stepsForm.js"></script>
+		<script src="js/formHandler.js"></script>
+		<script src="js/virtualKeyboard.js"></script>
 		<script>
 			var theForm = document.getElementById( 'theForm' );
                         //disable form autocomplete
@@ -60,8 +77,12 @@
 
 			new stepsForm( theForm, {
 				onSubmit : function( form ) {
-					// Redirect to byob.html
-					window.location.href = 'byob.html';
+					// Save form data to Google Sheets
+					window.formHandler.submitToSheets( form );
+					// Redirect to basket builder
+					setTimeout(() => {
+						window.location.href = 'byob.html';
+					}, 2000); // Small delay to allow form submission to complete
 				}
 			} );
 		</script>
