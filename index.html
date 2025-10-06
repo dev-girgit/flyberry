@@ -1,18 +1,207 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Build Your Own Basket</title>
-</head>
-<body>
-    <div data-tf-live="01K6VWX85YQTQEHWQ3KXHJ3ZKD" data-tf-on-submit="handleTypeformSubmit"></div>
-    <script src="//embed.typeform.com/next/embed.js"></script>
-    
-    <script>
-        function handleTypeformSubmit(event) {
-            window.location.href = 'byob.html';
-        }
-    </script>
-</body>
+<html lang="en" class="no-js">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+		<meta name="viewport" content="width=device-width, initial-scale=1"> 
+		<title>Flyberry Gourmet - Build Your Own Basket</title>
+		<meta name="description" content="Build your own gourmet basket with Flyberry" />
+		<link rel="stylesheet" type="text/css" href="css/normalize.css" />
+		<link rel="stylesheet" type="text/css" href="css/demo.css" />
+		<link rel="stylesheet" type="text/css" href="css/component.css" />
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+		<style>
+			body {
+				height: 100vh;
+				overflow: hidden;
+				position: relative;
+				margin: 0;
+				padding: 0;
+			}
+			
+			/* Background video */
+			.bg-video {
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100vw;
+				height: 100vh;
+				object-fit: cover;
+				z-index: -1;
+			}
+			
+			/* Corner elements */
+			.corner {
+				position: absolute;
+				z-index: 100;
+			}
+			
+			.top-left {
+				top: 40px;
+				left: 20px;
+			}
+			
+			.top-right {
+				top: 40px;
+				right: 20px;
+				font-size: 3.2em;
+				font-weight: 900;
+				color: #333;
+				font-family: 'Nunito', sans-serif;
+				line-height: 1.1;
+				text-align: right;
+			}
+			
+			.bottom-left {
+				bottom: 60px;
+				left: 20px;
+				font-size: 1.8em;
+				color: black;
+				font-family: 'Baloo 2', sans-serif;
+			}
+			
+			.bottom-right {
+				bottom: 60px;
+				right: 20px;
+				font-size: 1.8em;
+				color: black;
+				font-family: 'Baloo 2', sans-serif;
+			}
+			
+			.logo {
+				max-width: 240px;
+				height: auto;
+				margin-top: -45px;
+			}
+			
+			/* Center content */
+			.center-content {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				text-align: center;
+				z-index: 50;
+			}
+			
+			.ready-button {
+				background: transparent;
+				color: white;
+				border: none;
+				padding: 20px 40px;
+				font-size: 2.25em;
+				font-weight: bold;
+				cursor: pointer;
+				text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+				opacity: 0.8;
+				animation: blink 1.5s infinite;
+				font-family: 'Baloo 2', sans-serif;
+			}
+			
+			.ready-button:hover {
+				animation-play-state: paused;
+			}
+			
+			@keyframes blink {
+				0%, 50% {
+					opacity: 0.8;
+				}
+				51%, 100% {
+					opacity: 0.3;
+				}
+			}
+			
+			/* Responsive adjustments */
+			@media screen and (max-width: 768px) {
+				.corner {
+					font-size: 0.9em;
+				}
+				
+				.top-right {
+					font-size: 1.4em;
+				}
+				
+				.logo {
+					max-width: 120px;
+				}
+				
+				.main-gif {
+					width: 50vw;
+					height: 50vh;
+				}
+				
+				.ready-button {
+					padding: 15px 30px;
+					font-size: 1.3em;
+				}
+			}
+			
+			@media screen and (max-width: 480px) {
+				.corner {
+					font-size: 0.8em;
+				}
+				
+				.top-right {
+					font-size: 1.2em;
+				}
+				
+				.logo {
+					max-width: 100px;
+				}
+				
+				.main-gif {
+					width: 50vw;
+					height: 50vh;
+				}
+				
+				.ready-button {
+					padding: 12px 25px;
+					font-size: 1.1em;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<!-- Background Video -->
+		<video class="bg-video" autoplay muted loop playsinline>
+			<source src="video.mp4" type="video/mp4">
+			Your browser does not support the video tag.
+		</video>
+		
+		<!-- Top Left: Logo -->
+		<div class="corner top-left">
+			<img src="logo1.png" alt="Flyberry Logo" class="logo">
+		</div>
+		
+		<!-- Top Right: BUILD YOUR OWN BASKET -->
+		<div class="corner top-right">
+			BUILD YOUR<br>OWN BASKET
+		</div>
+		
+		<!-- Bottom Left: Website -->
+		<div class="corner bottom-left">
+			www.flyberry.in
+		</div>
+		
+		<!-- Bottom Right: Instagram -->
+		<div class="corner bottom-right">
+			@flyberrygourmet
+		</div>
+		
+		<!-- Center Content: Button -->
+		<div class="center-content">
+			<button class="ready-button">Tap to start</button>
+		</div>
+		
+		<script>
+			function goToForm() {
+				window.location.href = 'form.html';
+			}
+			
+			// Make entire page clickable
+			document.addEventListener('click', goToForm);
+		</script>
+	</body>
 </html>
