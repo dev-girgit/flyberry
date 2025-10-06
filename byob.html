@@ -490,6 +490,24 @@
             padding-bottom: 2rem;
         }
 
+        /* Special layouts for single-line sections */
+        .category-items.chips-layout,
+        .category-items.gifting-layout {
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+        }
+
+        /* Smaller image scaling for chips and gifting sections */
+        .chips-layout .product-image-wrapper,
+        .gifting-layout .product-image-wrapper {
+            transform: scale(0.95);
+        }
+
+        .chips-layout .product-card,
+        .gifting-layout .product-card {
+            margin-bottom: 1rem;
+        }
+
         /* Product grid for non-categorized steps (nets, ribbons) */
         .step-content[data-step="2"] .product-grid,
         .step-content[data-step="3"] .product-grid {
@@ -782,17 +800,44 @@
             border-top: 2px solid var(--border-light);
         }
 
-        .cart-total-label {
+        .cart-subtotal, .cart-discount, .cart-final-total {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .cart-subtotal-label, .cart-discount-label, .cart-total-label {
             font-size: 0.875rem;
             font-weight: 600;
-            margin-bottom: 0.5rem;
+        }
+
+        .cart-subtotal-price, .cart-discount-price {
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .cart-discount {
+            color: #0ba76b;
+            font-weight: 600;
+        }
+
+        .cart-final-total {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .cart-total-label {
+            font-size: 1rem;
+            font-weight: 700;
         }
 
         .cart-total-price {
             font-family: 'Baloo 2', cursive;
-            font-size: 1rem;
-            font-weight: 600;
-            color: #000;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #DAA520;
         }
 
         .cart-empty {
@@ -938,6 +983,11 @@
             font-size: 0.9rem;
         }
 
+        .discount-row {
+            color: #0ba76b !important;
+            font-weight: 600 !important;
+        }
+
         .final-total {
             display: flex;
             justify-content: space-between;
@@ -1025,6 +1075,13 @@
             .step-content[data-step="3"] .product-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
+
+            /* Keep chips and gifting as 4 columns on tablet */
+            .category-items.chips-layout,
+            .category-items.gifting-layout {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 1rem;
+            }
         }
 
         @media (max-width: 640px) {
@@ -1051,6 +1108,13 @@
             .step-content[data-step="3"] .product-grid {
                 grid-template-columns: 1fr;
                 gap: 2rem;
+            }
+
+            /* Mobile: chips and gifting as 2 columns */
+            .category-items.chips-layout,
+            .category-items.gifting-layout {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
             }
 
             .step-navigation {
@@ -1474,6 +1538,7 @@
                     <div class="filter-tabs">
                         <button class="filter-tab active" data-filter="dates">Dates</button>
                         <button class="filter-tab" data-filter="nuts">Nuts</button>
+                        <button class="filter-tab" data-filter="dry-fruits">Dry Fruits</button>
                         <button class="filter-tab" data-filter="chips">Chips</button>
                         <button class="filter-tab" data-filter="gifting">Gifting</button>
                     </div>
@@ -1484,17 +1549,6 @@
                     <div class="category-section" id="dates-section">
                         <h3 class="category-section-title">Dates</h3>
                         <div class="category-items">
-                            <div class="product-card" data-type="item" data-category="dates" data-product="Ameri Dates" data-price="299">
-                                <div class="product-image-wrapper">
-                                    <img src="DATES/AMERI/1.png" alt="Ameri Dates" class="product-image">
-                                    <div class="product-add-indicator">+</div>
-                                </div>
-                                <div class="product-info">
-                                    <div class="product-name">Ameri Dates</div>
-                                    <div class="product-price">₹299</div>
-                                </div>
-                            </div>
-
                             <div class="product-card" data-type="item" data-category="dates" data-product="Date Bite" data-price="199">
                                 <div class="product-image-wrapper">
                                     <img src="DATES/DATE BITE/1.png" alt="Date Bite" class="product-image">
@@ -1506,14 +1560,36 @@
                                 </div>
                             </div>
 
-                            <div class="product-card" data-type="item" data-category="dates" data-product="Deri Dates 250g" data-price="249">
+                            <div class="product-card" data-type="item" data-category="dates" data-product="Medjoul Dates" data-price="349">
                                 <div class="product-image-wrapper">
-                                    <img src="DATES/DERI/DERI 250 g/1.png" alt="Deri Dates 250g" class="product-image">
+                                    <img src="DATES/MINI MEDJOUL/1.png" alt="Medjoul Dates" class="product-image">
                                     <div class="product-add-indicator">+</div>
                                 </div>
                                 <div class="product-info">
-                                    <div class="product-name">Deri Dates 250g</div>
+                                    <div class="product-name">Medjoul Dates</div>
+                                    <div class="product-price">₹349</div>
+                                </div>
+                            </div>
+
+                            <div class="product-card" data-type="item" data-category="dates" data-product="Deri Dates" data-price="249">
+                                <div class="product-image-wrapper">
+                                    <img src="DATES/DERI/DERI 250 g/1.png" alt="Deri Dates" class="product-image">
+                                    <div class="product-add-indicator">+</div>
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-name">Deri Dates</div>
                                     <div class="product-price">₹249</div>
+                                </div>
+                            </div>
+
+                            <div class="product-card" data-type="item" data-category="dates" data-product="Deglet Dates" data-price="279">
+                                <div class="product-image-wrapper">
+                                    <img src="DATES/DEGLET/1.png" alt="Deglet Dates" class="product-image">
+                                    <div class="product-add-indicator">+</div>
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-name">Deglet Dates</div>
+                                    <div class="product-price">₹279</div>
                                 </div>
                             </div>
 
@@ -1528,36 +1604,59 @@
                                 </div>
                             </div>
 
-                            <div class="product-card" data-type="item" data-category="dates" data-product="Mini Medjoul Dates" data-price="349">
+                            <div class="product-card" data-type="item" data-category="dates" data-product="Ameri Dates" data-price="299">
                                 <div class="product-image-wrapper">
-                                    <img src="DATES/MINI MEDJOUL/1.png" alt="Mini Medjoul Dates" class="product-image">
+                                    <img src="DATES/AMERI/1.png" alt="Ameri Dates" class="product-image">
                                     <div class="product-add-indicator">+</div>
                                 </div>
                                 <div class="product-info">
-                                    <div class="product-name">Mini Medjoul Dates</div>
-                                    <div class="product-price">₹349</div>
+                                    <div class="product-name">Ameri Dates</div>
+                                    <div class="product-price">₹299</div>
                                 </div>
                             </div>
 
-                            <div class="product-card" data-type="item" data-category="dates" data-product="Omani Dates 250g" data-price="329">
+                            <!-- Placeholder for future products -->
+                            <div class="product-card" data-type="item" data-category="dates" data-product="Ajwa Dates" data-price="399">
                                 <div class="product-image-wrapper">
-                                    <img src="DATES/OMANI/OMANI 250 g/1.png" alt="Omani Dates 250g" class="product-image">
+                                    <img src="https://via.placeholder.com/400x400/DAA520/FFFFFF?text=Ajwa+Dates" alt="Ajwa Dates" class="product-image">
                                     <div class="product-add-indicator">+</div>
                                 </div>
                                 <div class="product-info">
-                                    <div class="product-name">Omani Dates 250g</div>
-                                    <div class="product-price">₹329</div>
+                                    <div class="product-name">Ajwa Dates</div>
+                                    <div class="product-price">₹399</div>
                                 </div>
                             </div>
 
-                            <div class="product-card" data-type="item" data-category="dates" data-product="Deglet Dates" data-price="279">
+                            <div class="product-card" data-type="item" data-category="dates" data-product="Date Spread" data-price="229">
                                 <div class="product-image-wrapper">
-                                    <img src="DATES/DEGLET/1.png" alt="Deglet Dates" class="product-image">
+                                    <img src="DATES/6.png" alt="Date Spread" class="product-image">
                                     <div class="product-add-indicator">+</div>
                                 </div>
                                 <div class="product-info">
-                                    <div class="product-name">Deglet Dates</div>
-                                    <div class="product-price">₹279</div>
+                                    <div class="product-name">Date Spread</div>
+                                    <div class="product-price">₹229</div>
+                                </div>
+                            </div>
+
+                            <div class="product-card" data-type="item" data-category="dates" data-product="Date Power" data-price="189">
+                                <div class="product-image-wrapper">
+                                    <img src="DATES/8.png" alt="Date Power" class="product-image">
+                                    <div class="product-add-indicator">+</div>
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-name">Date Power</div>
+                                    <div class="product-price">₹189</div>
+                                </div>
+                            </div>
+
+                            <div class="product-card" data-type="item" data-category="dates" data-product="Date Syrup" data-price="259">
+                                <div class="product-image-wrapper">
+                                    <img src="DATES/7.png" alt="Date Syrup" class="product-image">
+                                    <div class="product-add-indicator">+</div>
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-name">Date Syrup</div>
+                                    <div class="product-price">₹259</div>
                                 </div>
                             </div>
                         </div>
@@ -1565,60 +1664,145 @@
 
                     <!-- Nuts Section -->
                     <div class="category-section" id="nuts-section">
-                        <h3 class="category-section-title">Nuts</h3>
+                        <h3 class="category-section-title">Nuts (100g Pack)</h3>
                         <div class="category-items">
-                            <div class="product-card" data-type="item" data-category="nuts" data-product="Brazil Nuts 100g" data-price="349">
+                            <!-- Placeholder for future products that will get new mockups -->
+                            <div class="product-card" data-type="item" data-category="nuts" data-product="Almond 100g" data-price="249">
                                 <div class="product-image-wrapper">
-                                    <img src="NUTS/NUTS/BRAZIL NUT/BRAZIL 100 GM/1.png" alt="Brazil Nuts 100g" class="product-image">
+                                    <img src="NUTS/16.png" alt="Almond 100g" class="product-image">
                                     <div class="product-add-indicator">+</div>
                                 </div>
                                 <div class="product-info">
-                                    <div class="product-name">Brazil Nuts 100g</div>
-                                    <div class="product-price">₹349</div>
+                                    <div class="product-name">Almond 100g</div>
+                                    <div class="product-price">₹249</div>
                                 </div>
                             </div>
 
-                            <div class="product-card" data-type="item" data-category="nuts" data-product="Hazel Nuts 100g" data-price="399">
+                            <div class="product-card" data-type="item" data-category="nuts" data-product="Cashew 100g" data-price="399">
                                 <div class="product-image-wrapper">
-                                    <img src="NUTS/NUTS/HAZEL NUT/HAZELNUT 100 GM/2(1).png" alt="Hazel Nuts 100g" class="product-image">
+                                    <img src="NUTS/15.png" alt="Cashew 100g" class="product-image">
                                     <div class="product-add-indicator">+</div>
                                 </div>
                                 <div class="product-info">
-                                    <div class="product-name">Hazel Nuts 100g</div>
+                                    <div class="product-name">Cashew 100g</div>
                                     <div class="product-price">₹399</div>
                                 </div>
                             </div>
 
-                            <div class="product-card" data-type="item" data-category="nuts" data-product="Macadamia Nuts 100g" data-price="499">
+                            <div class="product-card" data-type="item" data-category="nuts" data-product="Pistachio 100g" data-price="549">
                                 <div class="product-image-wrapper">
-                                    <img src="NUTS/NUTS/MACADEMIA NUT/MACADAMIA 100 GM/1.png" alt="Macadamia Nuts 100g" class="product-image">
+                                    <img src="NUTS/17.png" alt="Pistachio 100g" class="product-image">
                                     <div class="product-add-indicator">+</div>
                                 </div>
                                 <div class="product-info">
-                                    <div class="product-name">Macadamia Nuts 100g</div>
+                                    <div class="product-name">Pistachio 100g</div>
+                                    <div class="product-price">₹549</div>
+                                </div>
+                            </div>
+
+                            <div class="product-card" data-type="item" data-category="nuts" data-product="Walnut 100g" data-price="329">
+                                <div class="product-image-wrapper">
+                                    <img src="NUTS/18.png" alt="Walnut 100g" class="product-image">
+                                    <div class="product-add-indicator">+</div>
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-name">Walnut 100g</div>
+                                    <div class="product-price">₹329</div>
+                                </div>
+                            </div>
+
+                            <!-- Existing products -->
+                            <div class="product-card" data-type="item" data-category="nuts" data-product="Hazelnut 100g" data-price="399">
+                                <div class="product-image-wrapper">
+                                    <img src="NUTS/NUTS/HAZEL NUT/HAZELNUT 100 GM/2(1).png" alt="Hazelnut 100g" class="product-image">
+                                    <div class="product-add-indicator">+</div>
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-name">Hazelnut 100g</div>
+                                    <div class="product-price">₹399</div>
+                                </div>
+                            </div>
+
+                            <div class="product-card" data-type="item" data-category="nuts" data-product="Macadamia 100g" data-price="499">
+                                <div class="product-image-wrapper">
+                                    <img src="NUTS/NUTS/MACADEMIA NUT/MACADAMIA 100 GM/1.png" alt="Macadamia 100g" class="product-image">
+                                    <div class="product-add-indicator">+</div>
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-name">Macadamia 100g</div>
                                     <div class="product-price">₹499</div>
                                 </div>
                             </div>
 
-                            <div class="product-card" data-type="item" data-category="nuts" data-product="Pecan Nuts 100g" data-price="449">
+                            <div class="product-card" data-type="item" data-category="nuts" data-product="Pecan 100g" data-price="449">
                                 <div class="product-image-wrapper">
-                                    <img src="NUTS/NUTS/PECAN NUT/PECAN 100 GM/1.png" alt="Pecan Nuts 100g" class="product-image">
+                                    <img src="NUTS/NUTS/PECAN NUT/PECAN 100 GM/1.png" alt="Pecan 100g" class="product-image">
                                     <div class="product-add-indicator">+</div>
                                 </div>
                                 <div class="product-info">
-                                    <div class="product-name">Pecan Nuts 100g</div>
+                                    <div class="product-name">Pecan 100g</div>
                                     <div class="product-price">₹449</div>
                                 </div>
                             </div>
 
-                            <div class="product-card" data-type="item" data-category="nuts" data-product="Pine Nuts 100g" data-price="529">
+                            <div class="product-card" data-type="item" data-category="nuts" data-product="Pine 100g" data-price="529">
                                 <div class="product-image-wrapper">
-                                    <img src="NUTS/NUTS/PINE NUT/PINE 100 GM/1.png" alt="Pine Nuts 100g" class="product-image">
+                                    <img src="NUTS/NUTS/PINE NUT/PINE 100 GM/1.png" alt="Pine 100g" class="product-image">
                                     <div class="product-add-indicator">+</div>
                                 </div>
                                 <div class="product-info">
-                                    <div class="product-name">Pine Nuts 100g</div>
+                                    <div class="product-name">Pine 100g</div>
                                     <div class="product-price">₹529</div>
+                                </div>
+                            </div>
+
+                            <div class="product-card" data-type="item" data-category="nuts" data-product="Brazil 100g" data-price="349">
+                                <div class="product-image-wrapper">
+                                    <img src="NUTS/NUTS/BRAZIL NUT/BRAZIL 100 GM/1.png" alt="Brazil 100g" class="product-image">
+                                    <div class="product-add-indicator">+</div>
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-name">Brazil 100g</div>
+                                    <div class="product-price">₹349</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dry Fruit Section -->
+                    <div class="category-section" id="dry-fruits-section">
+                        <h3 class="category-section-title">Dry Fruits</h3>
+                        <div class="category-items">
+                            <div class="product-card" data-type="item" data-category="dry-fruits" data-product="Golden Raisin" data-price="179">
+                                <div class="product-image-wrapper">
+                                    <img src="https://via.placeholder.com/400x400/F4A460/FFFFFF?text=Golden+Raisin" alt="Golden Raisin" class="product-image">
+                                    <div class="product-add-indicator">+</div>
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-name">Golden Raisin</div>
+                                    <div class="product-price">₹179</div>
+                                </div>
+                            </div>
+
+                            <div class="product-card" data-type="item" data-category="dry-fruits" data-product="Green Raisin" data-price="159">
+                                <div class="product-image-wrapper">
+                                    <img src="https://via.placeholder.com/400x400/90EE90/FFFFFF?text=Green+Raisin" alt="Green Raisin" class="product-image">
+                                    <div class="product-add-indicator">+</div>
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-name">Green Raisin</div>
+                                    <div class="product-price">₹159</div>
+                                </div>
+                            </div>
+
+                            <div class="product-card" data-type="item" data-category="dry-fruits" data-product="Fig" data-price="199">
+                                <div class="product-image-wrapper">
+                                    <img src="https://via.placeholder.com/400x400/8B4513/FFFFFF?text=Fig" alt="Fig" class="product-image">
+                                    <div class="product-add-indicator">+</div>
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-name">Fig</div>
+                                    <div class="product-price">₹199</div>
                                 </div>
                             </div>
                         </div>
@@ -1627,7 +1811,7 @@
                     <!-- Chips Section -->
                     <div class="category-section" id="chips-section">
                         <h3 class="category-section-title">Chips</h3>
-                        <div class="category-items">
+                        <div class="category-items chips-layout">
                             <div class="product-card" data-type="item" data-category="chips" data-product="Banana Chips" data-price="149">
                                 <div class="product-image-wrapper">
                                     <img src="CHIPS/BANANA.jpg" alt="Banana Chips" class="product-image">
@@ -1639,14 +1823,14 @@
                                 </div>
                             </div>
 
-                            <div class="product-card" data-type="item" data-category="chips" data-product="Chickpea Chips" data-price="129">
+                            <div class="product-card" data-type="item" data-category="chips" data-product="Okra Chips" data-price="159">
                                 <div class="product-image-wrapper">
-                                    <img src="CHIPS/CHIKPEA.jpg" alt="Chickpea Chips" class="product-image">
+                                    <img src="CHIPS/OKRA.png" alt="Okra Chips" class="product-image">
                                     <div class="product-add-indicator">+</div>
                                 </div>
                                 <div class="product-info">
-                                    <div class="product-name">Chickpea Chips</div>
-                                    <div class="product-price">₹129</div>
+                                    <div class="product-name">Okra Chips</div>
+                                    <div class="product-price">₹159</div>
                                 </div>
                             </div>
 
@@ -1661,14 +1845,14 @@
                                 </div>
                             </div>
 
-                            <div class="product-card" data-type="item" data-category="chips" data-product="Okra Chips" data-price="159">
+                            <div class="product-card" data-type="item" data-category="chips" data-product="Chickpea Chips" data-price="129">
                                 <div class="product-image-wrapper">
-                                    <img src="CHIPS/OKRA.png" alt="Okra Chips" class="product-image">
+                                    <img src="CHIPS/CHIKPEA.jpg" alt="Chickpea Chips" class="product-image">
                                     <div class="product-add-indicator">+</div>
                                 </div>
                                 <div class="product-info">
-                                    <div class="product-name">Okra Chips</div>
-                                    <div class="product-price">₹159</div>
+                                    <div class="product-name">Chickpea Chips</div>
+                                    <div class="product-price">₹129</div>
                                 </div>
                             </div>
                         </div>
@@ -1677,14 +1861,14 @@
                     <!-- Gifting Section -->
                     <div class="category-section" id="gifting-section">
                         <h3 class="category-section-title">Gifting</h3>
-                        <div class="category-items">
+                        <div class="category-items gifting-layout">
                             <div class="product-card" data-type="item" data-category="gifting" data-product="Blossom Gift Box" data-price="449">
                                 <div class="product-image-wrapper">
                                     <img src="GIFTING/Blossom Gift box/1.png" alt="Blossom Gift Box" class="product-image">
                                     <div class="product-add-indicator">+</div>
                                 </div>
                                 <div class="product-info">
-                                    <div class="product-name">Blossom Gift Box</div>
+                                    <div class="product-name">Blossom</div>
                                     <div class="product-price">₹449</div>
                                 </div>
                             </div>
@@ -1694,7 +1878,7 @@
                                     <div class="product-add-indicator">+</div>
                                 </div>
                                 <div class="product-info">
-                                    <div class="product-name">Cadeau Gift Box</div>
+                                    <div class="product-name">Cadeau</div>
                                     <div class="product-price">₹329</div>
                                 </div>
                             </div>
@@ -1704,7 +1888,7 @@
                                     <div class="product-add-indicator">+</div>
                                 </div>
                                 <div class="product-info">
-                                    <div class="product-name">Ethic Gift Box</div>
+                                    <div class="product-name">Ethnic</div>
                                     <div class="product-price">₹379</div>
                                 </div>
                             </div>
@@ -1714,7 +1898,7 @@
                                     <div class="product-add-indicator">+</div>
                                 </div>
                                 <div class="product-info">
-                                    <div class="product-name">Fleur Gift Box</div>
+                                    <div class="product-name">Fleur</div>
                                     <div class="product-price">₹399</div>
                                 </div>
                             </div>
@@ -2122,8 +2306,18 @@
                 </div>
 
                 <div class="cart-total">
-                    <div class="cart-total-label">Total</div>
-                    <div class="cart-total-price" id="cartTotal">₹0</div>
+                    <div class="cart-subtotal">
+                        <div class="cart-subtotal-label">Subtotal</div>
+                        <div class="cart-subtotal-price" id="cartSubtotal">₹0</div>
+                    </div>
+                    <div class="cart-discount" id="cartDiscountRow" style="display: none;">
+                        <div class="cart-discount-label" id="cartDiscountLabel">Discount (15%)</div>
+                        <div class="cart-discount-price" id="cartDiscountAmount">-₹0</div>
+                    </div>
+                    <div class="cart-final-total">
+                        <div class="cart-total-label">Total</div>
+                        <div class="cart-total-price" id="cartTotal">₹0</div>
+                    </div>
                 </div>
             </div>
             
@@ -2172,37 +2366,9 @@
 
         // Product data with descriptions and variants
         const productData = {
-            // Dates
-            "Ameri Dates": {
-                description: "Premium quality Ameri dates with rich, sweet flavor and soft texture. Perfect for gifting or personal enjoyment.",
-                images: [
-                    "DATES/AMERI/1.png",
-                    "DATES/AMERI/2.png",
-                    "DATES/AMERI/3.png",
-                    "DATES/AMERI/4.png",
-                    "DATES/AMERI/5.png"
-                ],
-                variants: [
-                    { name: "250g Pack", price: 299 },
-                    { name: "500g Pack", price: 549 }
-                ]
-            },
-            "Deglet Dates": {
-                description: "Delicate and translucent Deglet Noor dates with a firm texture and delightful honey-like sweetness.",
-                images: [
-                    "DATES/DEGLET/1.png",
-                    "DATES/DEGLET/2.png",
-                    "DATES/DEGLET/3.png",
-                    "DATES/DEGLET/4.png",
-                    "DATES/DEGLET/5.png"
-                ],
-                variants: [
-                    { name: "250g Pack", price: 279 },
-                    { name: "500g Pack", price: 519 }
-                ]
-            },
+            // Dates (200g Square Box only)
             "Date Bite": {
-                description: "Bite-sized date treats perfect for snacking. Naturally sweet and energy-packed.",
+                description: "Bite-sized date treats perfect for snacking. Naturally sweet and energy-packed in 200g square box.",
                 images: [
                     "DATES/DATE BITE/1.png",
                     "DATES/DATE BITE/2.png",
@@ -2210,41 +2376,11 @@
                     "DATES/DATE BITE/4.png"
                 ],
                 variants: [
-                    { name: "150g Pack", price: 199 },
-                    { name: "300g Pack", price: 369 }
+                    { name: "200g Square Box", price: 199 }
                 ]
             },
-            "Deri Dates 250g": {
-                description: "Traditional Deri dates with authentic taste and natural sweetness. A classic choice for date lovers.",
-                images: [
-                    "DATES/DERI/DERI 250 g/1.png",
-                    "DATES/DERI/DERI 250 g/2.png",
-                    "DATES/DERI/DERI 250 g/3.png",
-                    "DATES/DERI/DERI 250 g/4.png",
-                    "DATES/DERI/DERI 250 g/5.png"
-                ],
-                variants: [
-                    { name: "250g Pack", price: 249 },
-                    { name: "255g Pack", price: 259 },
-                    { name: "500g Pack", price: 479 }
-                ]
-            },
-            "Kalmi Dates": {
-                description: "Soft and juicy Kalmi dates with exceptional sweetness and smooth texture. A premium variety for special occasions.",
-                images: [
-                    "DATES/KALMI/1.png",
-                    "DATES/KALMI/2.png",
-                    "DATES/KALMI/3.png",
-                    "DATES/KALMI/4.png",
-                    "DATES/KALMI/5.png"
-                ],
-                variants: [
-                    { name: "250g Pack", price: 289 },
-                    { name: "500g Pack", price: 539 }
-                ]
-            },
-            "Mini Medjoul Dates": {
-                description: "Smaller version of the king of dates - Medjoul. Rich, soft, and incredibly sweet with a luxurious texture.",
+            "Medjoul Dates": {
+                description: "The king of dates - Medjoul. Rich, soft, and incredibly sweet with luxurious texture in 200g square box.",
                 images: [
                     "DATES/MINI MEDJOUL/1.png",
                     "DATES/MINI MEDJOUL/2.png",
@@ -2253,44 +2389,120 @@
                     "DATES/MINI MEDJOUL/5.png"
                 ],
                 variants: [
-                    { name: "250g Pack", price: 349 },
-                    { name: "500g Pack", price: 649 }
+                    { name: "200g Square Box", price: 349 }
                 ]
             },
-            "Omani Dates 250g": {
-                description: "Authentic Omani dates with distinctive flavor profile. Sourced directly from Oman's finest date palms.",
+            "Deri Dates": {
+                description: "Traditional Deri dates with authentic taste and natural sweetness in 200g square box.",
                 images: [
-                    "DATES/OMANI/OMANI 250 g/1.png",
-                    "DATES/OMANI/OMANI 250 g/2.png",
-                    "DATES/OMANI/OMANI 250 g/3.png"
+                    "DATES/DERI/DERI 250 g/1.png",
+                    "DATES/DERI/DERI 250 g/2.png",
+                    "DATES/DERI/DERI 250 g/3.png",
+                    "DATES/DERI/DERI 250 g/4.png",
+                    "DATES/DERI/DERI 250 g/5.png"
                 ],
                 variants: [
-                    { name: "200g Pack", price: 309 },
-                    { name: "250g Pack", price: 329 },
-                    { name: "400g Pack", price: 509 },
-                    { name: "500g Pack", price: 619 }
+                    { name: "200g Square Box", price: 249 }
                 ]
             },
-            // Nuts
-            "Brazil Nuts 100g": {
-                description: "Premium Brazil nuts packed with selenium and healthy fats. Crunchy texture with a rich, buttery flavor.",
+            "Deglet Dates": {
+                description: "Delicate and translucent Deglet Noor dates with firm texture and honey-like sweetness in 200g square box.",
                 images: [
-                    "NUTS/NUTS/BRAZIL NUT/BRAZIL 100 GM/1.png",
-                    "NUTS/NUTS/BRAZIL NUT/BRAZIL 100 GM/2.png",
-                    "NUTS/NUTS/BRAZIL NUT/BRAZIL 100 GM/3.png",
-                    "NUTS/NUTS/BRAZIL NUT/BRAZIL 100 GM/4.png",
-                    "NUTS/NUTS/BRAZIL NUT/BRAZIL 100 GM/5.png",
-                    "NUTS/NUTS/BRAZIL NUT/BRAZIL 100 GM/6.png"
+                    "DATES/DEGLET/1.png",
+                    "DATES/DEGLET/2.png",
+                    "DATES/DEGLET/3.png",
+                    "DATES/DEGLET/4.png",
+                    "DATES/DEGLET/5.png"
                 ],
                 variants: [
-                    { name: "100g Pack", price: 349 },
-                    { name: "150g Pack", price: 509 },
-                    { name: "250g Pack", price: 829 },
-                    { name: "500g Pack", price: 1599 }
+                    { name: "200g Square Box", price: 279 }
                 ]
             },
-            "Hazel Nuts 100g": {
-                description: "Premium hazelnuts with a delicate, sweet flavor and crunchy texture. Perfect for snacking or baking.",
+            "Kalmi Dates": {
+                description: "Soft and juicy Kalmi dates with exceptional sweetness and smooth texture in 200g square box.",
+                images: [
+                    "DATES/KALMI/1.png",
+                    "DATES/KALMI/2.png",
+                    "DATES/KALMI/3.png",
+                    "DATES/KALMI/4.png",
+                    "DATES/KALMI/5.png"
+                ],
+                variants: [
+                    { name: "200g Square Box", price: 289 }
+                ]
+            },
+            "Ameri Dates": {
+                description: "Premium quality Ameri dates with rich, sweet flavor and soft texture in 200g square box.",
+                images: [
+                    "DATES/AMERI/1.png",
+                    "DATES/AMERI/2.png",
+                    "DATES/AMERI/3.png",
+                    "DATES/AMERI/4.png",
+                    "DATES/AMERI/5.png"
+                ],
+                variants: [
+                    { name: "200g Square Box", price: 299 }
+                ]
+            },
+            "Ajwa Dates": {
+                description: "Holy Ajwa dates from Madinah, known for their unique taste and spiritual significance in 200g square box.",
+                images: ["https://via.placeholder.com/400x400/DAA520/FFFFFF?text=Ajwa+Dates"],
+                variants: [
+                    { name: "200g Square Box", price: 399 }
+                ]
+            },
+            "Date Spread": {
+                description: "Creamy date spread made from premium dates, perfect for bread and desserts in 200g square box.",
+                images: ["DATES/6.png"],
+                variants: [
+                    { name: "200g Square Box", price: 229 }
+                ]
+            },
+            "Date Power": {
+                description: "Nutrient-rich date powder, perfect for smoothies and health drinks in 200g square box.",
+                images: ["DATES/8.png"],
+                variants: [
+                    { name: "200g Square Box", price: 189 }
+                ]
+            },
+            "Date Syrup": {
+                description: "Natural date syrup, a healthy alternative to sugar and artificial sweeteners in 200g square box.",
+                images: ["DATES/7.png"],
+                variants: [
+                    { name: "200g Square Box", price: 259 }
+                ]
+            },
+            // Nuts (100g Pack only)
+            "Almond 100g": {
+                description: "Premium California almonds rich in vitamin E and healthy fats. Perfect for daily nutrition and snacking.",
+                images: ["NUTS/16.png"],
+                variants: [
+                    { name: "100g Pack", price: 249 }
+                ]
+            },
+            "Cashew 100g": {
+                description: "Creamy cashew nuts with rich, buttery flavor. A versatile nut perfect for cooking and snacking.",
+                images: ["NUTS/15.png"],
+                variants: [
+                    { name: "100g Pack", price: 399 }
+                ]
+            },
+            "Pistachio 100g": {
+                description: "Premium Iranian pistachios with distinctive flavor and natural goodness. A gourmet delight.",
+                images: ["NUTS/17.png"],
+                variants: [
+                    { name: "100g Pack", price: 549 }
+                ]
+            },
+            "Walnut 100g": {
+                description: "Brain-shaped walnuts rich in omega-3 fatty acids. Known for their health benefits and distinctive taste.",
+                images: ["NUTS/18.png"],
+                variants: [
+                    { name: "100g Pack", price: 329 }
+                ]
+            },
+            "Hazelnut 100g": {
+                description: "Premium hazelnuts with delicate, sweet flavor and crunchy texture. Perfect for snacking or baking.",
                 images: [
                     "NUTS/NUTS/HAZEL NUT/HAZELNUT 100 GM/2.png",
                     "NUTS/NUTS/HAZEL NUT/HAZELNUT 100 GM/2(1).png",
@@ -2300,13 +2512,10 @@
                     "NUTS/NUTS/HAZEL NUT/HAZELNUT 100 GM/6.png"
                 ],
                 variants: [
-                    { name: "50g Pack", price: 209 },
-                    { name: "100g Pack", price: 399 },
-                    { name: "150g Pack", price: 579 },
-                    { name: "250g Pack", price: 939 }
+                    { name: "100g Pack", price: 399 }
                 ]
             },
-            "Macadamia Nuts 100g": {
+            "Macadamia 100g": {
                 description: "Luxurious macadamia nuts with buttery texture and rich flavor. Known as the 'king of nuts'.",
                 images: [
                     "NUTS/NUTS/MACADEMIA NUT/MACADAMIA 100 GM/1.png",
@@ -2317,14 +2526,11 @@
                     "NUTS/NUTS/MACADEMIA NUT/MACADAMIA 100 GM/6.png"
                 ],
                 variants: [
-                    { name: "50g Pack", price: 289 },
-                    { name: "100g Pack", price: 499 },
-                    { name: "150g Pack", price: 729 },
-                    { name: "250g Pack", price: 1199 }
+                    { name: "100g Pack", price: 499 }
                 ]
             },
-            "Pecan Nuts 100g": {
-                description: "Sweet and buttery pecan nuts with a rich, distinctive flavor. Perfect for snacking and desserts.",
+            "Pecan 100g": {
+                description: "Sweet and buttery pecan nuts with rich, distinctive flavor. Perfect for snacking and desserts.",
                 images: [
                     "NUTS/NUTS/PECAN NUT/PECAN 100 GM/1.png",
                     "NUTS/NUTS/PECAN NUT/PECAN 100 GM/2.png",
@@ -2334,14 +2540,11 @@
                     "NUTS/NUTS/PECAN NUT/PECAN 100 GM/6.png"
                 ],
                 variants: [
-                    { name: "50g Pack", price: 239 },
-                    { name: "100g Pack", price: 449 },
-                    { name: "150g Pack", price: 659 },
-                    { name: "250g Pack", price: 1079 }
+                    { name: "100g Pack", price: 449 }
                 ]
             },
-            "Pine Nuts 100g": {
-                description: "Delicate pine nuts with a subtle, sweet flavor. A gourmet ingredient perfect for Mediterranean cuisine.",
+            "Pine 100g": {
+                description: "Delicate pine nuts with subtle, sweet flavor. A gourmet ingredient perfect for Mediterranean cuisine.",
                 images: [
                     "NUTS/NUTS/PINE NUT/PINE 100 GM/1.png",
                     "NUTS/NUTS/PINE NUT/PINE 100 GM/2.png",
@@ -2351,10 +2554,43 @@
                     "NUTS/NUTS/PINE NUT/PINE 100 GM/6.png"
                 ],
                 variants: [
-                    { name: "50g Pack", price: 279 },
-                    { name: "100g Pack", price: 529 },
-                    { name: "150g Pack", price: 779 },
-                    { name: "250g Pack", price: 1279 }
+                    { name: "100g Pack", price: 529 }
+                ]
+            },
+            "Brazil 100g": {
+                description: "Premium Brazil nuts packed with selenium and healthy fats. Crunchy texture with rich, buttery flavor.",
+                images: [
+                    "NUTS/NUTS/BRAZIL NUT/BRAZIL 100 GM/1.png",
+                    "NUTS/NUTS/BRAZIL NUT/BRAZIL 100 GM/2.png",
+                    "NUTS/NUTS/BRAZIL NUT/BRAZIL 100 GM/3.png",
+                    "NUTS/NUTS/BRAZIL NUT/BRAZIL 100 GM/4.png",
+                    "NUTS/NUTS/BRAZIL NUT/BRAZIL 100 GM/5.png",
+                    "NUTS/NUTS/BRAZIL NUT/BRAZIL 100 GM/6.png"
+                ],
+                variants: [
+                    { name: "100g Pack", price: 349 }
+                ]
+            },
+            // Dry Fruits
+            "Golden Raisin": {
+                description: "Sweet and juicy golden raisins, naturally sun-dried to perfection. Rich in antioxidants and natural energy.",
+                images: ["https://via.placeholder.com/400x400/F4A460/FFFFFF?text=Golden+Raisin"],
+                variants: [
+                    { name: "150g Pack", price: 179 }
+                ]
+            },
+            "Green Raisin": {
+                description: "Tangy green raisins with a unique flavor profile. Packed with nutrients and natural goodness.",
+                images: ["https://via.placeholder.com/400x400/90EE90/FFFFFF?text=Green+Raisin"],
+                variants: [
+                    { name: "150g Pack", price: 159 }
+                ]
+            },
+            "Fig": {
+                description: "Premium dried figs with natural sweetness and chewy texture. Rich in fiber and essential minerals.",
+                images: ["https://via.placeholder.com/400x400/8B4513/FFFFFF?text=Fig"],
+                variants: [
+                    { name: "150g Pack", price: 199 }
                 ]
             },
             // Chips
@@ -2365,11 +2601,11 @@
                     { name: "150g Pack", price: 149 }
                 ]
             },
-            "Chickpea Chips": {
-                description: "Protein-rich chickpea chips with a satisfying crunch. A nutritious alternative to regular chips.",
-                images: ["CHIPS/CHIKPEA.jpg"],
+            "Okra Chips": {
+                description: "Unique and crispy okra chips with distinctive taste. A healthy vegetable-based snack.",
+                images: ["CHIPS/OKRA.png"],
                 variants: [
-                    { name: "120g Pack", price: 129 }
+                    { name: "100g Pack", price: 159 }
                 ]
             },
             "Corn Chips": {
@@ -2379,16 +2615,16 @@
                     { name: "140g Pack", price: 139 }
                 ]
             },
-            "Okra Chips": {
-                description: "Unique and crispy okra chips with a distinctive taste. A healthy vegetable-based snack.",
-                images: ["CHIPS/OKRA.png"],
+            "Chickpea Chips": {
+                description: "Protein-rich chickpea chips with satisfying crunch. A nutritious alternative to regular chips.",
+                images: ["CHIPS/CHIKPEA.jpg"],
                 variants: [
-                    { name: "100g Pack", price: 159 }
+                    { name: "120g Pack", price: 129 }
                 ]
             },
             // Gifting
             "Blossom Gift Box": {
-                description: "Elegant Blossom gift box perfect for special occasions. Contains a curated selection of premium items.",
+                description: "Elegant Blossom gift box perfect for special occasions. Contains curated selection of premium items.",
                 images: [
                     "GIFTING/Blossom Gift box/1.png",
                     "GIFTING/Blossom Gift box/2.png",
@@ -2397,12 +2633,11 @@
                     "GIFTING/Blossom Gift box/5.png"
                 ],
                 variants: [
-                    { name: "Standard Box", price: 449 },
-                    { name: "Premium Box", price: 649 }
+                    { name: "Gift Box", price: 449 }
                 ]
             },
             "Cadeau Gift Box": {
-                description: "Sophisticated Cadeau gift box designed for discerning recipients. A perfect blend of luxury and taste.",
+                description: "Sophisticated Cadeau gift box designed for discerning recipients. Perfect blend of luxury and taste.",
                 images: [
                     "GIFTING/Cadeau Gift box/1.png",
                     "GIFTING/Cadeau Gift box/2.png",
@@ -2411,8 +2646,7 @@
                     "GIFTING/Cadeau Gift box/5.png"
                 ],
                 variants: [
-                    { name: "Standard Box", price: 329 },
-                    { name: "Deluxe Box", price: 529 }
+                    { name: "Gift Box", price: 329 }
                 ]
             },
             "Ethic Gift Box": {
@@ -2425,8 +2659,7 @@
                     "GIFTING/Ethic Gift Box/5.png"
                 ],
                 variants: [
-                    { name: "Standard Box", price: 379 },
-                    { name: "Premium Box", price: 579 }
+                    { name: "Gift Box", price: 379 }
                 ]
             },
             "Fleur Gift Box": {
@@ -2439,8 +2672,7 @@
                     "GIFTING/Fleur Gift box/5.png"
                 ],
                 variants: [
-                    { name: "Standard Box", price: 399 },
-                    { name: "Luxury Box", price: 599 }
+                    { name: "Gift Box", price: 399 }
                 ]
             }
         };
@@ -2785,8 +3017,23 @@
             }
         }
 
+        function calculateDiscount(subtotal) {
+            let discountPercentage = 0;
+            
+            if (subtotal >= 50000) {
+                discountPercentage = 25;
+            } else if (subtotal >= 20000) {
+                discountPercentage = 20;
+            } else if (subtotal < 20000 && subtotal > 0) {
+                discountPercentage = 15;
+            }
+            
+            const discountAmount = Math.round((subtotal * discountPercentage) / 100);
+            return { percentage: discountPercentage, amount: discountAmount };
+        }
+
         function updateCart() {
-            let total = 0;
+            let subtotal = 0;
 
             // Basket
             if (selections.basket) {
@@ -2800,7 +3047,7 @@
                         </div>
                     </div>
                 `;
-                total += selections.basket.price;
+                subtotal += selections.basket.price;
             } else {
                 document.getElementById('cartBasket').style.display = 'none';
             }
@@ -2826,7 +3073,7 @@
                             <div class="cart-item-total">₹${itemTotal}</div>
                         </div>
                     `;
-                    total += itemTotal;
+                    subtotal += itemTotal;
                 });
                 document.getElementById('cartItemsContent').innerHTML = itemsHTML;
             } else {
@@ -2845,7 +3092,7 @@
                         </div>
                     </div>
                 `;
-                total += selections.net.price;
+                subtotal += selections.net.price;
             } else {
                 document.getElementById('cartNet').style.display = 'none';
             }
@@ -2862,12 +3109,30 @@
                         </div>
                     </div>
                 `;
-                total += selections.ribbon.price;
+                subtotal += selections.ribbon.price;
             } else {
                 document.getElementById('cartRibbon').style.display = 'none';
             }
 
-            document.getElementById('cartTotal').textContent = `₹${total}`;
+            // Calculate discount and final total
+            const discount = calculateDiscount(subtotal);
+            const finalTotal = subtotal - discount.amount;
+
+            // Update subtotal
+            document.getElementById('cartSubtotal').textContent = `₹${subtotal}`;
+
+            // Update discount display
+            const discountRow = document.getElementById('cartDiscountRow');
+            if (discount.percentage > 0) {
+                discountRow.style.display = 'flex';
+                document.getElementById('cartDiscountLabel').textContent = `Discount (${discount.percentage}%)`;
+                document.getElementById('cartDiscountAmount').textContent = `-₹${discount.amount}`;
+            } else {
+                discountRow.style.display = 'none';
+            }
+
+            // Update final total
+            document.getElementById('cartTotal').textContent = `₹${finalTotal}`;
             
             // Update cart buttons state
             updateCartButtons();
@@ -2902,6 +3167,7 @@
             const sections = [
                 { id: 'dates-section', category: 'dates' },
                 { id: 'nuts-section', category: 'nuts' },
+                { id: 'dry-fruits-section', category: 'dry-fruits' },
                 { id: 'chips-section', category: 'chips' },
                 { id: 'gifting-section', category: 'gifting' }
             ];
@@ -3068,7 +3334,7 @@
         }
 
         function updateSummary() {
-            let total = 0;
+            let subtotal = 0;
 
             // Create the visual arrangement
             let arrangementHTML = '';
@@ -3078,7 +3344,7 @@
             // Collect basket
             if (selections.basket) {
                 basketImage = selections.basket.image;
-                total += selections.basket.price;
+                subtotal += selections.basket.price;
             }
 
             // Collect all items (items, net, ribbon)
@@ -3091,7 +3357,7 @@
                         productName: item.name 
                     });
                 }
-                total += itemTotal;
+                subtotal += itemTotal;
             });
 
             if (selections.net) {
@@ -3100,7 +3366,7 @@
                     price: selections.net.price, 
                     productName: selections.net.name 
                 });
-                total += selections.net.price;
+                subtotal += selections.net.price;
             }
 
             if (selections.ribbon) {
@@ -3109,8 +3375,12 @@
                     price: selections.ribbon.price, 
                     productName: selections.ribbon.name 
                 });
-                total += selections.ribbon.price;
+                subtotal += selections.ribbon.price;
             }
+
+            // Calculate discount and final total
+            const discount = calculateDiscount(subtotal);
+            const finalTotal = subtotal - discount.amount;
 
             // Create circular arrangement
             if (basketImage) {
@@ -3151,15 +3421,37 @@
                         </div>
                     </div>
                 `;
+
+                // Add pricing summary below the arrangement
+                arrangementHTML += `
+                    <div class="summary-totals">
+                        <div class="total-row">
+                            <span>Subtotal:</span>
+                            <span>₹${subtotal}</span>
+                        </div>`;
+
+                if (discount.percentage > 0) {
+                    arrangementHTML += `
+                        <div class="total-row discount-row">
+                            <span>Discount (${discount.percentage}%):</span>
+                            <span>-₹${discount.amount}</span>
+                        </div>`;
+                }
+
+                arrangementHTML += `
+                        <div class="final-total">
+                            <span>Total Amount:</span>
+                            <span>₹${finalTotal}</span>
+                        </div>
+                    </div>
+                `;
             }
 
-            // Update the summary sections - only show the visual arrangement
+            // Update the summary sections
             document.getElementById('basketSummary').innerHTML = arrangementHTML;
             document.getElementById('itemsSummary').innerHTML = '';
             document.getElementById('netSummary').innerHTML = '';
             document.getElementById('ribbonSummary').innerHTML = '';
-
-            // No total amount display needed
         }
 
         // Functions to open tooltips from summary page circles
