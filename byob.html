@@ -613,6 +613,60 @@
             display: none;
         }
 
+        .product-counter, .basket-counter {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #ef4444;
+            color: white;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+            z-index: 10;
+            border: 2px solid white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        /* Basket selection animation - subtle effect */
+        .product-card.basket-added {
+            animation: basketAdded 0.3s ease-out;
+        }
+
+        @keyframes basketAdded {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+
+        /* Basket counter badge */
+        .basket-counter {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #DAA520;
+            color: white;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+            animation: bounceIn 0.5s ease-out;
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
         /* RIGHT COLUMN - Cart */
         .cart-summary {
             position: sticky;
@@ -747,6 +801,20 @@
             opacity: 0.5;
             cursor: not-allowed;
         }
+
+        .quantity-btn[title*="Remove"] {
+            background: var(--white);
+            border-color: var(--border-light);
+            color: var(--text-dark);
+        }
+
+        .quantity-btn[title*="Remove"]:hover {
+            background: var(--accent-blue);
+            border-color: var(--accent-blue);
+            color: var(--white);
+        }
+
+
 
         .quantity-display {
             font-weight: bold;
@@ -974,6 +1042,38 @@
             border-radius: 12px;
             border: 2px solid #DAA520;
             margin-top: 2rem;
+        }
+
+        .baskets-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .individual-basket {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow-md);
+            border: 2px solid var(--border-light);
+        }
+
+        .individual-basket h4 {
+            text-align: center;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            font-size: 1.1rem;
+        }
+
+        .net-item {
+            border: 3px solid #3b82f6 !important;
+            border-radius: 50%;
+        }
+
+        .ribbon-item {
+            border: 3px solid #ec4899 !important;
+            border-radius: 50%;
         }
 
         .total-row {
@@ -1616,16 +1716,6 @@
                             </div>
 
                             <!-- Placeholder for future products -->
-                            <div class="product-card" data-type="item" data-category="dates" data-product="Ajwa Dates" data-price="399">
-                                <div class="product-image-wrapper">
-                                    <img src="https://via.placeholder.com/400x400/DAA520/FFFFFF?text=Ajwa+Dates" alt="Ajwa Dates" class="product-image">
-                                    <div class="product-add-indicator">+</div>
-                                </div>
-                                <div class="product-info">
-                                    <div class="product-name">Ajwa Dates</div>
-                                    <div class="product-price">₹399</div>
-                                </div>
-                            </div>
 
                             <div class="product-card" data-type="item" data-category="dates" data-product="Date Spread" data-price="229">
                                 <div class="product-image-wrapper">
@@ -2285,9 +2375,9 @@
                     <p>Why not make its dreams come true? 😋</p>
                 </div>
                 
-                <div class="cart-section" id="cartBasket" style="display: none;">
-                    <div class="cart-section-title">Basket</div>
-                    <div id="cartBasketContent"></div>
+                <div class="cart-section" id="cartBaskets" style="display: none;">
+                    <div class="cart-section-title">Baskets</div>
+                    <div id="cartBasketsContent"></div>
                 </div>
 
                 <div class="cart-section" id="cartItems" style="display: none;">
@@ -2295,14 +2385,14 @@
                     <div id="cartItemsContent"></div>
                 </div>
 
-                <div class="cart-section" id="cartNet" style="display: none;">
-                    <div class="cart-section-title">Net</div>
-                    <div id="cartNetContent"></div>
+                <div class="cart-section" id="cartNets" style="display: none;">
+                    <div class="cart-section-title">Nets</div>
+                    <div id="cartNetsContent"></div>
                 </div>
 
-                <div class="cart-section" id="cartRibbon" style="display: none;">
-                    <div class="cart-section-title">Ribbon</div>
-                    <div id="cartRibbonContent"></div>
+                <div class="cart-section" id="cartRibbons" style="display: none;">
+                    <div class="cart-section-title">Ribbons</div>
+                    <div id="cartRibbonsContent"></div>
                 </div>
 
                 <div class="cart-total">
@@ -2344,15 +2434,14 @@
         // State
         let currentStep = 0;
         let selections = {
-            basket: null,
+            baskets: [], // Multiple baskets support
             items: [],
-            net: null,
-            ribbon: null
+            nets: [], // Changed to array to support multiple nets
+            ribbons: [] // Changed to array to support multiple ribbons
         };
 
-        // Quantity management
+        // Quantity management (keeping for compatibility with nets/ribbons)
         let quantities = {
-            basket: 1,
             net: 1,
             ribbon: 1
         };
@@ -2368,7 +2457,7 @@
         const productData = {
             // Dates (200g Square Box only)
             "Date Bite": {
-                description: "Bite-sized date treats perfect for snacking. Naturally sweet and energy-packed in 200g square box.",
+                description: "Bite-sized date treats perfect for snacking. Naturally sweet and energy-packed in 168g square box.",
                 images: [
                     "DATES/DATE BITE/1.png",
                     "DATES/DATE BITE/2.png",
@@ -2442,13 +2531,6 @@
                 ],
                 variants: [
                     { name: "200g Square Box", price: 299 }
-                ]
-            },
-            "Ajwa Dates": {
-                description: "Holy Ajwa dates from Madinah, known for their unique taste and spiritual significance in 200g square box.",
-                images: ["https://via.placeholder.com/400x400/DAA520/FFFFFF?text=Ajwa+Dates"],
-                variants: [
-                    { name: "200g Square Box", price: 399 }
                 ]
             },
             "Date Spread": {
@@ -2882,9 +2964,17 @@
                          (currentTooltipProduct.data.image || currentTooltipProduct.image);
             const category = currentTooltipProduct.card.dataset.category;
             
-            // Add item directly to selections
-            const itemId = Date.now() + Math.random(); // Generate unique ID
-            selections.items.push({ id: itemId, name: uniqueProductName, price, image, category, quantity: 1 });
+            // Check if item already exists
+            const existingItemIndex = selections.items.findIndex(item => item.name === uniqueProductName);
+            
+            if (existingItemIndex !== -1) {
+                // Increase quantity if item exists
+                selections.items[existingItemIndex].quantity += 1;
+            } else {
+                // Add new item to selections
+                const itemId = Date.now() + Math.random(); // Generate unique ID
+                selections.items.push({ id: itemId, name: uniqueProductName, price, image, category, quantity: 1 });
+            }
             
             // Update cart display
             updateCart();
@@ -2928,31 +3018,88 @@
             const image = card.querySelector('.product-image').src;
             const category = card.dataset.category;
 
-            if (type === 'basket' || type === 'net' || type === 'ribbon') {
-                // Single selection for basket, net, ribbon
-                const parent = card.parentElement;
-                parent.querySelectorAll('.product-card').forEach(c => c.classList.remove('selected'));
-                card.classList.add('selected');
-
-                selections[type] = { name: product, price, image };
+            if (type === 'basket') {
+                // Multiple selection for baskets
+                const basketId = Date.now() + Math.random(); // Generate unique ID
+                const existingBasket = selections.baskets.find(basket => basket.name === product);
+                
+                if (existingBasket) {
+                    // If basket already exists, increase quantity
+                    existingBasket.quantity += 1;
+                } else {
+                    // Add new basket
+                    selections.baskets.push({ 
+                        id: basketId, 
+                        name: product, 
+                        price, 
+                        image, 
+                        quantity: 1 
+                    });
+                }
+                
+                // Enhanced visual feedback
+                card.classList.add('basket-added');
+                setTimeout(() => card.classList.remove('basket-added'), 600);
+                
+                // Update basket counter if exists
+                updateBasketCounter(card, existingBasket ? existingBasket.quantity : 1);
+                
+            } else if (type === 'net') {
+                // Multiple selection for nets
+                const netId = Date.now() + Math.random();
+                const existingNet = selections.nets.find(net => net.name === product);
+                
+                if (existingNet) {
+                    existingNet.quantity += 1;
+                } else {
+                    selections.nets.push({ 
+                        id: netId, 
+                        name: product, 
+                        price, 
+                        image, 
+                        quantity: 1 
+                    });
+                }
+                
+                card.classList.add('basket-added');
+                setTimeout(() => card.classList.remove('basket-added'), 600);
+                updateItemCounter(card, existingNet ? existingNet.quantity : 1);
+                
+            } else if (type === 'ribbon') {
+                // Multiple selection for ribbons
+                const ribbonId = Date.now() + Math.random();
+                const existingRibbon = selections.ribbons.find(ribbon => ribbon.name === product);
+                
+                if (existingRibbon) {
+                    existingRibbon.quantity += 1;
+                } else {
+                    selections.ribbons.push({ 
+                        id: ribbonId, 
+                        name: product, 
+                        price, 
+                        image, 
+                        quantity: 1 
+                    });
+                }
+                
+                card.classList.add('basket-added');
+                setTimeout(() => card.classList.remove('basket-added'), 600);
+                updateItemCounter(card, existingRibbon ? existingRibbon.quantity : 1);
             } else if (type === 'item') {
                 // Check if tooltip should be shown for items with variants
                 if (showTooltip(card)) {
                     return; // Tooltip is shown, exit function
                 }
-                // Multi-selection for items - Allow multiple variants
+                // Multi-selection for items - Check if item exists and increase quantity
                 const existingIndex = selections.items.findIndex(item => item.name === product);
                 
                 if (existingIndex !== -1) {
-                    // Remove item
-                    selections.items.splice(existingIndex, 1);
-                    card.classList.remove('selected');
+                    // Increase quantity if item exists
+                    selections.items[existingIndex].quantity += 1;
                 } else {
-                    // Add item directly to cart
+                    // Add new item to cart
                     const itemId = Date.now() + Math.random(); // Generate unique ID
                     selections.items.push({ id: itemId, name: product, price, image, category, quantity: 1 });
-                    
-                    // Note: Don't mark card as selected since we can add multiple variants
                 }
             }
 
@@ -3011,9 +3158,336 @@
         function changeItemQuantity(itemId, delta) {
             const item = selections.items.find(item => item.id == itemId);
             if (item) {
-                const newQty = Math.max(1, item.quantity + delta);
-                item.quantity = newQty;
+                const newQty = item.quantity + delta;
+                if (newQty <= 0) {
+                    // Remove item if quantity would be 0
+                    const itemIndex = selections.items.findIndex(i => i.id == itemId);
+                    if (itemIndex !== -1) {
+                        const removedItem = selections.items[itemIndex];
+                        selections.items.splice(itemIndex, 1);
+                        showItemRemovedMessage(removedItem.name, 'item');
+                    }
+                } else {
+                    item.quantity = newQty;
+                }
                 updateCart();
+            }
+        }
+
+        function changeBasketQuantity(basketId, delta) {
+            const basket = selections.baskets.find(basket => basket.id == basketId);
+            if (basket) {
+                const newQty = basket.quantity + delta;
+                if (newQty <= 0) {
+                    // Remove basket if quantity would be 0
+                    removeBasket(basketId);
+                } else {
+                    basket.quantity = newQty;
+                    updateCart();
+                }
+            }
+        }
+
+        function showBasketAddedMessage(productName) {
+            // Create and show a temporary success message
+            const message = document.createElement('div');
+            message.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: #DAA520;
+                color: white;
+                padding: 12px 20px;
+                border-radius: 8px;
+                font-weight: 600;
+                z-index: 10000;
+                animation: slideInRight 0.3s ease-out;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            `;
+            message.textContent = `✓ ${productName} added to cart!`;
+            
+            // Add animation styles
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideInRight {
+                    from { transform: translateX(100%); opacity: 0; }
+                    to { transform: translateX(0); opacity: 1; }
+                }
+            `;
+            document.head.appendChild(style);
+            
+            document.body.appendChild(message);
+            
+            // Remove after 2 seconds
+            setTimeout(() => {
+                message.style.animation = 'slideInRight 0.3s ease-out reverse';
+                setTimeout(() => {
+                    if (message.parentNode) {
+                        message.parentNode.removeChild(message);
+                    }
+                }, 300);
+            }, 2000);
+        }
+
+        function updateBasketCounter(card, quantity) {
+            // Remove existing counter
+            const existingCounter = card.querySelector('.basket-counter');
+            if (existingCounter) {
+                existingCounter.remove();
+            }
+            
+            // Add new counter if quantity > 1
+            if (quantity > 1) {
+                const counter = document.createElement('div');
+                counter.className = 'basket-counter';
+                counter.textContent = quantity;
+                card.style.position = 'relative';
+                card.appendChild(counter);
+            }
+        }
+
+        function updateProductIndicators() {
+            // Reset all product cards
+            document.querySelectorAll('.product-card').forEach(card => {
+                card.classList.remove('selected');
+                // Remove existing counters
+                const existingCounter = card.querySelector('.product-counter');
+                if (existingCounter) {
+                    existingCounter.remove();
+                }
+            });
+
+            // Update baskets
+            selections.baskets.forEach(basket => {
+                const basketCard = document.querySelector(`[data-type="basket"][data-product="${basket.name}"]`);
+                if (basketCard) {
+                    basketCard.classList.add('selected');
+                    if (basket.quantity > 1) {
+                        updateBasketCounter(basketCard, basket.quantity);
+                    }
+                }
+            });
+
+            // Update items
+            selections.items.forEach(item => {
+                // Find card by exact name match for items
+                const itemCards = document.querySelectorAll('[data-type="item"]');
+                itemCards.forEach(card => {
+                    if (card.dataset.product === item.name || item.name.includes(card.dataset.product)) {
+                        card.classList.add('selected');
+                        if (item.quantity > 1) {
+                            updateProductCounter(card, item.quantity);
+                        }
+                    }
+                });
+            });
+
+            // Update nets
+            selections.nets.forEach(net => {
+                const netCard = document.querySelector(`[data-type="net"][data-product="${net.name}"]`);
+                if (netCard) {
+                    netCard.classList.add('selected');
+                    if (net.quantity > 1) {
+                        updateProductCounter(netCard, net.quantity);
+                    }
+                }
+            });
+
+            // Update ribbons
+            selections.ribbons.forEach(ribbon => {
+                const ribbonCard = document.querySelector(`[data-type="ribbon"][data-product="${ribbon.name}"]`);
+                if (ribbonCard) {
+                    ribbonCard.classList.add('selected');
+                    if (ribbon.quantity > 1) {
+                        updateProductCounter(ribbonCard, ribbon.quantity);
+                    }
+                }
+            });
+        }
+
+        function updateProductCounter(card, quantity) {
+            // Remove existing counter
+            const existingCounter = card.querySelector('.product-counter');
+            if (existingCounter) {
+                existingCounter.remove();
+            }
+            
+            // Add new counter if quantity > 1
+            if (quantity > 1) {
+                const counter = document.createElement('div');
+                counter.className = 'product-counter';
+                counter.textContent = quantity;
+                card.style.position = 'relative';
+                card.appendChild(counter);
+            }
+        }
+
+        function removeBasket(basketId) {
+            const basketIndex = selections.baskets.findIndex(basket => basket.id == basketId);
+            if (basketIndex !== -1) {
+                const removedBasket = selections.baskets[basketIndex];
+                selections.baskets.splice(basketIndex, 1);
+                updateCart();
+                
+                // Show removal message
+                showBasketRemovedMessage(removedBasket.name);
+            }
+        }
+
+        function showBasketRemovedMessage(productName) {
+            const message = document.createElement('div');
+            message.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: white;
+                color: #374151;
+                border: 1px solid #e5e7eb;
+                padding: 12px 20px;
+                border-radius: 8px;
+                font-weight: 600;
+                z-index: 10000;
+                animation: slideInRight 0.3s ease-out;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            `;
+            message.textContent = `✗ ${productName} removed from cart`;
+            
+            document.body.appendChild(message);
+            
+            setTimeout(() => {
+                message.style.animation = 'slideInRight 0.3s ease-out reverse';
+                setTimeout(() => {
+                    if (message.parentNode) {
+                        message.parentNode.removeChild(message);
+                    }
+                }, 300);
+            }, 2000);
+        }
+
+        // Net quantity and removal functions
+        function changeNetQuantity(netId, delta) {
+            const net = selections.nets.find(net => net.id == netId);
+            if (net) {
+                const newQty = net.quantity + delta;
+                if (newQty <= 0) {
+                    // Remove net if quantity would be 0
+                    removeNet(netId);
+                } else {
+                    net.quantity = newQty;
+                    updateCart();
+                }
+            }
+        }
+
+        function removeNet(netId) {
+            const netIndex = selections.nets.findIndex(net => net.id == netId);
+            if (netIndex !== -1) {
+                const removedNet = selections.nets[netIndex];
+                selections.nets.splice(netIndex, 1);
+                updateCart();
+                showItemRemovedMessage(removedNet.name, 'net');
+            }
+        }
+
+        // Ribbon quantity and removal functions
+        function changeRibbonQuantity(ribbonId, delta) {
+            const ribbon = selections.ribbons.find(ribbon => ribbon.id == ribbonId);
+            if (ribbon) {
+                const newQty = ribbon.quantity + delta;
+                if (newQty <= 0) {
+                    // Remove ribbon if quantity would be 0
+                    removeRibbon(ribbonId);
+                } else {
+                    ribbon.quantity = newQty;
+                    updateCart();
+                }
+            }
+        }
+
+        function removeRibbon(ribbonId) {
+            const ribbonIndex = selections.ribbons.findIndex(ribbon => ribbon.id == ribbonId);
+            if (ribbonIndex !== -1) {
+                const removedRibbon = selections.ribbons[ribbonIndex];
+                selections.ribbons.splice(ribbonIndex, 1);
+                updateCart();
+                showItemRemovedMessage(removedRibbon.name, 'ribbon');
+            }
+        }
+
+        // Generic message functions
+        function showItemAddedMessage(productName, itemType) {
+            const message = document.createElement('div');
+            message.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: #DAA520;
+                color: white;
+                padding: 12px 20px;
+                border-radius: 8px;
+                font-weight: 600;
+                z-index: 10000;
+                animation: slideInRight 0.3s ease-out;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            `;
+            message.textContent = `✓ ${productName} ${itemType} added to cart!`;
+            
+            document.body.appendChild(message);
+            
+            setTimeout(() => {
+                message.style.animation = 'slideInRight 0.3s ease-out reverse';
+                setTimeout(() => {
+                    if (message.parentNode) {
+                        message.parentNode.removeChild(message);
+                    }
+                }, 300);
+            }, 2000);
+        }
+
+        function showItemRemovedMessage(productName, itemType) {
+            const message = document.createElement('div');
+            message.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: white;
+                color: #374151;
+                border: 1px solid #e5e7eb;
+                padding: 12px 20px;
+                border-radius: 8px;
+                font-weight: 600;
+                z-index: 10000;
+                animation: slideInRight 0.3s ease-out;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            `;
+            message.textContent = `✗ ${productName} ${itemType} removed from cart`;
+            
+            document.body.appendChild(message);
+            
+            setTimeout(() => {
+                message.style.animation = 'slideInRight 0.3s ease-out reverse';
+                setTimeout(() => {
+                    if (message.parentNode) {
+                        message.parentNode.removeChild(message);
+                    }
+                }, 300);
+            }, 2000);
+        }
+
+        function updateItemCounter(card, quantity) {
+            // Remove existing counter
+            const existingCounter = card.querySelector('.basket-counter');
+            if (existingCounter) {
+                existingCounter.remove();
+            }
+            
+            // Add new counter if quantity > 1
+            if (quantity > 1) {
+                const counter = document.createElement('div');
+                counter.className = 'basket-counter';
+                counter.textContent = quantity;
+                card.style.position = 'relative';
+                card.appendChild(counter);
             }
         }
 
@@ -3035,21 +3509,32 @@
         function updateCart() {
             let subtotal = 0;
 
-            // Basket
-            if (selections.basket) {
-                document.getElementById('cartBasket').style.display = 'block';
-                document.getElementById('cartBasketContent').innerHTML = `
-                    <div class="cart-item">
-                        <img src="${selections.basket.image}" class="cart-item-image">
-                        <div class="cart-item-info">
-                            <div class="cart-item-name">${selections.basket.name}</div>
-                            <div class="cart-item-price">₹${selections.basket.price}</div>
+            // Baskets
+            if (selections.baskets.length > 0) {
+                document.getElementById('cartBaskets').style.display = 'block';
+                let basketsHTML = '';
+                selections.baskets.forEach(basket => {
+                    const basketTotal = basket.price * basket.quantity;
+                    basketsHTML += `
+                        <div class="cart-item">
+                            <img src="${basket.image}" class="cart-item-image">
+                            <div class="cart-item-info">
+                                <div class="cart-item-name">${basket.name}</div>
+                                <div class="cart-item-price">₹${basket.price} each</div>
+                                <div class="quantity-controls">
+                                    <button class="quantity-btn" onclick="changeBasketQuantity('${basket.id}', -1)" title="${basket.quantity === 1 ? 'Remove basket' : 'Decrease quantity'}">-</button>
+                                    <span class="quantity-display">${basket.quantity}</span>
+                                    <button class="quantity-btn" onclick="changeBasketQuantity('${basket.id}', 1)">+</button>
+                                </div>
+                            </div>
+                            <div class="cart-item-total">₹${basketTotal}</div>
                         </div>
-                    </div>
-                `;
-                subtotal += selections.basket.price;
+                    `;
+                    subtotal += basketTotal;
+                });
+                document.getElementById('cartBasketsContent').innerHTML = basketsHTML;
             } else {
-                document.getElementById('cartBasket').style.display = 'none';
+                document.getElementById('cartBaskets').style.display = 'none';
             }
 
             // Items
@@ -3065,7 +3550,7 @@
                                 <div class="cart-item-name">${item.name}</div>
                                 <div class="cart-item-price">₹${item.price} each</div>
                                 <div class="quantity-controls">
-                                    <button class="quantity-btn" onclick="changeItemQuantity('${item.id}', -1)" ${item.quantity <= 1 ? 'disabled' : ''}>-</button>
+                                    <button class="quantity-btn" onclick="changeItemQuantity('${item.id}', -1)" title="${item.quantity === 1 ? 'Remove item' : 'Decrease quantity'}">-</button>
                                     <span class="quantity-display">${item.quantity}</span>
                                     <button class="quantity-btn" onclick="changeItemQuantity('${item.id}', 1)">+</button>
                                 </div>
@@ -3080,38 +3565,60 @@
                 document.getElementById('cartItems').style.display = 'none';
             }
 
-            // Net
-            if (selections.net) {
-                document.getElementById('cartNet').style.display = 'block';
-                document.getElementById('cartNetContent').innerHTML = `
-                    <div class="cart-item">
-                        <img src="${selections.net.image}" class="cart-item-image">
-                        <div class="cart-item-info">
-                            <div class="cart-item-name">${selections.net.name}</div>
-                            <div class="cart-item-price">₹${selections.net.price}</div>
+            // Nets
+            if (selections.nets.length > 0) {
+                document.getElementById('cartNets').style.display = 'block';
+                let netsHTML = '';
+                selections.nets.forEach(net => {
+                    const netTotal = net.price * net.quantity;
+                    netsHTML += `
+                        <div class="cart-item">
+                            <img src="${net.image}" class="cart-item-image">
+                            <div class="cart-item-info">
+                                <div class="cart-item-name">${net.name}</div>
+                                <div class="cart-item-price">₹${net.price} each</div>
+                                <div class="quantity-controls">
+                                    <button class="quantity-btn" onclick="changeNetQuantity('${net.id}', -1)" title="${net.quantity === 1 ? 'Remove net' : 'Decrease quantity'}">-</button>
+                                    <span class="quantity-display">${net.quantity}</span>
+                                    <button class="quantity-btn" onclick="changeNetQuantity('${net.id}', 1)">+</button>
+                                </div>
+                            </div>
+                            <div class="cart-item-total">₹${netTotal}</div>
                         </div>
-                    </div>
-                `;
-                subtotal += selections.net.price;
+                    `;
+                    subtotal += netTotal;
+                });
+                document.getElementById('cartNetsContent').innerHTML = netsHTML;
             } else {
-                document.getElementById('cartNet').style.display = 'none';
+                document.getElementById('cartNets').style.display = 'none';
             }
 
-            // Ribbon
-            if (selections.ribbon) {
-                document.getElementById('cartRibbon').style.display = 'block';
-                document.getElementById('cartRibbonContent').innerHTML = `
-                    <div class="cart-item">
-                        <img src="${selections.ribbon.image}" class="cart-item-image">
-                        <div class="cart-item-info">
-                            <div class="cart-item-name">${selections.ribbon.name}</div>
-                            <div class="cart-item-price">₹${selections.ribbon.price}</div>
+            // Ribbons
+            if (selections.ribbons.length > 0) {
+                document.getElementById('cartRibbons').style.display = 'block';
+                let ribbonsHTML = '';
+                selections.ribbons.forEach(ribbon => {
+                    const ribbonTotal = ribbon.price * ribbon.quantity;
+                    ribbonsHTML += `
+                        <div class="cart-item">
+                            <img src="${ribbon.image}" class="cart-item-image">
+                            <div class="cart-item-info">
+                                <div class="cart-item-name">${ribbon.name}</div>
+                                <div class="cart-item-price">₹${ribbon.price} each</div>
+                                <div class="quantity-controls">
+                                    <button class="quantity-btn" onclick="changeRibbonQuantity('${ribbon.id}', -1)" title="${ribbon.quantity === 1 ? 'Remove ribbon' : 'Decrease quantity'}">-</button>
+                                    <span class="quantity-display">${ribbon.quantity}</span>
+                                    <button class="quantity-btn" onclick="changeRibbonQuantity('${ribbon.id}', 1)">+</button>
+                                </div>
+                            </div>
+                            <div class="cart-item-total">₹${ribbonTotal}</div>
                         </div>
-                    </div>
-                `;
-                subtotal += selections.ribbon.price;
+                    `;
+                    subtotal += ribbonTotal;
+                });
+                document.getElementById('cartRibbonsContent').innerHTML = ribbonsHTML;
             } else {
-                document.getElementById('cartRibbon').style.display = 'none';
+                document.getElementById('cartRibbons').style.display = 'none';
             }
 
             // Calculate discount and final total
@@ -3217,7 +3724,7 @@
                 triggerStepCompletion(currentStep);
                 
                 // Validation
-                if (currentStep === 1 && !selections.basket) {
+                if (currentStep === 1 && selections.baskets.length === 0) {
                     alert('Please select a basket');
                     return;
                 }
@@ -3248,10 +3755,9 @@
             
             // Update summary if on last step
             if (stepIndex === 4) {
-                updateSummary();
-            }
-            
-            // Apply gradient animation to current step heading
+            updateSummary();
+            updateProductIndicators();
+        }            // Apply gradient animation to current step heading
             applyGradientToCurrentStep(stepIndex);
             
 
@@ -3296,11 +3802,11 @@
             
             // Check if cart is empty
             const hasItems = selections.items && selections.items.length > 0;
-            const hasBasket = selections.basket !== null;
-            const hasNet = selections.net !== null;
-            const hasRibbon = selections.ribbon !== null;
+            const hasBaskets = selections.baskets && selections.baskets.length > 0;
+            const hasNets = selections.nets && selections.nets.length > 0;
+            const hasRibbons = selections.ribbons && selections.ribbons.length > 0;
             
-            const cartHasContent = hasItems || hasBasket || hasNet || hasRibbon;
+            const cartHasContent = hasItems || hasBaskets || hasNets || hasRibbons;
             
             // Show/hide empty cart message
             if (cartHasContent) {
@@ -3342,9 +3848,11 @@
             let allItems = [];
 
             // Collect basket
-            if (selections.basket) {
-                basketImage = selections.basket.image;
-                subtotal += selections.basket.price;
+            if (selections.baskets.length > 0) {
+                basketImage = selections.baskets[0].image; // Use first basket image
+                selections.baskets.forEach(basket => {
+                    subtotal += basket.price * basket.quantity;
+                });
             }
 
             // Collect all items (items, net, ribbon)
@@ -3456,17 +3964,17 @@
 
         // Functions to open tooltips from summary page circles
         function openBasketTooltip() {
-            if (!selections.basket) return;
+            if (selections.baskets.length === 0) return;
             
             // Create a mock product card for the basket
             const mockCard = {
                 dataset: {
-                    product: selections.basket.name,
-                    price: selections.basket.price,
+                    product: selections.baskets[0].name,
+                    price: selections.baskets[0].price,
                     type: 'basket',
                     category: 'basket'
                 },
-                querySelector: () => ({ src: selections.basket.image })
+                querySelector: () => ({ src: selections.baskets[0].image })
             };
             
             showBasketInfo(mockCard);
@@ -3523,20 +4031,20 @@
             currentTooltipProduct = {
                 name: card.dataset.product,
                 price: card.dataset.price,
-                image: card.querySelector('.product-image') ? card.querySelector('.product-image').src : selections.basket.image,
+                image: card.querySelector('.product-image') ? card.querySelector('.product-image').src : (selections.baskets.length > 0 ? selections.baskets[0].image : ''),
                 type: 'basket'
             };
 
             // Set tooltip content
-            document.getElementById('tooltipTitle').textContent = selections.basket.name;
-            document.getElementById('tooltipDescription').textContent = `Beautiful ${selections.basket.name.toLowerCase()} perfect for creating memorable gift presentations.`;
+            document.getElementById('tooltipTitle').textContent = selections.baskets[0].name;
+            document.getElementById('tooltipDescription').textContent = `Beautiful ${selections.baskets[0].name.toLowerCase()} perfect for creating memorable gift presentations.`;
             
             // Initialize with basket image
-            initializeImageCarousel([selections.basket.image]);
+            initializeImageCarousel([selections.baskets[0].image]);
 
             // Hide variants section
             document.getElementById('tooltipVariants').style.display = 'none';
-            document.getElementById('tooltipPrice').textContent = `₹${selections.basket.price}`;
+            document.getElementById('tooltipPrice').textContent = `₹${selections.baskets[0].price}`;
 
             // Hide add button since basket is already selected
             document.getElementById('addToBasketBtn').style.display = 'none';
