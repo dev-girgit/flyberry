@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation - Flyberry Gourmet</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700;800&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-light: #f7f8fb;
+            --white: #ffffff;
+            --accent-blue: #374151;
+            --accent-blue-light: #6b7280;
+            --accent-green: #0ba76b;
+            --text-primary: #1a1a1a;
+            --text-secondary: #6b7280;
+            --border-light: #e5e7eb;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+            --success-green: #10b981;
+            --success-light: #d1fae5;
+        }
+
+        body {
+            font-family: 'Nunito', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-weight: 300;
+            background: linear-gradient(135deg, var(--bg-light) 0%, #ffffff 100%);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .confirmation-container {
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg);
+            max-width: 600px;
+            width: 100%;
+            overflow: hidden;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .confirmation-header {
+            background: linear-gradient(135deg, var(--success-green) 0%, #059669 100%);
+            color: white;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            animation: bounce 0.8s ease-out 0.3s both;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 53%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40%, 43% {
+                transform: translateY(-20px);
+            }
+            70% {
+                transform: translateY(-10px);
+            }
+            90% {
+                transform: translateY(-4px);
+            }
+        }
+
+        .confirmation-title {
+            font-family: 'Baloo 2', cursive;
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .confirmation-subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            font-weight: 400;
+        }
+
+        .order-details {
+            padding: 2rem;
+        }
+
+        .order-number {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .order-number-label {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+
+        .order-number-value {
+            font-family: 'Baloo 2', cursive;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-blue);
+            margin-top: 0.25rem;
+        }
+
+        .summary-section {
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            font-family: 'Baloo 2', cursive;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--accent-blue);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border-light);
+        }
+
+
+
+        .items-list {
+            background: var(--bg-light);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .item:last-child {
+            border-bottom: none;
+        }
+
+        .item-info {
+            flex: 1;
+        }
+
+        .item-name {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .item-details {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-top: 0.25rem;
+        }
+
+        .item-total {
+            font-weight: 700;
+            color: var(--accent-blue);
+        }
+
+        .order-total {
+            background: var(--accent-blue);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-top: 1.5rem;
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .total-row:last-child {
+            margin-bottom: 0;
+            padding-top: 0.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .actions {
+            padding: 2rem;
+            background: var(--bg-light);
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            flex: 1;
+            min-width: 200px;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--accent-green);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #0a9960;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(11, 167, 107, 0.3);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--accent-blue);
+            border: 2px solid var(--border-light);
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent-blue);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .contact-info {
+            text-align: center;
+            padding: 1.5rem 2rem;
+            background: white;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .contact-text {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact-details {
+            font-weight: 600;
+            color: var(--accent-blue);
+        }
+
+        @media (max-width: 768px) {
+            .confirmation-container {
+                margin: 1rem;
+                border-radius: 16px;
+            }
+
+            .confirmation-header {
+                padding: 2rem 1.5rem;
+            }
+
+            .confirmation-title {
+                font-size: 1.75rem;
+            }
+
+            .order-details {
+                padding: 1.5rem;
+            }
+
+            .actions {
+                padding: 1.5rem;
+                flex-direction: column;
+            }
+
+            .btn {
+                min-width: auto;
+            }
+
+
+        }
+    </style>
+</head>
+<body>
+    <div class="confirmation-container">
+        <!-- Header -->
+        <div class="confirmation-header">
+            <div class="success-icon">
+                <svg width="40" height="40" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                </svg>
+            </div>
+            <h1 class="confirmation-title">Order Confirmed!</h1>
+            <p class="confirmation-subtitle">Your custom gift basket has been saved and will be prepared with love</p>
+        </div>
+
+        <!-- Order Details -->
+        <div class="order-details">
+            <!-- Order Number -->
+            <div class="order-number">
+                <div class="order-number-label">Order Number</div>
+                <div class="order-number-value" id="orderNumber">#FB-001</div>
+            </div>
+
+
+
+            <!-- Items List -->
+            <div class="summary-section">
+                <h3 class="section-title">📦 Items in Your Basket</h3>
+                <div class="items-list" id="itemsList">
+                    <!-- Items will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Order Total -->
+            <div class="order-total">
+                <div class="total-row">
+                    <span>Subtotal</span>
+                    <span id="subtotalAmount">AED 0</span>
+                </div>
+                <div class="total-row" id="discountRow" style="display: none;">
+                    <span>Discount</span>
+                    <span id="discountAmount">-AED 0</span>
+                </div>
+                <div class="total-row">
+                    <span>Total</span>
+                    <span id="totalAmount">AED 0</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="actions">
+            <a href="index.html" class="btn btn-primary">
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"/>
+                </svg>
+                Create New Basket
+            </a>
+            <button onclick="window.print()" class="btn btn-secondary">
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M5 4v3H4a2 2 0 00-2 2v3a2 2 0 002 2h1v2a2 2 0 002 2h6a2 2 0 002-2v-2h1a2 2 0 002-2V9a2 2 0 00-2-2h-1V4a2 2 0 00-2-2H7a2 2 0 00-2 2zm8 0H7v3h6V4zm0 8H7v4h6v-4z" clip-rule="evenodd"/>
+                </svg>
+                Print Order
+            </button>
+        </div>
+
+        <!-- Contact Info -->
+        <div class="contact-info">
+            <p class="contact-text">We'll contact you soon to confirm the details!</p>
+            <div class="contact-details">📞 +971-XX-XXX-XXXX | ✉️ orders@flyberry.ae</div>
+        </div>
+    </div>
+
+    <script>
+        // Get order data from URL parameters or localStorage
+        function loadOrderData() {
+            try {
+                // Try to get data from localStorage first
+                const orderData = localStorage.getItem('lastOrder');
+                if (orderData) {
+                    const data = JSON.parse(orderData);
+                    populateOrderDetails(data);
+                    // Clear the stored data after use
+                    localStorage.removeItem('lastOrder');
+                    return;
+                }
+
+                // Fallback: try URL parameters
+                const urlParams = new URLSearchParams(window.location.search);
+                const orderParam = urlParams.get('order');
+                if (orderParam) {
+                    const data = JSON.parse(decodeURIComponent(orderParam));
+                    populateOrderDetails(data);
+                }
+            } catch (error) {
+                console.error('Error loading order data:', error);
+                // Show default data if no order data available
+                showDefaultOrder();
+            }
+        }
+
+        function populateOrderDetails(orderData) {
+            // Generate order number based on timestamp
+            const orderNumber = `#FB-${Date.now().toString().slice(-6)}`;
+            document.getElementById('orderNumber').textContent = orderNumber;
+
+
+
+            // Populate items list
+            const itemsList = document.getElementById('itemsList');
+            itemsList.innerHTML = '';
+
+            if (orderData.items && orderData.items.length > 0) {
+                orderData.items.forEach(item => {
+                    const itemElement = document.createElement('div');
+                    itemElement.className = 'item';
+                    itemElement.innerHTML = `
+                        <div class="item-info">
+                            <div class="item-name">${item.name}</div>
+                        </div>
+                        <div class="item-total">${item.total}</div>
+                    `;
+                    itemsList.appendChild(itemElement);
+                });
+            } else {
+                itemsList.innerHTML = '<div class="item"><div class="item-info"><div class="item-name">No items found</div></div></div>';
+            }
+
+            // Populate totals
+            document.getElementById('subtotalAmount').textContent = orderData.subtotal || 'AED 0';
+            document.getElementById('totalAmount').textContent = orderData.finalTotal || 'AED 0';
+
+            // Show discount if applicable
+            if (orderData.discount && parseFloat(orderData.discount.replace(/[^\d.-]/g, '')) > 0) {
+                document.getElementById('discountRow').style.display = 'flex';
+                document.getElementById('discountAmount').textContent = `-${orderData.discount}`;
+            }
+        }
+
+        function showDefaultOrder() {
+            // Show a default message if no order data is available
+            document.getElementById('orderNumber').textContent = '#FB-000001';
+
+            
+            const itemsList = document.getElementById('itemsList');
+            itemsList.innerHTML = '<div class="item"><div class="item-info"><div class="item-name">Your custom basket items</div><div class="item-details">Details will be confirmed by our team</div></div></div>';
+        }
+
+        // Load order data when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            loadOrderData();
+            
+            // Auto-redirect to index after 30 seconds
+            setTimeout(function() {
+                window.location.href = 'index.html';
+            }, 30000); // 30 seconds
+        });
+    </script>
+</body>
+</html>
