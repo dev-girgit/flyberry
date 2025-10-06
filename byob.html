@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700;800&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="https://unpkg.com/d3-annotation/dist/d3-annotation.min.js"></script>
+    <script src="js/cartHandler.js"></script>
     <style>
         * {
             margin: 0;
@@ -218,14 +219,13 @@
             bottom: 30px;
             left: 50%;
             transform: translateX(-50%);
-            background: linear-gradient(to top, #ffffff 0%, #fafafa 100%);
-            border: 1px solid #e5e7eb;
+            background: transparent;
+            border: none;
             border-radius: 25px;
             padding: 20px 30px;
             display: flex;
             flex-direction: column;
             gap: 15px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.12);
             z-index: 1000;
             width: auto;
             max-width: 90vw;
@@ -236,8 +236,7 @@
             flex-direction: column;
             gap: 12px;
             padding: 20px 0;
-            border-top: 1px solid #e5e7eb;
-            background: var(--white);
+            background: transparent;
             position: sticky;
             bottom: 0;
             margin-top: auto;
@@ -915,6 +914,82 @@
             padding: 1rem 0;
         }
 
+        /* Save Cart Button */
+        .save-cart-btn {
+            width: 100%;
+            padding: 12px 20px;
+            background: var(--accent-green);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .save-cart-btn:hover {
+            background: #0a9960;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(11, 167, 107, 0.3);
+        }
+
+        .save-cart-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .save-cart-btn .save-icon {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Save Cart Button */
+        .save-cart-btn {
+            width: 100%;
+            padding: 12px 20px;
+            background: var(--accent-green);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .save-cart-btn:hover {
+            background: #0a9960;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(11, 167, 107, 0.3);
+        }
+
+        .save-cart-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .save-cart-btn .save-icon {
+            width: 16px;
+            height: 16px;
+        }
+
         /* Checkout Summary */
         .summary-section {
             margin-bottom: 2rem;
@@ -1582,11 +1657,131 @@
             opacity: 1;
             pointer-events: auto;
         }
+
+        /* Loading Popup Styles */
+        .loading-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border-radius: 20px;
+            padding: 3rem 2.5rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            text-align: center;
+            min-width: 400px;
+            max-width: 500px;
+        }
+
+        .loading-popup.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .loading-popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 9998;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease;
+        }
+
+        .loading-popup-overlay.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 2rem;
+            border: 4px solid #f3f4f6;
+            border-top: 4px solid #DAA520;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-title {
+            font-family: 'Baloo 2', cursive;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 1rem;
+        }
+
+        .loading-message {
+            font-size: 1rem;
+            color: #6b7280;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+
+        .loading-progress {
+            background: #f3f4f6;
+            height: 6px;
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+
+        .loading-progress-bar {
+            background: linear-gradient(90deg, #DAA520, #FFD700);
+            height: 100%;
+            border-radius: 3px;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .loading-status {
+            font-size: 0.875rem;
+            color: #059669;
+            font-weight: 600;
+        }
+
+        @media (max-width: 640px) {
+            .loading-popup {
+                min-width: 320px;
+                max-width: 90vw;
+                padding: 2rem 1.5rem;
+            }
+            
+            .loading-title {
+                font-size: 1.5rem;
+            }
+        }
     </style>
 </head>
 <body>
     <!-- Tooltip Overlay -->
     <div class="tooltip-overlay" id="tooltipOverlay" onclick="hideTooltip()"></div>
+    
+    <!-- Loading Popup Overlay -->
+    <div class="loading-popup-overlay" id="loadingOverlay"></div>
+    
+    <!-- Loading Popup -->
+    <div class="loading-popup" id="loadingPopup">
+        <div class="loading-spinner"></div>
+        <h2 class="loading-title">Processing Your Order</h2>
+        <p class="loading-message">Please wait while we save your beautiful gift basket to our secure system...</p>
+        <div class="loading-progress">
+            <div class="loading-progress-bar" id="loadingProgressBar"></div>
+        </div>
+        <div class="loading-status" id="loadingStatus">Processing your order...</div>
+    </div>
     
     <!-- Product Tooltip -->
     <div class="product-tooltip" id="productTooltip">
@@ -2013,47 +2208,36 @@
                     <div class="category-section" id="cane-section">
                         <h3 class="category-section-title">Cane Baskets</h3>
                         <div class="category-items">
-                            <div class="product-card" data-type="basket" data-category="cane" data-product="Cane Basket Style 1" data-price="449">
+                            <div class="product-card" data-type="basket" data-category="cane" data-product="Natural Weave Cane" data-price="449">
                                 <div class="product-image-wrapper">
-                                    <img src="CANE/1.png" alt="Cane Basket Style 1" class="product-image">
+                                    <img src="CANE/1.png" alt="Natural Weave Cane" class="product-image">
                                     <div class="product-add-indicator">+</div>
                                 </div>
                                 <div class="product-info">
-                                    <div class="product-name">Cane Basket Style 1</div>
+                                    <div class="product-name">Natural Weave Cane</div>
                                     <div class="product-price">₹449</div>
                                 </div>
                             </div>
 
-                            <div class="product-card" data-type="basket" data-category="cane" data-product="Cane Basket Style 2" data-price="459">
+                            <div class="product-card" data-type="basket" data-category="cane" data-product="Rustic Cane Classic" data-price="459">
                                 <div class="product-image-wrapper">
-                                    <img src="CANE/2.png" alt="Cane Basket Style 2" class="product-image">
+                                    <img src="CANE/2.png" alt="Rustic Cane Classic" class="product-image">
                                     <div class="product-add-indicator">+</div>
                                 </div>
                                 <div class="product-info">
-                                    <div class="product-name">Cane Basket Style 2</div>
+                                    <div class="product-name">Rustic Cane Classic</div>
                                     <div class="product-price">₹459</div>
                                 </div>
                             </div>
 
-                            <div class="product-card" data-type="basket" data-category="cane" data-product="Cane Basket Style 3" data-price="469">
+                            <div class="product-card" data-type="basket" data-category="cane" data-product="Traditional Cane Charm" data-price="469">
                                 <div class="product-image-wrapper">
-                                    <img src="CANE/3.png" alt="Cane Basket Style 3" class="product-image">
+                                    <img src="CANE/3.png" alt="Traditional Cane Charm" class="product-image">
                                     <div class="product-add-indicator">+</div>
                                 </div>
                                 <div class="product-info">
-                                    <div class="product-name">Cane Basket Style 3</div>
+                                    <div class="product-name">Traditional Cane Charm</div>
                                     <div class="product-price">₹469</div>
-                                </div>
-                            </div>
-
-                            <div class="product-card" data-type="basket" data-category="cane" data-product="Cane Basket Style 4" data-price="479">
-                                <div class="product-image-wrapper">
-                                    <img src="CANE/4.png" alt="Cane Basket Style 4" class="product-image">
-                                    <div class="product-add-indicator">+</div>
-                                </div>
-                                <div class="product-info">
-                                    <div class="product-name">Cane Basket Style 4</div>
-                                    <div class="product-price">₹479</div>
                                 </div>
                             </div>
                         </div>
@@ -2063,84 +2247,38 @@
                     <div class="category-section" id="bamboo-section">
                         <h3 class="category-section-title">Bamboo Baskets</h3>
                         <div class="category-items">
-                            <div class="product-card" data-type="basket" data-category="bamboo" data-product="Bamboo Basket Style 1" data-price="399">
+                            <div class="product-card" data-type="basket" data-category="bamboo" data-product="Eco Bamboo Delight" data-price="399">
                                 <div class="product-image-wrapper">
-                                    <img src="BAMBOO/1.png" alt="Bamboo Basket Style 1" class="product-image">
+                                    <img src="BAMBOO/1.png" alt="Eco Bamboo Delight" class="product-image">
                                     <div class="product-add-indicator">+</div>
                                 </div>
                                 <div class="product-info">
-                                    <div class="product-name">Bamboo Basket Style 1</div>
+                                    <div class="product-name">Eco Bamboo Delight</div>
                                     <div class="product-price">₹399</div>
                                 </div>
                             </div>
 
-                            <div class="product-card" data-type="basket" data-category="bamboo" data-product="Bamboo Basket Style 2" data-price="409">
+                            <div class="product-card" data-type="basket" data-category="bamboo" data-product="Bamboo Elegance" data-price="409">
                                 <div class="product-image-wrapper">
-                                    <img src="BAMBOO/2.png" alt="Bamboo Basket Style 2" class="product-image">
+                                    <img src="BAMBOO/2.png" alt="Bamboo Elegance" class="product-image">
                                     <div class="product-add-indicator">+</div>
                                 </div>
                                 <div class="product-info">
-                                    <div class="product-name">Bamboo Basket Style 2</div>
+                                    <div class="product-name">Bamboo Elegance</div>
                                     <div class="product-price">₹409</div>
                                 </div>
                             </div>
 
-                            <div class="product-card" data-type="basket" data-category="bamboo" data-product="Bamboo Basket Style 3" data-price="419">
+                            <div class="product-card" data-type="basket" data-category="bamboo" data-product="Sustainable Bamboo Choice" data-price="419">
                                 <div class="product-image-wrapper">
-                                    <img src="BAMBOO/3.png" alt="Bamboo Basket Style 3" class="product-image">
+                                    <img src="BAMBOO/3.png" alt="Sustainable Bamboo Choice" class="product-image">
                                     <div class="product-add-indicator">+</div>
                                 </div>
                                 <div class="product-info">
-                                    <div class="product-name">Bamboo Basket Style 3</div>
+                                    <div class="product-name">Sustainable Bamboo Choice</div>
                                     <div class="product-price">₹419</div>
                                 </div>
                             </div>
-
-                            <div class="product-card" data-type="basket" data-category="bamboo" data-product="Bamboo Basket Style 4" data-price="429">
-                                <div class="product-image-wrapper">
-                                    <img src="BAMBOO/4.png" alt="Bamboo Basket Style 4" class="product-image">
-                                    <div class="product-add-indicator">+</div>
-                                </div>
-                                <div class="product-info">
-                                    <div class="product-name">Bamboo Basket Style 4</div>
-                                    <div class="product-price">₹429</div>
-                                </div>
-                            </div>
-
-                            <div class="product-card" data-type="basket" data-category="bamboo" data-product="Bamboo Basket Style 5" data-price="439">
-                                <div class="product-image-wrapper">
-                                    <img src="BAMBOO/5.png" alt="Bamboo Basket Style 5" class="product-image">
-                                    <div class="product-add-indicator">+</div>
-                                </div>
-                                <div class="product-info">
-                                    <div class="product-name">Bamboo Basket Style 5</div>
-                                    <div class="product-price">₹439</div>
-                                </div>
-                            </div>
-
-                            <div class="product-card" data-type="basket" data-category="bamboo" data-product="Bamboo Basket Style 6" data-price="449">
-                                <div class="product-image-wrapper">
-                                    <img src="BAMBOO/6.png" alt="Bamboo Basket Style 6" class="product-image">
-                                    <div class="product-add-indicator">+</div>
-                                </div>
-                                <div class="product-info">
-                                    <div class="product-name">Bamboo Basket Style 6</div>
-                                    <div class="product-price">₹449</div>
-                                </div>
-                            </div>
-
-                            <div class="product-card" data-type="basket" data-category="bamboo" data-product="Bamboo Basket Style 7" data-price="459">
-                                <div class="product-image-wrapper">
-                                    <img src="BAMBOO/7.png" alt="Bamboo Basket Style 7" class="product-image">
-                                    <div class="product-add-indicator">+</div>
-                                </div>
-                                <div class="product-info">
-                                    <div class="product-name">Bamboo Basket Style 7</div>
-                                    <div class="product-price">₹459</div>
-                                </div>
-                            </div>
-
-
                         </div>
                     </div>
 
@@ -2148,95 +2286,38 @@
                     <div class="category-section" id="premium-section">
                         <h3 class="category-section-title">Premium Baskets</h3>
                         <div class="category-items">
-                            <div class="product-card" data-type="basket" data-category="premium" data-product="Premium Basket Style 1" data-price="599">
+                            <div class="product-card" data-type="basket" data-category="premium" data-product="Luxury Wicker Collection" data-price="599">
                                 <div class="product-image-wrapper">
-                                    <img src="PREMIUM/1.png" alt="Premium Basket Style 1" class="product-image">
+                                    <img src="PREMIUM/1.png" alt="Luxury Wicker Collection" class="product-image">
                                     <div class="product-add-indicator">+</div>
                                 </div>
                                 <div class="product-info">
-                                    <div class="product-name">Premium Basket Style 1</div>
+                                    <div class="product-name">Luxury Wicker Collection</div>
                                     <div class="product-price">₹599</div>
                                 </div>
                             </div>
 
-                            <div class="product-card" data-type="basket" data-category="premium" data-product="Premium Basket Style 2" data-price="629">
+                            <div class="product-card" data-type="basket" data-category="premium" data-product="Artisan Crafted Premium" data-price="629">
                                 <div class="product-image-wrapper">
-                                    <img src="PREMIUM/2.png" alt="Premium Basket Style 2" class="product-image">
+                                    <img src="PREMIUM/2.png" alt="Artisan Crafted Premium" class="product-image">
                                     <div class="product-add-indicator">+</div>
                                 </div>
                                 <div class="product-info">
-                                    <div class="product-name">Premium Basket Style 2</div>
+                                    <div class="product-name">Artisan Crafted Premium</div>
                                     <div class="product-price">₹629</div>
                                 </div>
                             </div>
 
-                            <div class="product-card" data-type="basket" data-category="premium" data-product="Premium Basket Style 3" data-price="659">
+                            <div class="product-card" data-type="basket" data-category="premium" data-product="Executive Gift Basket" data-price="659">
                                 <div class="product-image-wrapper">
-                                    <img src="PREMIUM/3.png" alt="Premium Basket Style 3" class="product-image">
+                                    <img src="PREMIUM/3.png" alt="Executive Gift Basket" class="product-image">
                                     <div class="product-add-indicator">+</div>
                                 </div>
                                 <div class="product-info">
-                                    <div class="product-name">Premium Basket Style 3</div>
+                                    <div class="product-name">Executive Gift Basket</div>
                                     <div class="product-price">₹659</div>
                                 </div>
                             </div>
-
-                            <div class="product-card" data-type="basket" data-category="premium" data-product="Premium Basket Style 4" data-price="689">
-                                <div class="product-image-wrapper">
-                                    <img src="PREMIUM/4.png" alt="Premium Basket Style 4" class="product-image">
-                                    <div class="product-add-indicator">+</div>
-                                </div>
-                                <div class="product-info">
-                                    <div class="product-name">Premium Basket Style 4</div>
-                                    <div class="product-price">₹689</div>
-                                </div>
-                            </div>
-
-                            <div class="product-card" data-type="basket" data-category="premium" data-product="Premium Basket Style 5" data-price="719">
-                                <div class="product-image-wrapper">
-                                    <img src="PREMIUM/5.png" alt="Premium Basket Style 5" class="product-image">
-                                    <div class="product-add-indicator">+</div>
-                                </div>
-                                <div class="product-info">
-                                    <div class="product-name">Premium Basket Style 5</div>
-                                    <div class="product-price">₹719</div>
-                                </div>
-                            </div>
-
-                            <div class="product-card" data-type="basket" data-category="premium" data-product="Premium Basket Style 6" data-price="749">
-                                <div class="product-image-wrapper">
-                                    <img src="PREMIUM/6.png" alt="Premium Basket Style 6" class="product-image">
-                                    <div class="product-add-indicator">+</div>
-                                </div>
-                                <div class="product-info">
-                                    <div class="product-name">Premium Basket Style 6</div>
-                                    <div class="product-price">₹749</div>
-                                </div>
-                            </div>
-
-                            <div class="product-card" data-type="basket" data-category="premium" data-product="Premium Basket Style 7" data-price="779">
-                                <div class="product-image-wrapper">
-                                    <img src="PREMIUM/7.png" alt="Premium Basket Style 7" class="product-image">
-                                    <div class="product-add-indicator">+</div>
-                                </div>
-                                <div class="product-info">
-                                    <div class="product-name">Premium Basket Style 7</div>
-                                    <div class="product-price">₹779</div>
-                                </div>
-                            </div>
-
-                            <div class="product-card" data-type="basket" data-category="premium" data-product="Premium Basket Style 8" data-price="809">
-                                <div class="product-image-wrapper">
-                                    <img src="PREMIUM/8.png" alt="Premium Basket Style 8" class="product-image">
-                                    <div class="product-add-indicator">+</div>
-                                </div>
-                                <div class="product-info">
-                                    <div class="product-name">Premium Basket Style 8</div>
-                                    <div class="product-price">₹809</div>
-                                </div>
-                            </div>
-
-
                         </div>
                     </div>
                 </div>
@@ -3734,7 +3815,7 @@
                 updateCartButtons();
             } else if (currentStep === 4) {
                 // Final step - place order
-                alert('Thank you for your order!');
+                placeOrder();
             }
         }
 
@@ -4117,6 +4198,135 @@
                 }, 200);
             }
         }
+
+        // Place Order functionality with loading popup
+        function placeOrder() {
+            if (window.cartHandler) {
+                const cartData = window.cartHandler.extractCartData();
+                if (cartData && cartData.items.length > 0) {
+                    // Show loading popup
+                    showLoadingPopup();
+                    
+                    // Store order data for confirmation page
+                    localStorage.setItem('lastOrder', JSON.stringify(cartData));
+                    
+                    // Start progress simulation
+                    simulateProgress();
+                    
+                    // Save to Google Sheets
+                    window.cartHandler.submitCartToSheets(cartData);
+                    
+                    // Wait 10 seconds to ensure data is saved, then redirect
+                    setTimeout(() => {
+                        updateLoadingStatus('Order saved successfully!', 100);
+                        setTimeout(() => {
+                            hideLoadingPopup();
+                            window.location.href = 'order-confirmation.html';
+                        }, 1500); // Show success message for 1.5 seconds
+                    }, 10000); // Wait 10 seconds for Google Sheets
+                    
+                } else {
+                    alert('⚠️ Your basket is empty! Please add some items before placing your order.');
+                }
+            } else {
+                console.error('Cart handler not loaded');
+                alert('❌ There was a technical issue. Please try again or contact support.');
+            }
+        }
+
+        // Loading popup functions
+        function showLoadingPopup() {
+            const overlay = document.getElementById('loadingOverlay');
+            const popup = document.getElementById('loadingPopup');
+            
+            if (overlay && popup) {
+                overlay.classList.add('visible');
+                popup.classList.add('visible');
+            }
+        }
+
+        function hideLoadingPopup() {
+            const overlay = document.getElementById('loadingOverlay');
+            const popup = document.getElementById('loadingPopup');
+            
+            if (overlay && popup) {
+                overlay.classList.remove('visible');
+                popup.classList.remove('visible');
+            }
+        }
+
+        function updateLoadingStatus(message, progress) {
+            const statusElement = document.getElementById('loadingStatus');
+            const progressBar = document.getElementById('loadingProgressBar');
+            
+            if (statusElement) {
+                statusElement.textContent = message;
+            }
+            if (progressBar) {
+                progressBar.style.width = progress + '%';
+            }
+        }
+
+        function simulateProgress() {
+            let progress = 0;
+            const messages = [
+                'Processing your order...',
+                'Saving basket details...',
+                'Uploading to secure database...',
+                'Finalizing your order...',
+                'Almost done...'
+            ];
+            
+            const interval = setInterval(() => {
+                progress += Math.random() * 15 + 5; // Random progress between 5-20%
+                if (progress > 90) progress = 90; // Cap at 90% until actual completion
+                
+                const messageIndex = Math.floor((progress / 90) * (messages.length - 1));
+                updateLoadingStatus(messages[messageIndex], progress);
+                
+                if (progress >= 90) {
+                    clearInterval(interval);
+                }
+            }, 1500); // Update every 1.5 seconds
+        }
+
+        // Cart saving functionality (kept for backup)
+        function saveCartToSheets() {
+            if (window.cartHandler) {
+                window.cartHandler.saveCart();
+            } else {
+                console.error('Cart handler not loaded');
+            }
+        }
+
+        // Auto-save cart when items are added/removed (optional)
+        function autoSaveCart() {
+            // Debounced auto-save to avoid too many requests
+            clearTimeout(window.autoSaveTimeout);
+            window.autoSaveTimeout = setTimeout(() => {
+                const cartData = window.cartHandler?.extractCartData();
+                if (cartData && cartData.items.length > 0) {
+                    console.log('Auto-saving cart...', cartData);
+                    window.cartHandler?.submitCartToSheets(cartData);
+                }
+            }, 2000); // Save 2 seconds after last change
+        }
+
+        // Override the original addToCart function to include auto-save
+        const originalAddToCart = window.addToCart;
+        window.addToCart = function(productId) {
+            const result = originalAddToCart(productId);
+            autoSaveCart(); // Auto-save after adding item
+            return result;
+        };
+
+        // Override the original removeFromCart function to include auto-save
+        const originalRemoveFromCart = window.removeFromCart;
+        window.removeFromCart = function(productId) {
+            const result = originalRemoveFromCart(productId);
+            autoSaveCart(); // Auto-save after removing item
+            return result;
+        };
     </script>
 </body>
 </html>
