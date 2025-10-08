@@ -1068,19 +1068,15 @@
         .center-basket {
             width: 200px;
             height: 200px;
-            font-size: 120px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            object-fit: cover;
             z-index: 2;
             cursor: pointer;
             position: absolute;
             bottom: 50px;
             left: 50%;
             transform: translateX(-50%);
-            background: #f9f9f9;
-            border: 2px solid #e5e7eb;
-            border-radius: 50%;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
         .center-basket:hover {
@@ -3987,9 +3983,7 @@
             if (basketImage || allItems.length > 0) {
                 arrangementHTML = `
                     <div class="basket-arrangement">
-                        <div class="center-basket">
-                            🧺
-                        </div>
+                        <img src="${basketImage || 'logo.png'}" alt="Selected Basket" class="center-basket" onclick="openBasketTooltip()">
                         <div class="circular-items">
                 `;
 
