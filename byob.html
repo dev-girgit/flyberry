@@ -4242,14 +4242,14 @@
                     // Save to Google Sheets
                     window.cartHandler.submitCartToSheets(cartData);
                     
-                    // Wait 2 minutes to ensure data is saved, then redirect
+                    // Wait 5 seconds to ensure data is saved, then redirect
                     setTimeout(() => {
                         updateLoadingStatus('Order saved successfully!', 100);
                         setTimeout(() => {
                             hideLoadingPopup();
                             window.location.href = 'order-confirmation.html';
                         }, 1500); // Show success message for 1.5 seconds
-                    }, 120000); // Wait 2 minutes (120 seconds)
+                    }, 5000); // Wait 5 seconds
                     
                 } else {
                     alert('⚠️ Your basket is empty! Please add some items before placing your order.');
