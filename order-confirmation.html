@@ -264,23 +264,7 @@
             box-shadow: var(--shadow-md);
         }
 
-        .contact-info {
-            text-align: center;
-            padding: 1.5rem 2rem;
-            background: white;
-            border-top: 1px solid var(--border-light);
-        }
 
-        .contact-text {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-        }
-
-        .contact-details {
-            font-weight: 600;
-            color: var(--accent-blue);
-        }
 
         @media (max-width: 768px) {
             .confirmation-container {
@@ -376,12 +360,6 @@
                 Print Order
             </button>
         </div>
-
-        <!-- Contact Info -->
-        <div class="contact-info">
-            <p class="contact-text">We'll contact you soon to confirm the details!</p>
-            <div class="contact-details">📞 +971-XX-XXX-XXXX | ✉️ orders@flyberry.ae</div>
-        </div>
     </div>
 
     <script>
@@ -463,10 +441,10 @@
         document.addEventListener('DOMContentLoaded', function() {
             loadOrderData();
             
-            // Auto-redirect to index after 30 seconds
+            // Auto-redirect to index after 1 minute
             setTimeout(function() {
                 window.location.href = 'index.html';
-            }, 30000); // 30 seconds
+            }, 60000); // 1 minute
         });
     </script>
 </body>
