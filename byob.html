@@ -1768,7 +1768,7 @@
     <div class="loading-popup" id="loadingPopup">
         <div class="loading-spinner"></div>
         <h2 class="loading-title">Processing Your Order</h2>
-        <p class="loading-message">Please wait while we save your beautiful gift basket to our secure system...</p>
+        <p class="loading-message">Please wait while we save your beautiful gift basket...</p>
         <div class="loading-progress">
             <div class="loading-progress-bar" id="loadingProgressBar"></div>
         </div>
@@ -4242,14 +4242,14 @@
                     // Save to Google Sheets
                     window.cartHandler.submitCartToSheets(cartData);
                     
-                    // Wait 10 seconds to ensure data is saved, then redirect
+                    // Wait 2 minutes to ensure data is saved, then redirect
                     setTimeout(() => {
                         updateLoadingStatus('Order saved successfully!', 100);
                         setTimeout(() => {
                             hideLoadingPopup();
                             window.location.href = 'order-confirmation.html';
                         }, 1500); // Show success message for 1.5 seconds
-                    }, 10000); // Wait 10 seconds for Google Sheets
+                    }, 120000); // Wait 2 minutes (120 seconds)
                     
                 } else {
                     alert('⚠️ Your basket is empty! Please add some items before placing your order.');
@@ -4298,7 +4298,6 @@
             const messages = [
                 'Processing your order...',
                 'Saving basket details...',
-                'Uploading to secure database...',
                 'Finalizing your order...',
                 'Almost done...'
             ];
