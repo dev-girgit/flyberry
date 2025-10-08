@@ -4221,10 +4221,13 @@
             // Get username from localStorage
             const userName = localStorage.getItem('userName') || 'Guest';
             
-            // Update cart title with actual username
+            // Convert to proper title case (first letter of each word capitalized)
+            const titleCaseName = userName.toLowerCase().replace(/\b\w/g, l => l.toUpperCase());
+            
+            // Update cart title with formatted username
             const cartTitle = document.getElementById('cartTitle');
             if (cartTitle) {
-                cartTitle.textContent = `${userName}'s gift basket`;
+                cartTitle.textContent = `${titleCaseName}'s gift basket`;
             }
         }
 
