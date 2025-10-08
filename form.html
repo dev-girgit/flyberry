@@ -77,8 +77,15 @@
 
 			new stepsForm( theForm, {
 				onSubmit : function( form ) {
+					// Get the username from the form
+					const userName = form.querySelector('#q1').value || 'Guest';
+					
 					// Save form data to Google Sheets
 					window.formHandler.submitToSheets( form );
+					
+					// Store username in localStorage for the BYOB page
+					localStorage.setItem('userName', userName);
+					
 					// Redirect to basket builder
 					setTimeout(() => {
 						window.location.href = 'byob.html';
