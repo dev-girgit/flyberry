@@ -48,7 +48,7 @@
 							</li>
 							<li>
 								<span><label for="q3">How many baskets do you need?</label></span>
-								<input id="q3" name="q3" type="number" min="1" value="1"/>
+								<input id="q3" name="q3" type="number" min="1"/>
 							</li>
 						</ol><!-- /questions -->
 						<button class="submit" type="submit">Send answers</button>
@@ -82,7 +82,7 @@
 					// Redirect to basket builder
 					setTimeout(() => {
 						window.location.href = 'byob.html';
-					}, 2000); // Small delay to allow form submission to complete
+					}, 1000); // 1 second delay before redirect
 				}
 			} );
 		</script>
