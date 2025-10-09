@@ -2962,7 +2962,7 @@
 
             // Set tooltip content
             document.getElementById('tooltipTitle').textContent = baseProductName;
-            document.getElementById('tooltipDescription').textContent = data.description;
+            document.getElementById('tooltipDescription').innerHTML = data.description.replace(/\n/g, '<br>');
             
             // Initialize image carousel
             initializeImageCarousel(data.images || [data.image || productImage]);
@@ -4109,7 +4109,7 @@
 
             // Set tooltip content
             document.getElementById('tooltipTitle').textContent = productName;
-            document.getElementById('tooltipDescription').textContent = data.description;
+            document.getElementById('tooltipDescription').innerHTML = data.description.replace(/\n/g, '<br>');
             
             // Initialize image carousel with all product images
             initializeImageCarousel(data.images || [imageSrc]);
