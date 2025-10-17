@@ -2246,11 +2246,71 @@
                 font-size: 0.85rem;
             }
         }
+
+        /* Toast Notification Styles */
+        .toast-notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #0ba76b;
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(11, 167, 107, 0.3);
+            font-weight: 600;
+            font-size: 0.9rem;
+            z-index: 10000;
+            transform: translateX(100%);
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            max-width: 300px;
+            border-left: 4px solid #059669;
+        }
+
+        .toast-notification.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .toast-notification.success {
+            background: #0ba76b;
+            border-left-color: #059669;
+        }
+
+        .toast-notification.info {
+            background: #3b82f6;
+            border-left-color: #2563eb;
+        }
+
+        .toast-notification::before {
+            content: "✓";
+            display: inline-block;
+            margin-right: 8px;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 768px) {
+            .toast-notification {
+                top: 10px;
+                right: 10px;
+                left: 10px;
+                transform: translateY(-100%);
+                max-width: none;
+            }
+
+            .toast-notification.show {
+                transform: translateY(0);
+            }
+        }
     </style>
 </head>
 <body>
     <!-- Tooltip Overlay -->
     <div class="tooltip-overlay" id="tooltipOverlay" onclick="hideTooltip()"></div>
+    
+    <!-- Toast Notification -->
+    <div class="toast-notification" id="toastNotification"></div>
     
     <!-- Loading Popup Overlay -->
     <div class="loading-popup-overlay" id="loadingOverlay"></div>
@@ -3141,6 +3201,20 @@
         let currentImageIndex = 0;
         let currentImages = [];
 
+        // Toast notification functions
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toastNotification');
+            toast.textContent = message;
+            toast.className = `toast-notification ${type}`;
+            
+            // Show the toast
+            setTimeout(() => toast.classList.add('show'), 100);
+            
+            // Hide the toast after 3 seconds
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
 
         // Product data with descriptions and variants
         const productData = {
@@ -3637,10 +3711,12 @@
             if (existingItemIndex !== -1) {
                 // Increase quantity if item exists
                 selections.items[existingItemIndex].quantity += 1;
+                showToast(`Added another ${currentTooltipProduct.name} to basket!`);
             } else {
                 // Add new item to selections
                 const itemId = Date.now() + Math.random(); // Generate unique ID
                 selections.items.push({ id: itemId, name: uniqueProductName, price, image, category, quantity: 1 });
+                showToast(`${currentTooltipProduct.name} added to basket!`);
             }
             
             // Update cart display
@@ -3730,6 +3806,7 @@
                 if (existingBasket) {
                     // If basket already exists, increase quantity
                     existingBasket.quantity += 1;
+                    showToast(`Added another ${product} basket!`);
                 } else {
                     // Add new basket
                     selections.baskets.push({ 
@@ -3739,6 +3816,7 @@
                         image, 
                         quantity: 1 
                     });
+                    showToast(`${product} basket added!`);
                 }
                 
                 // Update basket counter if exists
@@ -3751,6 +3829,7 @@
                 
                 if (existingNet) {
                     existingNet.quantity += 1;
+                    showToast(`Added another ${product} net!`);
                 } else {
                     selections.nets.push({ 
                         id: netId, 
@@ -3759,6 +3838,7 @@
                         image, 
                         quantity: 1 
                     });
+                    showToast(`${product} net selected!`);
                 }
                 
                 updateItemCounter(card, existingNet ? existingNet.quantity : 1);
@@ -3770,6 +3850,7 @@
                 
                 if (existingRibbon) {
                     existingRibbon.quantity += 1;
+                    showToast(`Added another ${product} ribbon!`);
                 } else {
                     selections.ribbons.push({ 
                         id: ribbonId, 
@@ -3778,6 +3859,7 @@
                         image, 
                         quantity: 1 
                     });
+                    showToast(`${product} ribbon selected!`);
                 }
                 
                 updateItemCounter(card, existingRibbon ? existingRibbon.quantity : 1);
@@ -3792,10 +3874,12 @@
                 if (existingIndex !== -1) {
                     // Increase quantity if item exists
                     selections.items[existingIndex].quantity += 1;
+                    showToast(`Added another ${product} to basket!`);
                 } else {
                     // Add new item to cart
                     const itemId = Date.now() + Math.random(); // Generate unique ID
                     selections.items.push({ id: itemId, name: product, price, image, category, quantity: 1 });
+                    showToast(`${product} added to basket!`);
                 }
             }
 
