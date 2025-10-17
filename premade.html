@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flyberry Gourmet - Pre-Made Gift Baskets</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700;800&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-light: #f7f8fb;
+            --white: #ffffff;
+            --accent-blue: #374151;
+            --accent-blue-light: #6b7280;
+            --accent-green: #0ba76b;
+            --text-primary: #1a1a1a;
+            --text-secondary: #6b7280;
+            --border-light: #e5e7eb;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+            --gold: #DAA520;
+            --gold-dark: #B8860B;
+        }
+
+        body {
+            font-family: 'Nunito', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-weight: 300;
+            background: var(--bg-light);
+            color: var(--text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Baloo 2', cursive;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+
+        /* Header */
+        .header {
+            background: var(--white);
+            padding: 1rem 0;
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            height: 50px;
+            width: auto;
+        }
+
+        .back-btn {
+            background: none;
+            border: 2px solid var(--border-light);
+            color: var(--text-secondary);
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .back-btn:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .page-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+        }
+
+        /* Products Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .product-card {
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            border: 2px solid var(--border-light);
+            transition: all 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--gold);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-bottom: 2px solid var(--border-light);
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .product-description {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .product-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .add-to-cart-btn {
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .add-to-cart-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(218, 165, 32, 0.4);
+        }
+
+        .quantity-controls {
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 1rem;
+        }
+
+        .quantity-controls.active {
+            display: flex;
+        }
+
+        .quantity-btn {
+            background: var(--white);
+            border: 2px solid var(--border-light);
+            color: var(--text-primary);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .quantity-btn:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        .quantity-display {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            min-width: 60px;
+            text-align: center;
+        }
+
+        .remove-btn {
+            background: #fee;
+            color: #dc2626;
+            border: 2px solid #fecaca;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .remove-btn:hover {
+            background: #fecaca;
+            border-color: #dc2626;
+        }
+
+        /* Cart Summary */
+        .cart-summary {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            border-top: 2px solid var(--border-light);
+            padding: 1.5rem 2rem;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+            z-index: 200;
+        }
+
+        .cart-summary.active {
+            transform: translateY(0);
+        }
+
+        .cart-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cart-info {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .cart-items-count {
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        .cart-total {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gold);
+        }
+
+        .checkout-btn {
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .checkout-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(218, 165, 32, 0.4);
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--white);
+            border-radius: 20px;
+            max-width: 800px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: modalFadeIn 0.3s ease-out;
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .modal-header {
+            position: relative;
+            padding: 1.5rem;
+            border-bottom: 2px solid var(--border-light);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-secondary);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            background: var(--border-light);
+            color: var(--text-primary);
+        }
+
+        .modal-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 15px;
+        }
+
+        .modal-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin: 1rem 0 0.5rem 0;
+        }
+
+        .modal-price {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .modal-body {
+            padding: 0 1.5rem 1.5rem 1.5rem;
+        }
+
+        .contents-section {
+            margin-top: 1.5rem;
+        }
+
+        .contents-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .contents-list {
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        .content-item {
+            background: #f8f9fa;
+            padding: 0.75rem 1rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--gold);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .item-name {
+            font-weight: 600;
+            color: var(--text-primary);
+            flex: 1;
+        }
+
+        .item-weight {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 500;
+            min-width: 80px;
+            text-align: right;
+        }
+
+        .total-weight {
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            color: white;
+            padding: 1rem;
+            border-radius: 12px;
+            margin-top: 1rem;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .modal-actions {
+            padding: 1.5rem;
+            border-top: 2px solid var(--border-light);
+            display: flex;
+            gap: 1rem;
+        }
+
+        .modal-add-btn {
+            flex: 1;
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .modal-add-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(218, 165, 32, 0.4);
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--accent-green);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow-lg);
+            font-weight: 600;
+            transform: translateX(100%);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 1100;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .cart-content {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .cart-info {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .header-content {
+                padding: 0 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <img src="logo.png" alt="Flyberry Gourmet" class="logo">
+            <a href="selection.html" class="back-btn">
+                <span>←</span>
+                Back to Options
+            </a>
+        </div>
+    </header>
+
+    <div class="container">
+        <h1 class="page-title">Pre-Made Gift Baskets</h1>
+        <p class="page-subtitle">Carefully curated baskets, ready to delight your loved ones</p>
+
+        <div class="products-grid">
+            <!-- Bluebell Basket -->
+            <div class="product-card">
+                <img src="READY MADE BASKETS/BLUEBELL.png" alt="Bluebell Basket" class="product-image" onclick="showModal('bluebell')" style="cursor: pointer;">
+                <div class="product-info">
+                    <h3 class="product-name">Bluebell</h3>
+                    <p class="product-description">
+                        A delightful collection of premium dates, nuts, and sweet treats elegantly arranged in a beautiful blue-themed presentation.
+                    </p>
+                    <div class="product-price">₹1,100</div>
+                    <div class="product-actions">
+                        <button class="add-to-cart-btn" onclick="addToCart('bluebell', 'Bluebell', 1100, 'READY MADE BASKETS/BLUEBELL.png')">
+                            <span>🛒</span>
+                            Add to Cart
+                        </button>
+                        <div class="quantity-controls" id="controls-bluebell">
+                            <button class="quantity-btn" onclick="updateQuantity('bluebell', -1)">-</button>
+                            <span class="quantity-display" id="qty-bluebell">1</span>
+                            <button class="quantity-btn" onclick="updateQuantity('bluebell', 1)">+</button>
+                            <button class="remove-btn" onclick="removeFromCart('bluebell')">Remove</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Breezeline Basket -->
+            <div class="product-card">
+                <img src="READY MADE BASKETS/BREEZELINE.png" alt="Breezeline Basket" class="product-image" onclick="showModal('breezeline')" style="cursor: pointer;">
+                <div class="product-info">
+                    <h3 class="product-name">Breezeline</h3>
+                    <p class="product-description">
+                        Fresh and airy arrangement featuring organic dates, premium nuts, and artisanal treats in a contemporary design.
+                    </p>
+                    <div class="product-price">₹1,050</div>
+                    <div class="product-actions">
+                        <button class="add-to-cart-btn" onclick="addToCart('breezeline', 'Breezeline', 1050, 'READY MADE BASKETS/BREEZELINE.png')">
+                            <span>🛒</span>
+                            Add to Cart
+                        </button>
+                        <div class="quantity-controls" id="controls-breezeline">
+                            <button class="quantity-btn" onclick="updateQuantity('breezeline', -1)">-</button>
+                            <span class="quantity-display" id="qty-breezeline">1</span>
+                            <button class="quantity-btn" onclick="updateQuantity('breezeline', 1)">+</button>
+                            <button class="remove-btn" onclick="removeFromCart('breezeline')">Remove</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Citrine Basket -->
+            <div class="product-card">
+                <img src="READY MADE BASKETS/CITRINE.png" alt="Citrine Basket" class="product-image" onclick="showModal('citrine')" style="cursor: pointer;">
+                <div class="product-info">
+                    <h3 class="product-name">Citrine</h3>
+                    <p class="product-description">
+                        Bright and vibrant selection of golden dates, honey-roasted nuts, and citrus-infused delicacies in warm yellow tones.
+                    </p>
+                    <div class="product-price">₹1,799</div>
+                    <div class="product-actions">
+                        <button class="add-to-cart-btn" onclick="addToCart('citrine', 'Citrine', 1799, 'READY MADE BASKETS/CITRINE.png')">
+                            <span>🛒</span>
+                            Add to Cart
+                        </button>
+                        <div class="quantity-controls" id="controls-citrine">
+                            <button class="quantity-btn" onclick="updateQuantity('citrine', -1)">-</button>
+                            <span class="quantity-display" id="qty-citrine">1</span>
+                            <button class="quantity-btn" onclick="updateQuantity('citrine', 1)">+</button>
+                            <button class="remove-btn" onclick="removeFromCart('citrine')">Remove</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Golden Nest Basket -->
+            <div class="product-card">
+                <img src="READY MADE BASKETS/GOLDEN NEST.png" alt="Golden Nest Basket" class="product-image" onclick="showModal('golden-nest')" style="cursor: pointer;">
+                <div class="product-info">
+                    <h3 class="product-name">Golden Nest</h3>
+                    <p class="product-description">
+                        Luxurious premium collection featuring the finest Medjool dates, exotic nuts, and gold-dusted chocolates in an elegant nest design.
+                    </p>
+                    <div class="product-price">₹1,975</div>
+                    <div class="product-actions">
+                        <button class="add-to-cart-btn" onclick="addToCart('golden-nest', 'Golden Nest', 1975, 'READY MADE BASKETS/GOLDEN NEST.png')">
+                            <span>🛒</span>
+                            Add to Cart
+                        </button>
+                        <div class="quantity-controls" id="controls-golden-nest">
+                            <button class="quantity-btn" onclick="updateQuantity('golden-nest', -1)">-</button>
+                            <span class="quantity-display" id="qty-golden-nest">1</span>
+                            <button class="quantity-btn" onclick="updateQuantity('golden-nest', 1)">+</button>
+                            <button class="remove-btn" onclick="removeFromCart('golden-nest')">Remove</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Petal Wrap Basket -->
+            <div class="product-card">
+                <img src="READY MADE BASKETS/PETAL WRAP.png" alt="Petal Wrap Basket" class="product-image" onclick="showModal('petal-wrap')" style="cursor: pointer;">
+                <div class="product-info">
+                    <h3 class="product-name">Petal Wrap</h3>
+                    <p class="product-description">
+                        Romantic and elegant arrangement with rose-infused dates, delicate nuts, and floral-themed treats wrapped in soft petals.
+                    </p>
+                    <div class="product-price">₹745</div>
+                    <div class="product-actions">
+                        <button class="add-to-cart-btn" onclick="addToCart('petal-wrap', 'Petal Wrap', 745, 'READY MADE BASKETS/PETAL WRAP.png')">
+                            <span>🛒</span>
+                            Add to Cart
+                        </button>
+                        <div class="quantity-controls" id="controls-petal-wrap">
+                            <button class="quantity-btn" onclick="updateQuantity('petal-wrap', -1)">-</button>
+                            <span class="quantity-display" id="qty-petal-wrap">1</span>
+                            <button class="quantity-btn" onclick="updateQuantity('petal-wrap', 1)">+</button>
+                            <button class="remove-btn" onclick="removeFromCart('petal-wrap')">Remove</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Planter Basket -->
+            <div class="product-card">
+                <img src="READY MADE BASKETS/PLANTER.png" alt="Planter Basket" class="product-image" onclick="showModal('planter')" style="cursor: pointer;">
+                <div class="product-info">
+                    <h3 class="product-name">Planter</h3>
+                    <p class="product-description">
+                        Eco-friendly selection featuring organic dates, sustainable nuts, and natural treats in a reusable planter basket.
+                    </p>
+                    <div class="product-price">₹2,499</div>
+                    <div class="product-actions">
+                        <button class="add-to-cart-btn" onclick="addToCart('planter', 'Planter', 2499, 'READY MADE BASKETS/PLANTER.png')">
+                            <span>🛒</span>
+                            Add to Cart
+                        </button>
+                        <div class="quantity-controls" id="controls-planter">
+                            <button class="quantity-btn" onclick="updateQuantity('planter', -1)">-</button>
+                            <span class="quantity-display" id="qty-planter">1</span>
+                            <button class="quantity-btn" onclick="updateQuantity('planter', 1)">+</button>
+                            <button class="remove-btn" onclick="removeFromCart('planter')">Remove</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modalOverlay" onclick="closeModal()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+                <img id="modalImage" src="" alt="" class="modal-image">
+                <h2 id="modalTitle" class="modal-title"></h2>
+                <div id="modalPrice" class="modal-price"></div>
+            </div>
+            <div class="modal-body">
+                <div class="contents-section">
+                    <h3 class="contents-title">
+                        <span>📦</span>
+                        Basket Contents
+                    </h3>
+                    <div id="modalContents" class="contents-list">
+                        <!-- Contents will be populated here -->
+                    </div>
+                    <div id="modalTotalWeight" class="total-weight">
+                        <!-- Total weight will be shown here -->
+                    </div>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button id="modalAddBtn" class="modal-add-btn" onclick="addToCartFromModal()">
+                    🛒 Add to Cart
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Summary -->
+    <div class="cart-summary" id="cartSummary">
+        <div class="cart-content">
+            <div class="cart-info">
+                <span class="cart-items-count" id="cartItemsCount">0 items in cart</span>
+                <span class="cart-total" id="cartTotal">₹0</span>
+            </div>
+            <button class="checkout-btn" onclick="proceedToCheckout()">
+                Proceed to Checkout
+            </button>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // Cart state
+        let cart = {};
+        let currentModalBasket = null;
+
+        // Basket data with detailed contents
+        const basketData = {
+            'bluebell': {
+                name: 'Bluebell',
+                price: 1100,
+                image: 'READY MADE BASKETS/BLUEBELL.png',
+                contents: [
+                    { name: 'Flyberry Chickpea Chips', weight: '30 grams' },
+                    { name: 'Flyberry Hazelnut Date Spread', weight: '100 grams' },
+                    { name: 'Flyberry Dehydrated Jamun', weight: '20 grams' },
+                    { name: 'Saffron Trail Mix Pouch', weight: '45 grams' },
+                    { name: 'Flyberry Spiced Peanut Dragees', weight: '100 grams' },
+                    { name: 'Flyberry Dehydrated Peach', weight: '100 grams' },
+                    { name: 'Flyberry Khumani Apricots', weight: '100 grams' },
+                    { name: 'Hamper/Packaging', weight: '0 grams' }
+                ],
+                totalWeight: '495 grams'
+            },
+            'breezeline': {
+                name: 'Breezeline',
+                price: 1050,
+                image: 'READY MADE BASKETS/BREEZELINE.png',
+                contents: [
+                    { name: 'Flyberry Chickpea Chips', weight: '30 grams' },
+                    { name: 'Saffron Trail Mix Pouch', weight: '45 grams' },
+                    { name: 'Flyberry Dehydrated Jamun', weight: '20 grams' },
+                    { name: 'Flyberry Spiced Peanut Dragees', weight: '100 grams' },
+                    { name: 'Flyberry Dehydrated Peach', weight: '100 grams' },
+                    { name: 'Flyberry Khumani Apricots', weight: '100 grams' },
+                    { name: 'Flyberry Blackcurrant', weight: '100 grams' },
+                    { name: 'Gift Hamper', weight: '0 grams' }
+                ],
+                totalWeight: '495 grams'
+            },
+            'citrine': {
+                name: 'Citrine',
+                price: 1799,
+                image: 'READY MADE BASKETS/CITRINE.png',
+                contents: [
+                    { name: 'Currently being updated', weight: 'N/A' }
+                ],
+                totalWeight: 'To be confirmed'
+            },
+            'golden-nest': {
+                name: 'Golden Nest',
+                price: 1975,
+                image: 'READY MADE BASKETS/GOLDEN NEST.png',
+                contents: [
+                    { name: 'Flyberry Chickpea Chips', weight: '30 grams' },
+                    { name: 'Saffron Trail Mix Pouch', weight: '45 grams' },
+                    { name: 'Flyberry Dehydrated Jamun', weight: '20 grams' },
+                    { name: 'Flyberry Sweet Corn', weight: '20 grams' },
+                    { name: 'Flyberry Dehydrated Peach', weight: '250 grams' },
+                    { name: 'Flyberry Dehydrated Orange', weight: '100 grams' },
+                    { name: 'Flyberry Blackcurrant', weight: '100 grams' },
+                    { name: 'Date Syrup', weight: '325 grams' },
+                    { name: 'Flyberry Hazelnut Date Spread', weight: '100 grams' },
+                    { name: 'Gift Hamper', weight: '0 grams' }
+                ],
+                totalWeight: '990 grams'
+            },
+            'petal-wrap': {
+                name: 'Petal Wrap',
+                price: 745,
+                image: 'READY MADE BASKETS/PETAL WRAP.png',
+                contents: [
+                    { name: 'Omani seedless dates', weight: '205 grams' },
+                    { name: 'Flyberry Chickpea Chips', weight: '30 grams' },
+                    { name: 'Flyberry Hazelnut Date Spread', weight: '100 grams' },
+                    { name: 'Flyberry Dehydrated Jamun', weight: '20 grams' },
+                    { name: 'Saffron Trail Mix Pouch', weight: '45 grams' },
+                    { name: 'Hamper/Packaging', weight: '0 grams' }
+                ],
+                totalWeight: '400 grams'
+            },
+            'planter': {
+                name: 'Planter',
+                price: 2499,
+                image: 'READY MADE BASKETS/PLANTER.png',
+                contents: [
+                    { name: 'Flyberry Spiced Seed Mix', weight: '150 grams' },
+                    { name: 'Flyberry Honey Roasted Walnuts', weight: '150 grams' },
+                    { name: 'Flyberry Cheese Jalapeno Almonds', weight: '150 grams' },
+                    { name: 'Flyberry Spiced Chickpea', weight: '150 grams' },
+                    { name: 'Flyberry Dehydrated Peach-Red', weight: '150 grams' },
+                    { name: 'Flyberry Spiced Peanut Dragees', weight: '150 grams' },
+                    { name: 'Saffron Trail Mix Bottle', weight: '150 grams' },
+                    { name: 'Hamper/Packaging', weight: '0 grams' }
+                ],
+                totalWeight: '1050 grams'
+            }
+        };
+
+        // Add to cart function
+        function addToCart(id, name, price, image) {
+            if (cart[id]) {
+                cart[id].quantity += 1;
+            } else {
+                cart[id] = {
+                    name: name,
+                    price: price,
+                    image: image,
+                    quantity: 1
+                };
+            }
+
+            // Show quantity controls and hide add button
+            document.querySelector(`button[onclick*="${id}"]`).style.display = 'none';
+            document.getElementById(`controls-${id}`).classList.add('active');
+            document.getElementById(`qty-${id}`).textContent = cart[id].quantity;
+
+            updateCartDisplay();
+            showToast(`${name} added to cart!`);
+        }
+
+        // Update quantity function
+        function updateQuantity(id, change) {
+            if (!cart[id]) return;
+
+            cart[id].quantity += change;
+            
+            if (cart[id].quantity <= 0) {
+                removeFromCart(id);
+                return;
+            }
+
+            document.getElementById(`qty-${id}`).textContent = cart[id].quantity;
+            updateCartDisplay();
+        }
+
+        // Remove from cart function
+        function removeFromCart(id) {
+            if (!cart[id]) return;
+
+            const name = cart[id].name;
+            delete cart[id];
+
+            // Hide quantity controls and show add button
+            document.getElementById(`controls-${id}`).classList.remove('active');
+            document.querySelector(`button[onclick*="${id}"]`).style.display = 'flex';
+
+            updateCartDisplay();
+            showToast(`${name} removed from cart`);
+        }
+
+        // Update cart display
+        function updateCartDisplay() {
+            const itemCount = Object.keys(cart).length;
+            const totalItems = Object.values(cart).reduce((sum, item) => sum + item.quantity, 0);
+            const totalPrice = Object.values(cart).reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+            document.getElementById('cartItemsCount').textContent = `${totalItems} item${totalItems !== 1 ? 's' : ''} in cart`;
+            document.getElementById('cartTotal').textContent = `₹${totalPrice.toLocaleString()}`;
+
+            const cartSummary = document.getElementById('cartSummary');
+            if (itemCount > 0) {
+                cartSummary.classList.add('active');
+            } else {
+                cartSummary.classList.remove('active');
+            }
+        }
+
+        // Show toast notification
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Proceed to checkout
+        function proceedToCheckout() {
+            if (Object.keys(cart).length === 0) {
+                showToast('Your cart is empty!');
+                return;
+            }
+
+            // For now, just show an alert
+            const totalItems = Object.values(cart).reduce((sum, item) => sum + item.quantity, 0);
+            const totalPrice = Object.values(cart).reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            
+            alert(`Order Summary:\n${totalItems} items\nTotal: ₹${totalPrice.toLocaleString()}\n\nThank you for your order! We'll contact you shortly.`);
+            
+            // Reset cart
+            cart = {};
+            updateCartDisplay();
+            
+            // Reset all controls
+            document.querySelectorAll('.quantity-controls').forEach(control => {
+                control.classList.remove('active');
+            });
+            document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+                btn.style.display = 'flex';
+            });
+        }
+
+        // Modal functions
+        function showModal(basketId) {
+            const basket = basketData[basketId];
+            if (!basket) return;
+
+            currentModalBasket = basketId;
+            
+            // Populate modal content
+            document.getElementById('modalImage').src = basket.image;
+            document.getElementById('modalImage').alt = basket.name;
+            document.getElementById('modalTitle').textContent = basket.name;
+            document.getElementById('modalPrice').textContent = `₹${basket.price}`;
+
+            // Populate contents
+            const contentsContainer = document.getElementById('modalContents');
+            contentsContainer.innerHTML = '';
+            
+            basket.contents.forEach(item => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'content-item';
+                itemDiv.innerHTML = `
+                    <span class="item-name">${item.name}</span>
+                    <span class="item-weight">${item.weight}</span>
+                `;
+                contentsContainer.appendChild(itemDiv);
+            });
+
+            // Show total weight
+            document.getElementById('modalTotalWeight').textContent = `Total Weight: ${basket.totalWeight}`;
+
+            // Update modal add button
+            const modalAddBtn = document.getElementById('modalAddBtn');
+            if (cart[basketId]) {
+                modalAddBtn.textContent = '✓ Already in Cart';
+                modalAddBtn.style.background = 'var(--accent-green)';
+            } else {
+                modalAddBtn.textContent = '🛒 Add to Cart';
+                modalAddBtn.style.background = 'linear-gradient(135deg, var(--gold), var(--gold-dark))';
+            }
+
+            // Show modal
+            document.getElementById('modalOverlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('modalOverlay').classList.remove('active');
+            document.body.style.overflow = 'auto';
+            currentModalBasket = null;
+        }
+
+        function addToCartFromModal() {
+            if (!currentModalBasket) return;
+            
+            const basket = basketData[currentModalBasket];
+            addToCart(currentModalBasket, basket.name, basket.price, basket.image);
+            closeModal();
+        }
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCartDisplay();
+        });
+    </script>
+</body>
+</html>
