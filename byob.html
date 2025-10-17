@@ -120,7 +120,7 @@
             padding: 2rem 3rem;
             padding-top: 6rem;
             border-radius: 20px;
-            padding-bottom: calc(50vh + 120px); /* Space for fixed cart and navigation */
+            padding-bottom: calc(25vh + 120px); /* Space for fixed cart and navigation */
         }
 
         /* Progress Bar */
@@ -223,7 +223,7 @@
         /* Navigation Buttons */
         .step-navigation {
             position: fixed;
-            bottom: calc(50vh + 20px);
+            bottom: calc(25vh + 20px);
             right: 20px;
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
@@ -698,7 +698,7 @@
             bottom: 0;
             right: 0;
             width: 340px;
-            height: 50vh;
+            height: 25vh;
             background: var(--white);
             padding: 0.5rem;
             border-radius: 20px 20px 0 0;
@@ -736,13 +736,72 @@
             background: #9ca3af;
         }
 
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--border-light);
+            padding-bottom: 1rem;
+        }
+
         .cart-title {
             font-family: 'Baloo 2', cursive;
             font-weight: 700;
             font-size: 1.25rem;
-            margin-bottom: 1.5rem;
-            border-bottom: 2px solid var(--border-light);
-            padding-bottom: 1rem;
+            margin: 0;
+        }
+
+        .cart-toggle-btn {
+            background: transparent;
+            border: 2px solid var(--border-light);
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            color: var(--text-secondary);
+        }
+
+        .cart-toggle-btn:hover {
+            background: var(--accent-blue);
+            border-color: var(--accent-blue);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .cart-toggle-btn svg {
+            transition: transform 0.3s ease;
+        }
+
+        .cart-summary.expanded .cart-toggle-btn svg {
+            transform: rotate(180deg);
+        }
+
+        /* Cart States */
+        .cart-summary {
+            transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .cart-summary.expanded {
+            height: 50vh;
+        }
+
+        .step-navigation {
+            transition: bottom 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .cart-summary.expanded ~ .container .step-navigation,
+        body.cart-expanded .step-navigation {
+            bottom: calc(50vh + 20px);
+        }
+
+        /* Desktop main content padding for expanded state */
+        body.cart-expanded .main-content {
+            padding-bottom: calc(50vh + 120px);
         }
 
         .cart-section {
@@ -1278,15 +1337,23 @@
                 left: 0;
                 right: 0;
                 width: 100vw;
-                height: 40vh;
+                height: 20vh;
                 border-radius: 20px 20px 0 0;
             }
 
+            .cart-summary.expanded {
+                height: 40vh;
+            }
+
             .step-navigation {
-                bottom: calc(40vh + 20px);
+                bottom: calc(20vh + 20px);
                 right: 20px;
                 left: 20px;
                 width: auto;
+            }
+
+            body.cart-expanded .step-navigation {
+                bottom: calc(40vh + 20px);
             }
 
             .category-items,
@@ -1320,6 +1387,10 @@
 
             .main-content {
                 padding: 2rem 1.5rem;
+                padding-bottom: calc(20vh + 120px);
+            }
+
+            body.cart-expanded .main-content {
                 padding-bottom: calc(40vh + 120px);
             }
 
@@ -1338,11 +1409,15 @@
             }
 
             .step-navigation {
-                bottom: calc(40vh + 15px);
+                bottom: calc(20vh + 15px);
                 padding: 15px 20px;
                 left: 20px;
                 right: 20px;
                 width: auto;
+            }
+
+            body.cart-expanded .step-navigation {
+                bottom: calc(40vh + 15px);
             }
 
             .nav-buttons {
@@ -2903,9 +2978,16 @@
         </main>
 
         <!-- RIGHT COLUMN: Cart -->
-        <aside class="cart-summary">
+        <aside class="cart-summary" id="cartSummary">
             <img src="logo.png" alt="Flyberry Logo" class="cart-logo">
-            <h3 class="cart-title" id="cartTitle">{username's} gift basket</h3>
+            <div class="cart-header">
+                <h3 class="cart-title" id="cartTitle">{username's} gift basket</h3>
+                <button class="cart-toggle-btn" id="cartToggleBtn" title="Expand/Collapse Cart">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M7 14L12 9L17 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
             
             <div class="cart-content">
                 <!-- Empty Cart Message -->
@@ -3556,6 +3638,27 @@
                     navigateToCategory(filter);
                 });
             });
+
+            // Cart toggle functionality
+            const cartToggleBtn = document.getElementById('cartToggleBtn');
+            if (cartToggleBtn) {
+                cartToggleBtn.addEventListener('click', toggleCart);
+            }
+        }
+
+        function toggleCart() {
+            const cartSummary = document.getElementById('cartSummary');
+            const body = document.body;
+            
+            if (cartSummary.classList.contains('expanded')) {
+                // Collapse the cart
+                cartSummary.classList.remove('expanded');
+                body.classList.remove('cart-expanded');
+            } else {
+                // Expand the cart
+                cartSummary.classList.add('expanded');
+                body.classList.add('cart-expanded');
+            }
         }
 
         function handleProductClick(card) {

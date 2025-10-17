@@ -1,0 +1,12 @@
+name = "flyberry"
+compatibility_date = "2024-10-17"
+compatibility_flags = ["nodejs_compat"]
+
+# For static assets deployment
+[assets]
+directory = "./"
+binding = "ASSETS"
+
+# Alternative: If you want to serve static files
+[site]
+bucket = "./"
