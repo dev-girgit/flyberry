@@ -329,3 +329,41 @@ input[type=text]::-ms-clear {
 		font-size: 1.2em;
 	}
 }
+
+/* Optimized for 46:27 aspect ratio (narrow portrait screens) */
+@media screen and (max-width: 430px) and (min-aspect-ratio: 1/2) {
+	.simform {
+		font-size: 1.6em;
+		max-width: 95%;
+		padding: 1.5em 0;
+	}
+
+	.questions input {
+		padding: 0.25em 0.8em 0.5em 0.6em;
+		width: calc(100% - 1.8em);
+		font-size: 0.9em;
+	}
+
+	.next {
+		bottom: 1.9em;
+		right: 0.3em;
+		width: 1.8em;
+		height: 1.8em;
+	}
+
+	.simform .number {
+		font-size: 0.35em;
+		width: 2.8em;
+	}
+}
+
+@media screen and (max-width: 360px) {
+	.simform {
+		font-size: 1.4em;
+	}
+
+	.questions input {
+		font-size: 0.85em;
+		padding: 0.2em 0.7em 0.45em 0.5em;
+	}
+}

@@ -26,6 +26,59 @@
 					opacity: 0;
 				}
 			}
+
+			/* Optimized for 46:27 aspect ratio (narrow portrait screens ~360-430px width) */
+			@media screen and (max-width: 430px) and (min-aspect-ratio: 1/2) {
+				.container {
+					padding: 1rem;
+				}
+
+				.codrops-header h1 {
+					font-size: 1.5em;
+					margin: 1rem 0;
+					line-height: 1.2;
+				}
+
+				.simform {
+					font-size: 1.8em;
+					padding: 1em 0;
+					max-width: 100%;
+				}
+
+				.questions input {
+					font-size: 0.9em;
+					padding: 0.3em 0.8em 0.6em 0.6em;
+					width: calc(100% - 1.5em);
+				}
+
+				.next {
+					bottom: 1.8em;
+					right: 0.5em;
+					width: 1.8em;
+					height: 1.8em;
+				}
+
+				.simform .number {
+					font-size: 0.35em;
+					margin: 0.3em 0;
+				}
+			}
+
+			/* Extra narrow screens (≤360px) */
+			@media screen and (max-width: 360px) {
+				.codrops-header h1 {
+					font-size: 1.3em;
+				}
+
+				.simform {
+					font-size: 1.5em;
+				}
+
+				.questions input {
+					font-size: 0.85em;
+					padding: 0.25em 0.7em 0.5em 0.5em;
+				}
+			}
 		</style>
 		<script src="js/modernizr.custom.js"></script>
 	</head>
