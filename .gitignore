@@ -1,0 +1,28 @@
+# Flyberry Website - Git Ignore
+# Ignore backup files and optimization artifacts
+
+# Backup directory with original large images
+backup_originals/
+
+# macOS system files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Optimization scripts (keep local only)
+deploy-optimized.sh
+safe-delete-pngs.sh
+optimize-all-images.sh
+optimize-images.py
+
+# Performance reports (keep local)
+*PERFORMANCE_REPORT.md
+*SUCCESS_REPORT.md
+performance-report.html
+
+# Production temp directory
+production_ready/

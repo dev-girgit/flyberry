@@ -4,15 +4,29 @@
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge"> 
 		<meta name="viewport" content="width=device-width, initial-scale=1"> 
-		<title>Flyberry Gourmet</title>
-		<meta name="description" content="Build your own gourmet basket with Flyberry" />
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-		<link rel="stylesheet" type="text/css" href="css/normalize.css" />
-		<link rel="stylesheet" type="text/css" href="css/demo.css" />
-		<link rel="stylesheet" type="text/css" href="css/component.css" />
+		<title>Flyberry Gourmet - Build Your Own Basket</title>
+		<meta name="description" content="Build your own gourmet basket with premium dates, nuts, and artisanal products at Flyberry Gourmet" />
+		
+		<!-- Critical CSS inlined -->
+		<link rel="stylesheet" type="text/css" href="css/critical.css" />
+		
+		<!-- Preconnect to external domains -->
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link rel="preconnect" href="https://cdnjs.cloudflare.com">
+		<link rel="preconnect" href="https://pub-6cc4523d456f472f9551ffbb385c3633.r2.dev">
+		
+		<!-- Load fonts with display=swap for faster rendering -->
 		<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&family=Baloo+2:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+		
+		<!-- Defer non-critical CSS -->
+		<link rel="preload" href="css/normalize.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+		<noscript><link rel="stylesheet" href="css/normalize.css"></noscript>
+		<link rel="preload" href="css/demo.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+		<noscript><link rel="stylesheet" href="css/demo.css"></noscript>
+		
+		<!-- Defer Three.js loading -->
+		<link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" as="script">
 		<style>
 			body {
 				height: 100vh;
@@ -533,7 +547,13 @@
 		
 		<!-- Logo below video with footer info -->
 		<div class="logo-bottom">
-			<img src="logo.png" alt="Flyberry Logo" class="bottom-logo">
+			<picture>
+				<source srcset="logo.webp" type="image/webp">
+				<picture>
+                <source srcset="logo.webp" type="image/webp">
+                <img src="logo.png" alt="Flyberry Logo" class="bottom-logo" width="180" height="auto">
+            </picture>
+			</picture>
 			<div class="footer-info">
 				<span class="website-text">www.flyberry.in</span>
 				<span class="divider">•</span>
@@ -541,248 +561,9 @@
 			</div>
 		</div>
 		
-		<script>
-			// 3D Fireworks System
-			let scene, camera, renderer, fireworks = [];
-			let animationId;
-			
-			function initFireworks() {
-				// Scene setup
-				scene = new THREE.Scene();
-				
-				// Camera with perspective for 3D depth
-				camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-				camera.position.z = 50;
-				camera.position.y = -10;
-				
-				// Renderer
-				const canvas = document.getElementById('fireworks-canvas');
-				renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
-				renderer.setSize(window.innerWidth, window.innerHeight);
-				renderer.setClearColor(0x000000, 0);
-				
-				// Start animation
-				animate();
-				
-				// Auto-launch fireworks
-				setInterval(createFirework, 1200);
-				
-				// Launch initial burst
-				setTimeout(() => {
-					for(let i = 0; i < 3; i++) {
-						setTimeout(() => createFirework(), i * 300);
-					}
-				}, 1000);
-			}
-			
-			function createFirework() {
-				const firework = {
-					particles: [],
-					launched: false,
-					exploded: false,
-					rocket: null
-				};
-				
-				// Launch position (bottom of screen, random X)
-				const startX = (Math.random() - 0.5) * 80;
-				const startY = -40;
-				const startZ = (Math.random() - 0.5) * 60;
-				
-				// Target position (random in upper area)
-				const targetX = startX + (Math.random() - 0.5) * 20;
-				const targetY = Math.random() * 20 + 10;
-				const targetZ = startZ + (Math.random() - 0.5) * 30;
-				
-				// Create rocket particle
-				const rocketGeometry = new THREE.SphereGeometry(0.3, 8, 6);
-				const rocketMaterial = new THREE.MeshBasicMaterial({ 
-					color: new THREE.Color().setHSL(Math.random(), 0.8, 0.9),
-					transparent: true,
-					opacity: 0.9
-				});
-				const rocket = new THREE.Mesh(rocketGeometry, rocketMaterial);
-				rocket.position.set(startX, startY, startZ);
-				scene.add(rocket);
-				
-				firework.rocket = rocket;
-				firework.startPos = { x: startX, y: startY, z: startZ };
-				firework.targetPos = { x: targetX, y: targetY, z: targetZ };
-				firework.velocity = { x: 0, y: 0, z: 0 };
-				firework.launchTime = Date.now();
-				
-				fireworks.push(firework);
-			}
-			
-			function explodeFirework(firework) {
-				if (firework.exploded) return;
-				firework.exploded = true;
-				
-				// Remove rocket
-				scene.remove(firework.rocket);
-				
-				// Create explosion particles
-				const particleCount = 80 + Math.random() * 40;
-				const baseHue = Math.random();
-				
-				// Brand colors palette
-				const brandColors = [
-					new THREE.Color(0xf1c608), // Golden yellow
-					new THREE.Color(0xFFD700), // Gold
-					new THREE.Color(0xd4a907), // Dark gold
-					new THREE.Color(0xFFA500), // Orange
-					new THREE.Color(0xff7e00), // Brand orange
-					new THREE.Color(0xFFFFFF), // White
-					new THREE.Color(0xFF6B9D), // Pink
-					new THREE.Color(0x00CED1), // Turquoise
-				];
-				
-				for (let i = 0; i < particleCount; i++) {
-					// Particle geometry
-					const geometry = new THREE.SphereGeometry(0.15 + Math.random() * 0.1, 6, 4);
-					
-					// Use brand colors with some randomness
-					let color;
-					if (Math.random() < 0.7) {
-						// 70% chance to use brand colors
-						color = brandColors[Math.floor(Math.random() * brandColors.length)];
-					} else {
-						// 30% chance for random colorful particles
-						color = new THREE.Color().setHSL(baseHue + (Math.random() - 0.5) * 0.3, 0.8, 0.7);
-					}
-					
-					const material = new THREE.MeshBasicMaterial({ 
-						color: color,
-						transparent: true,
-						opacity: 0.9
-					});
-					
-					const particle = new THREE.Mesh(geometry, material);
-					particle.position.copy(firework.rocket.position);
-					
-					// 3D explosion velocity with spherical distribution
-					const phi = Math.random() * Math.PI * 2;
-					const theta = Math.random() * Math.PI;
-					const speed = 15 + Math.random() * 25;
-					
-					particle.velocity = {
-						x: speed * Math.sin(theta) * Math.cos(phi),
-						y: speed * Math.sin(theta) * Math.sin(phi),
-						z: speed * Math.cos(theta)
-					};
-					
-					particle.life = 1.0;
-					particle.decay = 0.02 + Math.random() * 0.02;
-					particle.gravity = -0.3 - Math.random() * 0.2;
-					
-					// Add some particles with special effects
-					if (Math.random() < 0.1) {
-						particle.scale.multiplyScalar(2); // Bigger particles
-						particle.decay *= 0.5; // Last longer
-					}
-					
-					scene.add(particle);
-					firework.particles.push(particle);
-				}
-			}
-			
-			function updateFireworks() {
-				for (let i = fireworks.length - 1; i >= 0; i--) {
-					const firework = fireworks[i];
-					
-					if (!firework.exploded && firework.rocket) {
-						// Update rocket movement
-						const elapsed = (Date.now() - firework.launchTime) / 1000;
-						const progress = Math.min(elapsed * 2, 1); // 0.5 seconds to reach target
-						
-						if (progress >= 1) {
-							explodeFirework(firework);
-						} else {
-							// Smooth rocket movement with arc
-							const t = progress;
-							const arcHeight = 10;
-							
-							firework.rocket.position.x = THREE.MathUtils.lerp(firework.startPos.x, firework.targetPos.x, t);
-							firework.rocket.position.z = THREE.MathUtils.lerp(firework.startPos.z, firework.targetPos.z, t);
-							firework.rocket.position.y = THREE.MathUtils.lerp(firework.startPos.y, firework.targetPos.y, t) + 
-								Math.sin(t * Math.PI) * arcHeight;
-						}
-					}
-					
-					// Update explosion particles
-					for (let j = firework.particles.length - 1; j >= 0; j--) {
-						const particle = firework.particles[j];
-						
-						// Apply physics
-						particle.velocity.y += particle.gravity * 0.016; // Gravity
-						particle.velocity.x *= 0.99; // Air resistance
-						particle.velocity.z *= 0.99;
-						
-						// Update position
-						particle.position.x += particle.velocity.x * 0.016;
-						particle.position.y += particle.velocity.y * 0.016;
-						particle.position.z += particle.velocity.z * 0.016;
-						
-						// Update life and appearance
-						particle.life -= particle.decay;
-						particle.material.opacity = particle.life * 0.9;
-						
-						// Scale effect for more dynamic look
-						const scaleLife = Math.max(0, (particle.life - 0.5) * 2);
-						particle.scale.setScalar(0.5 + scaleLife * 1.5);
-						
-						// Remove dead particles
-						if (particle.life <= 0) {
-							scene.remove(particle);
-							firework.particles.splice(j, 1);
-						}
-					}
-					
-					// Remove empty fireworks
-					if (firework.exploded && firework.particles.length === 0) {
-						fireworks.splice(i, 1);
-					}
-				}
-			}
-			
-			function animate() {
-				animationId = requestAnimationFrame(animate);
-				
-				updateFireworks();
-				
-				// Gentle camera movement for 3D effect
-				const time = Date.now() * 0.0005;
-				camera.position.x = Math.sin(time) * 5;
-				camera.lookAt(0, 0, 0);
-				
-				renderer.render(scene, camera);
-			}
-			
-			// Handle window resize
-			function onWindowResize() {
-				camera.aspect = window.innerWidth / window.innerHeight;
-				camera.updateProjectionMatrix();
-				renderer.setSize(window.innerWidth, window.innerHeight);
-			}
-			
-			window.addEventListener('resize', onWindowResize);
-			
-			// Navigation functions
-			function goToSelection() {
-				// Stop fireworks animation before navigating
-				if (animationId) {
-					cancelAnimationFrame(animationId);
-				}
-				window.location.href = 'selection.html';
-			}
-			
-			// Initialize fireworks when page loads
-			window.addEventListener('load', () => {
-				setTimeout(initFireworks, 500);
-			});
-			
-			// Make entire page clickable
-			document.addEventListener('click', goToSelection);
-		</script>
+		<!-- Defer Three.js and optimized scripts -->
+		<script async src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+		<script defer src="js/optimized.js"></script>
 	</body>
 </html>
 

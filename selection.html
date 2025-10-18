@@ -72,6 +72,7 @@
 
         .subtitle {
             font-family: 'Nunito', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-weight: 400;
             font-size: 1.8rem;
             color: var(--text-secondary);
             margin-bottom: 3rem;
@@ -153,6 +154,7 @@
 
         .option-description {
             font-family: 'Nunito', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-weight: 400;
             color: var(--text-secondary);
             font-size: 1.5rem;
             line-height: 1.5;
@@ -170,6 +172,7 @@
 
         .footer-text {
             font-family: 'Nunito', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-weight: 400;
             margin-top: 3rem;
             color: var(--text-secondary);
             font-size: 1.35rem;
@@ -277,7 +280,10 @@
 <body>
     <a href="index.html" class="back-arrow" title="Go to Home">←</a>
     <div class="container">
-        <img src="logo.png" alt="Flyberry Gourmet" class="logo">
+        <picture>
+                <source srcset="logo.webp" type="image/webp">
+                <img src="logo.png" alt="Flyberry Gourmet" class="logo">
+            </picture>
         
         <h1 class="main-heading">Choose Your Experience</h1>
         
