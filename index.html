@@ -542,63 +542,81 @@
 		</div>
 		
 		<script>
-			// 3D Fireworks System
+			// 🎆 BALLISTIC 3D FIREWORKS SYSTEM 💥
 			let scene, camera, renderer, fireworks = [];
 			let animationId;
+			let ballistic = true; // MAXIMUM CHAOS MODE
 			
 			function initFireworks() {
 				// Scene setup
 				scene = new THREE.Scene();
 				
-				// Camera with perspective for 3D depth
-				camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-				camera.position.z = 50;
-				camera.position.y = -10;
+				// Camera with MORE perspective for EXTREME 3D depth
+				camera = new THREE.PerspectiveCamera(90, window.innerWidth / window.innerHeight, 0.1, 2000);
+				camera.position.z = 80;
+				camera.position.y = -20;
 				
-				// Renderer
+				// Enhanced renderer for MAXIMUM VISUAL IMPACT
 				const canvas = document.getElementById('fireworks-canvas');
 				renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
 				renderer.setSize(window.innerWidth, window.innerHeight);
 				renderer.setClearColor(0x000000, 0);
+				renderer.shadowMap.enabled = true;
 				
-				// Start animation
+				// Start the MADNESS
 				animate();
 				
-				// Auto-launch fireworks
-				setInterval(createFirework, 800);
+				// 🚀 BALLISTIC LAUNCH PATTERNS 🚀
+				// Rapid fire every 150ms instead of 800ms!
+				setInterval(createFirework, 150);
 				
-				// Launch initial burst
+				// Chain reaction bursts every 300ms
+				setInterval(createChainReaction, 400);
+				
+				// Mega explosion every 2 seconds
+				setInterval(createMegaExplosion, 2000);
+				
+				// Continuous barrage mode
+				setInterval(createBarrage, 1200);
+				
+				// 💥 IMMEDIATE EXPLOSIVE WELCOME 💥
 				setTimeout(() => {
-					for(let i = 0; i < 5; i++) {
-						setTimeout(() => createFirework(), i * 200);
+					// Launch 15 rockets immediately!
+					for(let i = 0; i < 15; i++) {
+						setTimeout(() => createFirework(), i * 50);
 					}
-				}, 1000);
+					// Follow up with mega explosion
+					setTimeout(() => createMegaExplosion(), 800);
+				}, 500);
 			}
 			
-			function createFirework() {
+			function createFirework(isSpecial = false) {
 				const firework = {
 					particles: [],
 					launched: false,
 					exploded: false,
-					rocket: null
+					rocket: null,
+					isSpecial: isSpecial
 				};
 				
-				// Launch position (bottom of screen, random X)
-				const startX = (Math.random() - 0.5) * 80;
-				const startY = -40;
-				const startZ = (Math.random() - 0.5) * 60;
+				// 💥 BALLISTIC LAUNCH POSITIONS 💥
+				const startX = (Math.random() - 0.5) * 120; // WIDER SPREAD
+				const startY = -60; // DEEPER START
+				const startZ = (Math.random() - 0.5) * 100; // MUCH DEEPER 3D
 				
-				// Target position (random in upper area)
-				const targetX = startX + (Math.random() - 0.5) * 20;
-				const targetY = Math.random() * 20 + 10;
-				const targetZ = startZ + (Math.random() - 0.5) * 30;
+				// 🎯 EXPLOSIVE TARGET ZONES 🎯
+				const targetX = startX + (Math.random() - 0.5) * 40;
+				const targetY = Math.random() * 40 + 20; // HIGHER EXPLOSIONS
+				const targetZ = startZ + (Math.random() - 0.5) * 60;
 				
-				// Create rocket particle
-				const rocketGeometry = new THREE.SphereGeometry(0.3, 8, 6);
+				// 🚀 BIGGER, FASTER ROCKETS 🚀
+				const rocketSize = isSpecial ? 0.8 : 0.5; // Special rockets are HUGE
+				const rocketGeometry = new THREE.SphereGeometry(rocketSize, 12, 8);
 				const rocketMaterial = new THREE.MeshBasicMaterial({ 
-					color: new THREE.Color().setHSL(Math.random(), 0.8, 0.9),
+					color: new THREE.Color().setHSL(Math.random(), 1.0, 0.8),
 					transparent: true,
-					opacity: 0.9
+					opacity: 1.0,
+					emissive: new THREE.Color().setHSL(Math.random(), 0.5, 0.3)
 				});
 				const rocket = new THREE.Mesh(rocketGeometry, rocketMaterial);
 				rocket.position.set(startX, startY, startZ);
@@ -613,56 +631,95 @@
 				fireworks.push(firework);
 			}
 			
-			function explodeFirework(firework) {
-				if (firework.exploded) return;
-				firework.exploded = true;
+			// 🌟 CHAIN REACTION EXPLOSIONS 🌟
+			function createChainReaction() {
+				const centerX = (Math.random() - 0.5) * 60;
+				const centerY = Math.random() * 30 + 10;
+				const centerZ = (Math.random() - 0.5) * 40;
 				
-				// Remove rocket
-				scene.remove(firework.rocket);
+				// Launch 5 rockets in a pattern
+				for(let i = 0; i < 5; i++) {
+					setTimeout(() => {
+						const angle = (i / 5) * Math.PI * 2;
+						const firework = {
+							particles: [],
+							launched: false,
+							exploded: false,
+							rocket: null,
+							chainReaction: true
+						};
+						
+						const startX = centerX + Math.cos(angle) * 15;
+						const startY = -50;
+						const startZ = centerZ + Math.sin(angle) * 15;
+						
+						const rocketGeometry = new THREE.SphereGeometry(0.4, 8, 6);
+						const rocketMaterial = new THREE.MeshBasicMaterial({ 
+							color: new THREE.Color(0xFFD700),
+							transparent: true,
+							opacity: 1.0
+						});
+						const rocket = new THREE.Mesh(rocketGeometry, rocketMaterial);
+						rocket.position.set(startX, startY, startZ);
+						scene.add(rocket);
+						
+						firework.rocket = rocket;
+						firework.startPos = { x: startX, y: startY, z: startZ };
+						firework.targetPos = { x: centerX + Math.cos(angle) * 10, y: centerY, z: centerZ + Math.sin(angle) * 10 };
+						firework.launchTime = Date.now();
+						
+						fireworks.push(firework);
+					}, i * 100);
+				}
+			}
+			
+			// 💥 MEGA EXPLOSION - ABSOLUTELY INSANE 💥
+			function createMegaExplosion() {
+				const firework = {
+					particles: [],
+					launched: false,
+					exploded: false,
+					rocket: null,
+					megaExplosion: true
+				};
 				
-				// Create explosion particles
-				const particleCount = 80 + Math.random() * 40;
-				const baseHue = Math.random();
+				const centerX = (Math.random() - 0.5) * 40;
+				const centerY = Math.random() * 20 + 25;
+				const centerZ = (Math.random() - 0.5) * 30;
 				
-				// Brand colors palette
-				const brandColors = [
-					new THREE.Color(0xf1c608), // Golden yellow
-					new THREE.Color(0xFFD700), // Gold
-					new THREE.Color(0xd4a907), // Dark gold
-					new THREE.Color(0xFFA500), // Orange
-					new THREE.Color(0xff7e00), // Brand orange
-					new THREE.Color(0xFFFFFF), // White
-					new THREE.Color(0xFF6B9D), // Pink
-					new THREE.Color(0x00CED1), // Turquoise
-				];
+				// MASSIVE EXPLOSION PARTICLES - 300+ particles!
+				const particleCount = 300 + Math.random() * 200;
 				
 				for (let i = 0; i < particleCount; i++) {
-					// Particle geometry
-					const geometry = new THREE.SphereGeometry(0.15 + Math.random() * 0.1, 6, 4);
+					const geometry = new THREE.SphereGeometry(0.2 + Math.random() * 0.3, 8, 6);
 					
-					// Use brand colors with some randomness
-					let color;
-					if (Math.random() < 0.7) {
-						// 70% chance to use brand colors
-						color = brandColors[Math.floor(Math.random() * brandColors.length)];
-					} else {
-						// 30% chance for random colorful particles
-						color = new THREE.Color().setHSL(baseHue + (Math.random() - 0.5) * 0.3, 0.8, 0.7);
-					}
+					// ULTRA BRIGHT COLORS
+					const brandColors = [
+						new THREE.Color(0xFFD700), // Ultra Gold
+						new THREE.Color(0xf1c608), // Brand Yellow
+						new THREE.Color(0xFF4500), // Red Orange
+						new THREE.Color(0xFF1493), // Deep Pink
+						new THREE.Color(0x00FFFF), // Cyan
+						new THREE.Color(0xFF69B4), // Hot Pink
+						new THREE.Color(0x32CD32), // Lime Green
+						new THREE.Color(0xFFFFFF), // Pure White
+					];
 					
+					const color = brandColors[Math.floor(Math.random() * brandColors.length)];
 					const material = new THREE.MeshBasicMaterial({ 
 						color: color,
 						transparent: true,
-						opacity: 0.9
+						opacity: 1.0,
+						emissive: color.clone().multiplyScalar(0.3)
 					});
 					
 					const particle = new THREE.Mesh(geometry, material);
-					particle.position.copy(firework.rocket.position);
+					particle.position.set(centerX, centerY, centerZ);
 					
-					// 3D explosion velocity with spherical distribution
+					// EXPLOSIVE 3D VELOCITY
 					const phi = Math.random() * Math.PI * 2;
 					const theta = Math.random() * Math.PI;
-					const speed = 15 + Math.random() * 25;
+					const speed = 25 + Math.random() * 35; // MUCH FASTER
 					
 					particle.velocity = {
 						x: speed * Math.sin(theta) * Math.cos(phi),
@@ -670,14 +727,113 @@
 						z: speed * Math.cos(theta)
 					};
 					
-					particle.life = 1.0;
-					particle.decay = 0.02 + Math.random() * 0.02;
-					particle.gravity = -0.3 - Math.random() * 0.2;
+					particle.life = 2.0; // LONGER LASTING
+					particle.decay = 0.008 + Math.random() * 0.012; // SLOWER DECAY
+					particle.gravity = -0.15 - Math.random() * 0.1;
 					
-					// Add some particles with special effects
+					// Some GIANT particles for extra impact
+					if (Math.random() < 0.15) {
+						particle.scale.multiplyScalar(3);
+						particle.decay *= 0.3;
+					}
+					
+					scene.add(particle);
+					firework.particles.push(particle);
+				}
+				
+				firework.exploded = true;
+				fireworks.push(firework);
+			}
+			
+			// 🔥 CONTINUOUS BARRAGE MODE 🔥
+			function createBarrage() {
+				// Launch 8 rockets simultaneously from different positions
+				for(let i = 0; i < 8; i++) {
+					setTimeout(() => createFirework(Math.random() < 0.3), i * 30);
+				}
+			}
+			
+			function explodeFirework(firework) {
+				if (firework.exploded) return;
+				firework.exploded = true;
+				
+				// Remove rocket
+				scene.remove(firework.rocket);
+				
+				// 💥 BALLISTIC EXPLOSION SETTINGS 💥
+				let particleCount = 150 + Math.random() * 100; // MINIMUM 150 particles!
+				
+				// Special explosion types for MAXIMUM CHAOS
+				if (firework.isSpecial) particleCount = 250 + Math.random() * 150; // SPECIAL = INSANE
+				if (firework.chainReaction) particleCount = 120 + Math.random() * 80; // Chain = dense
+				if (firework.megaExplosion) return; // Mega explosions handle themselves
+				
+				const baseHue = Math.random();
+				
+				// 🌈 EXPANDED BALLISTIC COLOR PALETTE 🌈
+				const ballistic_colors = [
+					new THREE.Color(0xFFD700), // Ultra Gold
+					new THREE.Color(0xf1c608), // Brand Yellow  
+					new THREE.Color(0xFF4500), // Red Orange
+					new THREE.Color(0xFF1493), // Deep Pink
+					new THREE.Color(0x00FFFF), // Cyan
+					new THREE.Color(0xFF69B4), // Hot Pink
+					new THREE.Color(0x32CD32), // Lime Green
+					new THREE.Color(0xFFFFFF), // Pure White
+					new THREE.Color(0xFF0000), // Pure Red
+					new THREE.Color(0x8A2BE2), // Blue Violet  
+					new THREE.Color(0x00FF00), // Pure Green
+					new THREE.Color(0xFFA500), // Orange
+					new THREE.Color(0xFF6347), // Tomato
+					new THREE.Color(0x4169E1), // Royal Blue
+				];
+				
+				for (let i = 0; i < particleCount; i++) {
+					// BIGGER, MORE VARIED PARTICLES
+					const size = 0.2 + Math.random() * 0.25;
+					const geometry = new THREE.SphereGeometry(size, 8, 6);
+					
+					// ULTRA-BRIGHT COLORS WITH EMISSIVE GLOW
+					const color = ballistic_colors[Math.floor(Math.random() * ballistic_colors.length)];
+					const material = new THREE.MeshBasicMaterial({ 
+						color: color,
+						transparent: true,
+						opacity: 1.0,
+						emissive: color.clone().multiplyScalar(0.4) // GLOWING EFFECT
+					});
+					
+					const particle = new THREE.Mesh(geometry, material);
+					particle.position.copy(firework.rocket.position);
+					
+					// 🚀 BALLISTIC 3D EXPLOSION PHYSICS 🚀
+					const phi = Math.random() * Math.PI * 2;
+					const theta = Math.random() * Math.PI;
+					let speed = 20 + Math.random() * 40; // MUCH FASTER
+					
+					// Some particles get EXTREME speed
+					if (Math.random() < 0.2) speed *= 1.8;
+					
+					particle.velocity = {
+						x: speed * Math.sin(theta) * Math.cos(phi),
+						y: speed * Math.sin(theta) * Math.sin(phi),
+						z: speed * Math.cos(theta)
+					};
+					
+					particle.life = 1.5 + Math.random() * 1.0; // LONGER LASTING
+					particle.decay = 0.008 + Math.random() * 0.015; // SLOWER DECAY
+					particle.gravity = -0.2 - Math.random() * 0.15;
+					
+					// 25% chance for MEGA PARTICLES
+					if (Math.random() < 0.25) {
+						particle.scale.multiplyScalar(2.5 + Math.random() * 2);
+						particle.decay *= 0.4; // Last much longer
+					}
+					
+					// 10% chance for ULTRA MEGA PARTICLES  
 					if (Math.random() < 0.1) {
-						particle.scale.multiplyScalar(2); // Bigger particles
-						particle.decay *= 0.5; // Last longer
+						particle.scale.multiplyScalar(4);
+						particle.decay *= 0.2;
+						particle.material.emissive.multiplyScalar(2);
 					}
 					
 					scene.add(particle);
@@ -690,21 +846,44 @@
 					const firework = fireworks[i];
 					
 					if (!firework.exploded && firework.rocket) {
-						// Update rocket movement
+						// 🚀 BALLISTIC ROCKET PHYSICS 🚀
 						const elapsed = (Date.now() - firework.launchTime) / 1000;
-						const progress = Math.min(elapsed * 2, 1); // 0.5 seconds to reach target
+						let speed = firework.isSpecial ? 4 : 3; // Special rockets are FASTER
+						if (firework.chainReaction) speed = 5; // Chain rockets are LIGHTNING FAST
+						
+						const progress = Math.min(elapsed * speed, 1);
 						
 						if (progress >= 1) {
 							explodeFirework(firework);
 						} else {
-							// Smooth rocket movement with arc
+							// BALLISTIC trajectory with MORE dramatic arc
 							const t = progress;
-							const arcHeight = 10;
+							const arcHeight = firework.isSpecial ? 20 : 15; // Higher arcs
 							
 							firework.rocket.position.x = THREE.MathUtils.lerp(firework.startPos.x, firework.targetPos.x, t);
 							firework.rocket.position.z = THREE.MathUtils.lerp(firework.startPos.z, firework.targetPos.z, t);
 							firework.rocket.position.y = THREE.MathUtils.lerp(firework.startPos.y, firework.targetPos.y, t) + 
 								Math.sin(t * Math.PI) * arcHeight;
+							
+							// Add rocket trail sparkle effect
+							if (Math.random() < 0.3) {
+								const sparkle = new THREE.Mesh(
+									new THREE.SphereGeometry(0.1, 4, 4),
+									new THREE.MeshBasicMaterial({ 
+										color: firework.rocket.material.color,
+										transparent: true,
+										opacity: 0.8
+									})
+								);
+								sparkle.position.copy(firework.rocket.position);
+								sparkle.life = 0.3;
+								sparkle.decay = 0.1;
+								scene.add(sparkle);
+								
+								// Add to particles for cleanup
+								if (!firework.particles) firework.particles = [];
+								firework.particles.push(sparkle);
+							}
 						}
 					}
 					
@@ -749,10 +928,16 @@
 				
 				updateFireworks();
 				
-				// Gentle camera movement for 3D effect
-				const time = Date.now() * 0.0005;
-				camera.position.x = Math.sin(time) * 5;
-				camera.lookAt(0, 0, 0);
+				// 🎥 BALLISTIC CAMERA MOVEMENT FOR MAXIMUM 3D IMPACT 🎥
+				const time = Date.now() * 0.001;
+				camera.position.x = Math.sin(time) * 12 + Math.cos(time * 0.7) * 8;
+				camera.position.y = -20 + Math.sin(time * 0.5) * 10;
+				camera.position.z = 80 + Math.cos(time * 0.3) * 15;
+				
+				// Dynamic look-at for more dramatic 3D perspective
+				const lookAtX = Math.sin(time * 0.2) * 10;
+				const lookAtY = Math.cos(time * 0.3) * 8;
+				camera.lookAt(lookAtX, lookAtY, 0);
 				
 				renderer.render(scene, camera);
 			}
