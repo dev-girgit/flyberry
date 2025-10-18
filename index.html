@@ -11,7 +11,7 @@
 		<link rel="stylesheet" type="text/css" href="css/component.css" />
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&family=Baloo+2:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 		<style>
 			body {
 				height: 100vh;
@@ -32,6 +32,7 @@
 				height: 60vh;
 				object-fit: contain;
 				z-index: -1;
+				margin-top: 20px;
 			}
 			
 			/* Corner elements */
@@ -109,19 +110,19 @@
 			}
 			
 			.byob-text {
-				font-size: 2.5em;
-				font-weight: 900;
+				font-size: 7em;
+				font-weight: 800;
 				color: #333;
-				font-family: 'Nunito', sans-serif;
+				font-family: 'Baloo 2', sans-serif;
 				margin-bottom: 10px;
 				letter-spacing: 2px;
 			}
 			
 			.main-title {
-				font-size: 2.5em;
-				font-weight: 900;
+				font-size: 3.6em;
+				font-weight: 600;
 				color: #333;
-				font-family: 'Nunito', sans-serif;
+				font-family: 'Baloo 2', sans-serif;
 				line-height: 1.1;
 			}
 			
@@ -138,6 +139,25 @@
 			.bottom-logo {
 				max-width: 180px;
 				height: auto;
+			}
+			
+			/* Footer info under logo */
+			.footer-info {
+				margin-top: 15px;
+				font-size: 1.2em;
+				color: #333;
+				font-family: 'Nunito', sans-serif;
+				text-align: center;
+			}
+			
+			.website-text, .instagram-text {
+				color: #333;
+			}
+			
+			.divider {
+				margin: 0 15px;
+				color: #333;
+				font-weight: bold;
 			}
 			
 			.ready-button {
@@ -200,15 +220,24 @@
 				}
 				
 				.byob-text {
-					font-size: 1.8em;
+					font-size: 5em;
 				}
 				
 				.main-title {
-					font-size: 1.8em;
+					font-size: 2.8em;
 				}
 				
 				.bottom-logo {
 					max-width: 140px;
+				}
+				
+				.footer-info {
+					font-size: 1em;
+					margin-top: 12px;
+				}
+				
+				.divider {
+					margin: 0 10px;
 				}
 				
 				.main-gif {
@@ -254,15 +283,24 @@
 				}
 				
 				.byob-text {
-					font-size: 1.4em;
+					font-size: 4em;
 				}
 				
 				.main-title {
-					font-size: 1.4em;
+					font-size: 2.4em;
 				}
 				
 				.bottom-logo {
 					max-width: 120px;
+				}
+				
+				.footer-info {
+					font-size: 0.9em;
+					margin-top: 10px;
+				}
+				
+				.divider {
+					margin: 0 8px;
 				}
 				
 				.main-gif {
@@ -323,15 +361,24 @@
 				}
 				
 				.byob-text {
-					font-size: 1.2em;
+					font-size: 3.6em;
 				}
 				
 				.main-title {
-					font-size: 1.2em;
+					font-size: 2em;
 				}
 				
 				.bottom-logo {
 					max-width: 100px;
+				}
+				
+				.footer-info {
+					font-size: 0.8em;
+					margin-top: 8px;
+				}
+				
+				.divider {
+					margin: 0 6px;
 				}
 				
 				.ready-button {
@@ -366,15 +413,24 @@
 				}
 				
 				.byob-text {
-					font-size: 1em;
+					font-size: 3em;
 				}
 				
 				.main-title {
-					font-size: 1em;
+					font-size: 1.8em;
 				}
 				
 				.bottom-logo {
 					max-width: 80px;
+				}
+				
+				.footer-info {
+					font-size: 0.7em;
+					margin-top: 6px;
+				}
+				
+				.divider {
+					margin: 0 4px;
 				}
 				
 				.ready-button {
@@ -385,8 +441,8 @@
 		</style>
 	</head>
 	<body>
-		<!-- Background Videos -->
-		<video class="bg-video" id="bgVideo" autoplay muted playsinline>
+		<!-- Background Video -->
+		<video class="bg-video" id="bgVideo" autoplay muted loop playsinline>
 			<source src="https://pub-6cc4523d456f472f9551ffbb385c3633.r2.dev/VIDEO%20FINAL.mp4" type="video/mp4">
 			Your browser does not support the video tag.
 		</video>
@@ -409,12 +465,12 @@
 		
 		<!-- Bottom Left: Website -->
 		<div class="corner bottom-left">
-			www.flyberry.in
+			<!-- Moved under logo -->
 		</div>
 		
 		<!-- Bottom Right: Instagram -->
 		<div class="corner bottom-right">
-			@flyberrygourmet
+			<!-- Moved under logo -->
 		</div>
 		
 		<!-- Center Content: Button -->
@@ -422,33 +478,17 @@
 			<button class="ready-button">Tap to explore</button>
 		</div>
 		
-		<!-- Logo below video -->
+		<!-- Logo below video with footer info -->
 		<div class="logo-bottom">
 			<img src="logo.png" alt="Flyberry Logo" class="bottom-logo">
+			<div class="footer-info">
+				<span class="website-text">www.flyberry.in</span>
+				<span class="divider">•</span>
+				<span class="instagram-text">@flyberrygourmet</span>
+			</div>
 		</div>
 		
 		<script>
-			// Video playlist for sequential playback
-			const videoUrls = [
-				'https://pub-6cc4523d456f472f9551ffbb385c3633.r2.dev/VIDEO%20FINAL.mp4',
-				'https://pub-6cc4523d456f472f9551ffbb385c3633.r2.dev/ILLUSTRATION%20VIDEO.mp4'
-			];
-			
-			let currentVideoIndex = 0;
-			const bgVideo = document.getElementById('bgVideo');
-			
-			// Function to load next video
-			function loadNextVideo() {
-				currentVideoIndex = (currentVideoIndex + 1) % videoUrls.length;
-				const source = bgVideo.querySelector('source');
-				source.src = videoUrls[currentVideoIndex];
-				bgVideo.load();
-				bgVideo.play();
-			}
-			
-			// Listen for video end event to play next video
-			bgVideo.addEventListener('ended', loadNextVideo);
-			
 			function goToSelection() {
 				window.location.href = 'selection.html';
 			}
