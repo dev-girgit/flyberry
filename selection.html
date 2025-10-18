@@ -176,6 +176,34 @@
             font-size: 1.35rem;
         }
 
+        /* Back Arrow Styles */
+        .back-arrow {
+            position: absolute;
+            top: 2rem;
+            left: 2rem;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(241, 198, 8, 0.3);
+            text-decoration: none;
+            color: white;
+            font-size: 1.5rem;
+            z-index: 100;
+        }
+
+        .back-arrow:hover {
+            transform: translateY(-2px) scale(1.1);
+            box-shadow: 0 6px 20px rgba(241, 198, 8, 0.5);
+            background: linear-gradient(135deg, #f1d700, var(--gold));
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .container {
@@ -248,6 +276,7 @@
     </style>
 </head>
 <body>
+    <a href="index.html" class="back-arrow" title="Go to Home">←</a>
     <div class="container">
         <img src="logo.png" alt="Flyberry Gourmet" class="logo">
         
