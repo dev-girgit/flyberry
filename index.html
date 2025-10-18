@@ -19,16 +19,18 @@
 				position: relative;
 				margin: 0;
 				padding: 0;
+				background: white;
 			}
 			
 			/* Background video */
 			.bg-video {
 				position: fixed;
-				top: 0;
-				left: 0;
-				width: 100vw;
-				height: 100vh;
-				object-fit: cover;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				width: 60vw;
+				height: 60vh;
+				object-fit: contain;
 				z-index: -1;
 			}
 			
@@ -56,7 +58,7 @@
 			
 			.bottom-left {
 				bottom: 60px;
-				left: 20px;
+				left: 60px;
 				font-size: 1.8em;
 				color: black;
 				font-family: 'Baloo 2', sans-serif;
@@ -64,7 +66,7 @@
 			
 			.bottom-right {
 				bottom: 60px;
-				right: 20px;
+				right: 60px;
 				font-size: 1.8em;
 				color: black;
 				font-family: 'Baloo 2', sans-serif;
@@ -84,6 +86,58 @@
 				transform: translate(-50%, -50%);
 				text-align: center;
 				z-index: 50;
+			}
+			
+			.centered-logo {
+				max-width: 150px;
+				height: auto;
+				margin-bottom: 30px;
+				display: block;
+				margin-left: auto;
+				margin-right: auto;
+			}
+			
+			/* Title above video */
+			.title-above {
+				position: absolute;
+				top: 5%;
+				left: 50%;
+				transform: translateX(-50%);
+				text-align: center;
+				z-index: 100;
+				padding-top: 20px;
+			}
+			
+			.byob-text {
+				font-size: 2.5em;
+				font-weight: 900;
+				color: #333;
+				font-family: 'Nunito', sans-serif;
+				margin-bottom: 10px;
+				letter-spacing: 2px;
+			}
+			
+			.main-title {
+				font-size: 2.5em;
+				font-weight: 900;
+				color: #333;
+				font-family: 'Nunito', sans-serif;
+				line-height: 1.1;
+			}
+			
+			/* Logo below video */
+			.logo-bottom {
+				position: absolute;
+				bottom: 15%;
+				left: 50%;
+				transform: translateX(-50%);
+				text-align: center;
+				z-index: 100;
+			}
+			
+			.bottom-logo {
+				max-width: 180px;
+				height: auto;
 			}
 			
 			.ready-button {
@@ -127,6 +181,36 @@
 					max-width: 120px;
 				}
 				
+				.centered-logo {
+					max-width: 120px;
+					margin-bottom: 25px;
+				}
+				
+				.title-above {
+					top: 3%;
+					padding-top: 15px;
+				}
+				
+				.bottom-left {
+					left: 40px;
+				}
+				
+				.bottom-right {
+					right: 40px;
+				}
+				
+				.byob-text {
+					font-size: 1.8em;
+				}
+				
+				.main-title {
+					font-size: 1.8em;
+				}
+				
+				.bottom-logo {
+					max-width: 140px;
+				}
+				
 				.main-gif {
 					width: 50vw;
 					height: 50vh;
@@ -149,6 +233,36 @@
 				
 				.logo {
 					max-width: 100px;
+				}
+				
+				.centered-logo {
+					max-width: 100px;
+					margin-bottom: 20px;
+				}
+				
+				.title-above {
+					top: 2%;
+					padding-top: 10px;
+				}
+				
+				.bottom-left {
+					left: 30px;
+				}
+				
+				.bottom-right {
+					right: 30px;
+				}
+				
+				.byob-text {
+					font-size: 1.4em;
+				}
+				
+				.main-title {
+					font-size: 1.4em;
+				}
+				
+				.bottom-logo {
+					max-width: 120px;
 				}
 				
 				.main-gif {
@@ -186,16 +300,38 @@
 				}
 				
 				.bottom-left {
-					left: 15px;
+					left: 25px;
 				}
 				
 				.bottom-right {
-					right: 15px;
+					right: 25px;
 				}
 				
 				.logo {
 					max-width: 80px;
 					margin-top: -25px;
+				}
+				
+				.centered-logo {
+					max-width: 80px;
+					margin-bottom: 15px;
+				}
+				
+				.title-above {
+					top: 1%;
+					padding-top: 8px;
+				}
+				
+				.byob-text {
+					font-size: 1.2em;
+				}
+				
+				.main-title {
+					font-size: 1.2em;
+				}
+				
+				.bottom-logo {
+					max-width: 100px;
 				}
 				
 				.ready-button {
@@ -219,6 +355,28 @@
 					max-width: 70px;
 				}
 				
+				.centered-logo {
+					max-width: 70px;
+					margin-bottom: 12px;
+				}
+				
+				.title-above {
+					top: 1%;
+					padding-top: 5px;
+				}
+				
+				.byob-text {
+					font-size: 1em;
+				}
+				
+				.main-title {
+					font-size: 1em;
+				}
+				
+				.bottom-logo {
+					max-width: 80px;
+				}
+				
 				.ready-button {
 					padding: 8px 16px;
 					font-size: 0.9em;
@@ -227,20 +385,26 @@
 		</style>
 	</head>
 	<body>
-		<!-- Background Video -->
-		<video class="bg-video" autoplay muted loop playsinline>
-			<source src="https://pub-6e33f8540573461f858c0fa09671022b.r2.dev/video.mp4" type="video/mp4">
+		<!-- Background Videos -->
+		<video class="bg-video" id="bgVideo" autoplay muted playsinline>
+			<source src="https://pub-6cc4523d456f472f9551ffbb385c3633.r2.dev/VIDEO%20FINAL.mp4" type="video/mp4">
 			Your browser does not support the video tag.
 		</video>
 		
 		<!-- Top Left: Logo -->
 		<div class="corner top-left">
-			<img src="logo1.png" alt="Flyberry Logo" class="logo">
+			<!-- Logo moved to center, this div now empty -->
 		</div>
 		
-		<!-- Top Right: BUILD YOUR OWN BASKET -->
+		<!-- Top Right: Empty now -->
 		<div class="corner top-right">
-			BUILD YOUR<br>OWN BASKET
+			<!-- Title moved to center above video -->
+		</div>
+		
+		<!-- Title above video -->
+		<div class="title-above">
+			<div class="byob-text">BYOB</div>
+			<div class="main-title">BUILD YOUR<br>OWN BASKET</div>
 		</div>
 		
 		<!-- Bottom Left: Website -->
@@ -255,16 +419,42 @@
 		
 		<!-- Center Content: Button -->
 		<div class="center-content">
-			<button class="ready-button">Tap to start</button>
+			<button class="ready-button">Tap to explore</button>
+		</div>
+		
+		<!-- Logo below video -->
+		<div class="logo-bottom">
+			<img src="logo.png" alt="Flyberry Logo" class="bottom-logo">
 		</div>
 		
 		<script>
-			function goToForm() {
-				window.location.href = 'form.html';
+			// Video playlist for sequential playback
+			const videoUrls = [
+				'https://pub-6cc4523d456f472f9551ffbb385c3633.r2.dev/VIDEO%20FINAL.mp4',
+				'https://pub-6cc4523d456f472f9551ffbb385c3633.r2.dev/ILLUSTRATION%20VIDEO.mp4'
+			];
+			
+			let currentVideoIndex = 0;
+			const bgVideo = document.getElementById('bgVideo');
+			
+			// Function to load next video
+			function loadNextVideo() {
+				currentVideoIndex = (currentVideoIndex + 1) % videoUrls.length;
+				const source = bgVideo.querySelector('source');
+				source.src = videoUrls[currentVideoIndex];
+				bgVideo.load();
+				bgVideo.play();
+			}
+			
+			// Listen for video end event to play next video
+			bgVideo.addEventListener('ended', loadNextVideo);
+			
+			function goToSelection() {
+				window.location.href = 'selection.html';
 			}
 			
 			// Make entire page clickable
-			document.addEventListener('click', goToForm);
+			document.addEventListener('click', goToSelection);
 		</script>
 	</body>
 </html>
