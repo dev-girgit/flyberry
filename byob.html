@@ -65,6 +65,21 @@
             object-fit: contain;
         }
 
+        .top-right-logo {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            height: 80px;
+            width: auto;
+            object-fit: contain;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .top-right-logo:hover {
+            transform: scale(1.05);
+        }
+
         .brand-title {
             font-size: 4rem;
             color: #000000;
@@ -1959,6 +1974,12 @@
                 margin-bottom: 1.5rem;
             }
 
+            .top-right-logo {
+                height: 60px;
+                top: 15px;
+                right: 15px;
+            }
+
             .step-heading {
                 font-size: 1.5rem;
             }
@@ -2561,6 +2582,9 @@
     </style>
 </head>
 <body>
+    <!-- Top Right Logo -->
+    <img src="logo.png" alt="Flyberry Logo" class="top-right-logo">
+    
     <!-- Tooltip Overlay -->
     <div class="tooltip-overlay" id="tooltipOverlay" onclick="hideTooltip()"></div>
     
