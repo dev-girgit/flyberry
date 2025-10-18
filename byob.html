@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700;800&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="https://unpkg.com/d3-annotation/dist/d3-annotation.min.js"></script>
+    <script src="https://unpkg.com/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <script src="js/cartHandler.js"></script>
     <style>
         * {
@@ -104,7 +105,7 @@
         .home-icon {
             position: fixed;
             top: 25px;
-            left: 240px;
+            right: 25px;
             z-index: 2001;
             width: 40px;
             height: 40px;
@@ -1903,7 +1904,7 @@
             }
 
             .home-icon {
-                left: 190px;
+                right: 20px;
             }
         }
 
@@ -1930,7 +1931,7 @@
             }
 
             .home-icon {
-                left: 270px;
+                right: 35px;
             }
         }
 
@@ -1985,10 +1986,10 @@
             }
 
             .home-icon {
-                position: static;
-                left: auto;
-                top: auto;
-                margin: 0 auto 1rem auto;
+                position: fixed;
+                right: 15px;
+                top: 15px;
+                margin: 0;
                 display: flex;
             }
 
@@ -2970,6 +2971,50 @@
                                 <div class="product-info">
                                     <div class="product-name">Executive Gift Basket</div>
                                     <div class="product-price">₹799</div>
+                                </div>
+                            </div>
+
+                            <div class="product-card" data-type="basket" data-category="metal" data-product="Platinum Elite Collection" data-price="899">
+                                <div class="product-image-wrapper">
+                                    <img src="PREMIUM/5.png" alt="Platinum Elite Collection" class="product-image">
+                                    <div class="product-add-indicator">+</div>
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-name">Platinum Elite Collection</div>
+                                    <div class="product-price">₹899</div>
+                                </div>
+                            </div>
+
+                            <div class="product-card" data-type="basket" data-category="metal" data-product="Royal Heritage Basket" data-price="849">
+                                <div class="product-image-wrapper">
+                                    <img src="PREMIUM/6.png" alt="Royal Heritage Basket" class="product-image">
+                                    <div class="product-add-indicator">+</div>
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-name">Royal Heritage Basket</div>
+                                    <div class="product-price">₹849</div>
+                                </div>
+                            </div>
+
+                            <div class="product-card" data-type="basket" data-category="metal" data-product="Imperial Gold Series" data-price="949">
+                                <div class="product-image-wrapper">
+                                    <img src="PREMIUM/7.png" alt="Imperial Gold Series" class="product-image">
+                                    <div class="product-add-indicator">+</div>
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-name">Imperial Gold Series</div>
+                                    <div class="product-price">₹949</div>
+                                </div>
+                            </div>
+
+                            <div class="product-card" data-type="basket" data-category="metal" data-product="Signature Luxury Basket" data-price="999">
+                                <div class="product-image-wrapper">
+                                    <img src="PREMIUM/8.png" alt="Signature Luxury Basket" class="product-image">
+                                    <div class="product-add-indicator">+</div>
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-name">Signature Luxury Basket</div>
+                                    <div class="product-price">₹999</div>
                                 </div>
                             </div>
                         </div>
@@ -5202,11 +5247,57 @@
             }
         }
 
+        // Confetti animation function
+        function triggerConfetti() {
+            if (typeof confetti !== 'undefined') {
+                // Initial burst from center
+                confetti({
+                    particleCount: 100,
+                    spread: 70,
+                    origin: { y: 0.6 }
+                });
+                
+                // Multiple bursts for celebration effect
+                setTimeout(() => {
+                    confetti({
+                        particleCount: 50,
+                        angle: 60,
+                        spread: 55,
+                        origin: { x: 0 }
+                    });
+                }, 200);
+                
+                setTimeout(() => {
+                    confetti({
+                        particleCount: 50,
+                        angle: 120,
+                        spread: 55,
+                        origin: { x: 1 }
+                    });
+                }, 400);
+                
+                // Golden confetti burst with custom colors
+                setTimeout(() => {
+                    confetti({
+                        particleCount: 80,
+                        spread: 100,
+                        origin: { y: 0.4 },
+                        colors: ['#f1c608', '#FFD700', '#d4a907', '#FFA500', '#FFEB3B']
+                    });
+                }, 600);
+            } else {
+                console.log('Confetti library not loaded');
+            }
+        }
+
         // Place Order functionality with loading popup
         function placeOrder() {
             if (window.cartHandler) {
                 const cartData = window.cartHandler.extractCartData();
                 if (cartData && cartData.items.length > 0) {
+                    // Trigger confetti animation
+                    triggerConfetti();
+                    
                     // Show loading popup
                     showLoadingPopup();
                     
