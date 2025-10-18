@@ -1,11 +1,20 @@
-# _headers file for Netlify deployment
-# Performance and security headers for Flyberry website
+# Advanced headers for Cloudflare deployment
+# Maximum performance and security optimization
 
 /*
   X-Frame-Options: DENY
   X-XSS-Protection: 1; mode=block
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
+  X-DNS-Prefetch-Control: on
+  Permissions-Policy: geolocation=(), microphone=(), camera=()
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  
+# Early Hints for critical resources
+/*.html
+  Link: </logo.webp>; rel=preload; as=image
+  Link: <https://fonts.gstatic.com>; rel=preconnect; crossorigin
+  Link: </css/critical.css>; rel=preload; as=style
 
 # Cache headers for different file types
 /*.css
