@@ -66,7 +66,7 @@
         }
 
         .logo {
-            height: 50px;
+            height: 150px;
             width: auto;
         }
 
@@ -390,7 +390,7 @@
         .modal-image {
             width: 100%;
             height: 300px;
-            object-fit: cover;
+            object-fit: contain;
             border-radius: 15px;
         }
 
@@ -592,9 +592,9 @@
                     <p class="product-description">
                         Fresh and airy arrangement featuring organic dates, premium nuts, and artisanal treats in a contemporary design.
                     </p>
-                    <div class="product-price">₹1,050</div>
+                    <div class="product-price">₹1,775</div>
                     <div class="product-actions">
-                        <button class="add-to-cart-btn" onclick="addToCart('breezeline', 'Breezeline', 1050, 'READY MADE BASKETS/BREEZELINE.png')">
+                        <button class="add-to-cart-btn" onclick="addToCart('breezeline', 'Breezeline', 1775, 'READY MADE BASKETS/BREEZELINE.png')">
                             <span>🛒</span>
                             Add to Cart
                         </button>
@@ -616,9 +616,9 @@
                     <p class="product-description">
                         Bright and vibrant selection of golden dates, honey-roasted nuts, and citrus-infused delicacies in warm yellow tones.
                     </p>
-                    <div class="product-price">₹1,799</div>
+                    <div class="product-price">₹1,600</div>
                     <div class="product-actions">
-                        <button class="add-to-cart-btn" onclick="addToCart('citrine', 'Citrine', 1799, 'READY MADE BASKETS/CITRINE.png')">
+                        <button class="add-to-cart-btn" onclick="addToCart('citrine', 'Citrine', 1600, 'READY MADE BASKETS/CITRINE.png')">
                             <span>🛒</span>
                             Add to Cart
                         </button>
@@ -778,28 +778,38 @@
             },
             'breezeline': {
                 name: 'Breezeline',
-                price: 1050,
+                price: 1775,
                 image: 'READY MADE BASKETS/BREEZELINE.png',
                 contents: [
-                    { name: 'Flyberry Chickpea Chips', weight: '30 grams' },
-                    { name: 'Saffron Trail Mix Pouch', weight: '45 grams' },
-                    { name: 'Flyberry Dehydrated Jamun', weight: '20 grams' },
-                    { name: 'Flyberry Spiced Peanut Dragees', weight: '100 grams' },
-                    { name: 'Flyberry Dehydrated Peach', weight: '100 grams' },
-                    { name: 'Flyberry Khumani Apricots', weight: '100 grams' },
-                    { name: 'Flyberry Blackcurrant', weight: '100 grams' },
-                    { name: 'Gift Hamper', weight: '0 grams' }
+                    { name: 'Flyberry Spiced Peanut Dragees', weight: '150 grams' },
+                    { name: 'Flyberry Dehydrated Peach - Red', weight: '150 grams' },
+                    { name: 'Flyberry Dehydrated Orange', weight: '150 grams' },
+                    { name: 'Flyberry Hazelnut Date Spread', weight: '200 grams' },
+                    { name: 'Flyberry Dehydrated Jamun', weight: '30 grams' },
+                    { name: 'Saffron Trail Mix Pouch', weight: '50 grams' },
+                    { name: 'Omani Seedless Dates', weight: '205 grams' },
+                    { name: 'Flyberry Sweet Corn', weight: '20 grams' },
+                    { name: 'Flyberry Spiced Chickpea', weight: '25 grams' },
+                    { name: 'Hamper/Packaging', weight: '0 grams' }
                 ],
-                totalWeight: '495 grams'
+                totalWeight: '980 grams'
             },
             'citrine': {
                 name: 'Citrine',
-                price: 1799,
+                price: 1600,
                 image: 'READY MADE BASKETS/CITRINE.png',
                 contents: [
-                    { name: 'Currently being updated', weight: 'N/A' }
+                    { name: 'Flyberry Okra', weight: '20 grams' },
+                    { name: 'Flyberry Date Syrup', weight: '325 grams' },
+                    { name: 'Flyberry Hazelnut Date Spread', weight: '100 grams' },
+                    { name: 'Flyberry Dehydrated Jamun', weight: '30 grams' },
+                    { name: 'Saffron Trail Mix Pouch', weight: '50 grams' },
+                    { name: 'Omani Seedless Dates', weight: '205 grams' },
+                    { name: 'Flyberry Sweet Corn', weight: '20 grams' },
+                    { name: 'Flyberry Spiced Chickpea', weight: '25 grams' },
+                    { name: 'Hamper/Packaging', weight: '0 grams' }
                 ],
-                totalWeight: 'To be confirmed'
+                totalWeight: '980 grams'
             },
             'golden-nest': {
                 name: 'Golden Nest',

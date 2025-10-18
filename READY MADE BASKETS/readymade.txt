@@ -1,63 +1,73 @@
-Petal Wrap
+PETAL WRAP
+S. No. Product Quantity MRP Disc. Price (inc. GST) Discount %
+1 Omani seedless dates 205 grams 149 115 23%
+2 Flyberry Chickpea Chips 30 grams 49 45 8%
+6 Flyberry Hazelnut Date Spread 100 grams 299 235 21% 
+8 Flyberry Dehydrated Jamun 20 grams 49 45 8%
+9 Saffron Trail Mix Pouch 45 grams 49 45 8%
+8 Hamper/Packaging 150 110 27%
+TOTAL/ AVG: 400 grams 745 595 16%
 
-1 Omani seedless dates 2 Flyberry Chickpea Chips 6 Flyberry Hazelnut Date Spread 8 Flyberry Dehydrated Jamun 9 Saffron Trail Mix Pouch 8 Hamper/Packaging
-205 grams
-30 grams
-100 grams
-20 grams
-45 grams
+BLUEBELL
+S. No. Product Quantity MRP Disc. Price (inc. GST) Discount %
+1 Flyberry Chickpea Chips 30 grams 49 45 8%
+2 Flyberry Hazelnut Date Spread 100 grams 299 220 26%
+3 Flyberry Dehydrated Jamun 20 grams 49 45 8% 
+4 Saffron Trail Mix Pouch 45 grams 49 45 8%
+5 Flyberry Spiced Peanut Dragees 100 grams 225 150 33%
+6 Flyberry Dehydrated Peach 100 grams 120 75 38%
+7 Flyberry Khumani Apricots 100 grams 120 70 42%
+9 Hamper/Packaging 189 150 21%
+TOTAL/ AVG: 495 grams 1100 799 23%
 
-745/-
+GOLDEN NEST
+S. No. Product Quantity MRP Disc. Price (inc. GST) Discount %
+1 Flyberry Chickpea Chips 30 grams 49 45 8%
+2 Saffron Trail Mix Pouch 45 grams 49 45 8%
+3 Flyberry Dehydrated Jamun 20 grams 49 45 8%
+4 Flyberry Sweet Corn 20 grams 49 40 18%
+6 Flyberry Dehydrated Orange 100 grams 150 110 27%
+7 Flyberry Blackcurrant 100 grams 229 175 24%
+8 Date Syrup 325 grams 599 449 25%
+9 Flyberry Hazelnut Date Spread 100 grams 299 235 21%
+10 Gift Hamper 202 165 18%
+TOTAL/ AVG: 990 grams 1975 1499 16%
 
+PLANTER
+S. No. Product Quantity MRP Disc. Price (inc. GST) Discount %
+1 Flyberry Spiced Seed Mix 150 grams 220 200 9%
+2 Flyberry Honey Roasted Walnuts 150 grams 399 275 31%
+3 Flyberry Cheese Jalapeno Almonds 150 grams 349 220 37% 
+4 Flyberry Spiced Chickpea 150 grams 380 309 19%
+5 Flyberry Dehydrated Peach - Red 150 grams 149 100 33%
+6 Flyberry Spiced Peanut Dragees 150 grams 275 245 11%
+7 Saffron Trail Mix Bottle 150 grams 200 150 25%
+8 Hamper/Packaging 527 500 5%
+TOTAL/ AVG: 1050 grams 2499 1999 21%
 
-Bluebell
-1 Flyberry Chickpea Chips 2 Flyberry Hazelnut Date Spread 3 Flyberry Dehydrated Jamun 4 Saffron Trail Mix Pouch 5 Flyberry Spiced Peanut Dragees 6 Flyberry Dehydrated Peach 7 Flyberry Khumani Apricots 9 Hamper/Packaging
-30 grams
-100 grams
-20 grams
-45 grams
-100 grams
-100 grams
-100 grams
-0 grams
-1100/-
+BREEEZE LINE
+S. No. Product Quantity MRP Disc. Price (inc. GST) Discount %
+1 Flyberry Spiced Peanut Dragees 150 grams 275 241 8% 
+2 Flyberry Dehydrated Peach - Red 150 grams 150 100 33%
+3 Flyberry Dehydrated Orange 150 grams 205 175 15%
+4 Flyberry Hazelnut date spread 200 grams 499 399 20%
+5 Flyberry Dehydrated Jamun 30 grams 50 45 10%
+6 Saffron Trail Mix Pouch 50 grams 49 45 8%
+7 Omani seedless dates 205 grams 149 115 23%
+8 Flyberry Sweet Corn 20 grams 49 45 8%
+9 Flyberry Spiced Chickpea 25 grams 49 45 8%
+11 Hamper/Packaging 300 240 20%
+TOTAL/ AVG: 980 grams 1775 1450 15%
 
-Breezeline 
-1 Flyberry Chickpea Chips 2 Saffron Trail Mix Pouch 3 Flyberry Dehydrated Jamun 4 Flyberry Spiced Peanut Dragees 5 Flyberry Dehydrated Peach 6 Flyberry Khumani Apricots 7 Flyberry Blackcurrant, 8 Gift Hamper
-30 grams
-45 grams
-20 grams
-100 grams
-100 grams
-100 grams
-100 grams
-0 grams
-1050/-
-
-Golden Nest
-1 Flyberry Chickpea Chips 30 grams
-2 Saffron Trail Mix Pouch 45 grams
-3 Flyberry Dehydrated Jamun 20 grams
-4 Flyberry Sweet Corn 20 grams
-5 Flyberry Dehydrated Peach 250 grams
-6 Flyberry Dehydrated Orange 100 grams
-7 Flyberry Blackcurrant 100 grams
-8 Date Syrup 325 grams
-9 Flyberry Hazelnut Date Spread 100 grams
-10 Gift Hamper
-1975/-
-
-
-Planter
-1 Flyberry Spiced Seed Mix 2 Flyberry Honey Roasted Walnuts 3 Flyberry Cheese Jalapeno Almonds 4 Flyberry Spiced Chickpea 5 Flyberry Dehydrated Peach-Red 6 Flyberry Spiced Peanut Dragees 7 Saffron Trail Mix Bottle 8 Hamper/Packaging
-150 grams
-150 grams
-150 grams
-150 grams
-150 grams
-150 grams
-150 grams
-2499/-
-
-Citrine
-N/A
+CITRINE
+S. No. Product Quantity MRP Disc. Price (inc. GST) Discount %
+1 Flyberry Okra 20 grams 49 45 8%
+2 Flyberry Date Syrup 325 grams 599 450 25%
+3 Flyberry Hazelnut date spread 100 grams 299 235 21% CITRINE
+4 Flyberry Dehydrated Jamun 30 grams 49 45 8%
+5 Saffron Trail Mix Pouch 50 grams 49 45 8%
+6 Omani seedless dates 205 grams 149 115 23%
+7 Flyberry Sweet Corn 20 grams 49 45 8%
+8 Flyberry Spiced Chickpea 25 grams 49 45 8%
+9 Hamper/Packaging 308 225 27%
+TOTAL/ AVG: 980 grams 1600

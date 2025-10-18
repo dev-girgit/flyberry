@@ -101,6 +101,37 @@
             display: block;
         }
 
+        .home-icon {
+            position: fixed;
+            top: 25px;
+            left: 240px;
+            z-index: 2001;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #DAA520 0%, #B8860B 100%);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(218, 165, 32, 0.3);
+            text-decoration: none;
+        }
+
+        .home-icon:hover {
+            transform: translateY(-2px) scale(1.1);
+            box-shadow: 0 6px 20px rgba(218, 165, 32, 0.5);
+            background: linear-gradient(135deg, #FFD700 0%, #DAA520 100%);
+        }
+
+        .home-icon svg {
+            width: 24px;
+            height: 24px;
+            fill: white;
+        }
+
         /* Main Layout - 2 column layout */
         .container {
             display: grid;
@@ -524,20 +555,17 @@
         }
 
         /* Special layouts for single-line sections */
-        .category-items.chips-layout,
-        .category-items.gifting-layout {
+        .category-items.chips-layout {
             grid-template-columns: repeat(4, 1fr);
             gap: 1.5rem;
         }
 
-        /* Smaller image scaling for chips and gifting sections */
-        .chips-layout .product-image-wrapper,
-        .gifting-layout .product-image-wrapper {
+        /* Smaller image scaling for chips sections */
+        .chips-layout .product-image-wrapper {
             transform: scale(0.95);
         }
 
-        .chips-layout .product-card,
-        .gifting-layout .product-card {
+        .chips-layout .product-card {
             margin-bottom: 1rem;
         }
 
@@ -1289,9 +1317,8 @@
                 grid-template-columns: repeat(2, 1fr);
             }
 
-            /* Keep chips and gifting as 4 columns on tablet */
-            .category-items.chips-layout,
-            .category-items.gifting-layout {
+            /* Keep chips as 4 columns on tablet */
+            .category-items.chips-layout {
                 grid-template-columns: repeat(4, 1fr);
                 gap: 1rem;
             }
@@ -1328,9 +1355,8 @@
                 gap: 2rem;
             }
 
-            /* Mobile: chips and gifting as 2 columns */
-            .category-items.chips-layout,
-            .category-items.gifting-layout {
+            /* Mobile: chips as 2 columns */
+            .category-items.chips-layout {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 1.5rem;
             }
@@ -1875,6 +1901,10 @@
                 width: 160px;
                 height: auto;
             }
+
+            .home-icon {
+                left: 190px;
+            }
         }
 
         /* Large screens: Enhanced center-left positioning */
@@ -1897,6 +1927,10 @@
                 left: 30px;
                 width: 220px;
                 height: auto;
+            }
+
+            .home-icon {
+                left: 270px;
             }
         }
 
@@ -1950,6 +1984,14 @@
                 margin: 0 auto 1rem auto;
             }
 
+            .home-icon {
+                position: static;
+                left: auto;
+                top: auto;
+                margin: 0 auto 1rem auto;
+                display: flex;
+            }
+
             .main-content {
                 padding-top: 2rem;
             }
@@ -1992,8 +2034,7 @@
                 gap: 1.5rem;
             }
 
-            .category-items.chips-layout,
-            .category-items.gifting-layout {
+            .category-items.chips-layout {
                 grid-template-columns: 1fr;
                 gap: 1.25rem;
             }
@@ -2594,7 +2635,6 @@
                             <button class="filter-tab active" data-filter="dates">Dates</button>
                             <button class="filter-tab" data-filter="nuts">Nuts</button>
                             <button class="filter-tab" data-filter="chips">Chips</button>
-                            <button class="filter-tab" data-filter="gifting">Gifting</button>
                         </div>
                     </div>
                     
@@ -2869,54 +2909,7 @@
                         </div>
                     </div>
 
-                    <!-- Gifting Section -->
-                    <div class="category-section" id="gifting-section">
-                        <h3 class="category-section-title">Gifting</h3>
-                        <div class="category-items gifting-layout">
-                            <div class="product-card" data-type="item" data-category="gifting" data-product="Blossom Gift Box" data-price="449">
-                                <div class="product-image-wrapper">
-                                    <img src="GIFTING/Blossom Gift box/1.png" alt="Blossom Gift Box" class="product-image">
-                                    <div class="product-add-indicator">+</div>
-                                </div>
-                                <div class="product-info">
-                                    <div class="product-name">Blossom</div>
-                                    <div class="product-price">₹449</div>
-                                </div>
-                            </div>
-                            <div class="product-card" data-type="item" data-category="gifting" data-product="Cadeau Gift Box" data-price="329">
-                                <div class="product-image-wrapper">
-                                    <img src="GIFTING/Cadeau Gift box/1.png" alt="Cadeau Gift Box" class="product-image">
-                                    <div class="product-add-indicator">+</div>
-                                </div>
-                                <div class="product-info">
-                                    <div class="product-name">Cadeau</div>
-                                    <div class="product-price">₹329</div>
-                                </div>
-                            </div>
-                            <div class="product-card" data-type="item" data-category="gifting" data-product="Ethic Gift Box" data-price="379">
-                                <div class="product-image-wrapper">
-                                    <img src="GIFTING/Ethic Gift Box/1.png" alt="Ethic Gift Box" class="product-image">
-                                    <div class="product-add-indicator">+</div>
-                                </div>
-                                <div class="product-info">
-                                    <div class="product-name">Ethnic</div>
-                                    <div class="product-price">₹379</div>
-                                </div>
-                            </div>
-                            <div class="product-card" data-type="item" data-category="gifting" data-product="Fleur Gift Box" data-price="399">
-                                <div class="product-image-wrapper">
-                                    <img src="GIFTING/Fleur Gift box/1.png" alt="Fleur Gift Box" class="product-image">
-                                    <div class="product-add-indicator">+</div>
-                                </div>
-                                <div class="product-info">
-                                    <div class="product-name">Fleur</div>
-                                    <div class="product-price">₹399</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Extra spacing after Gifting section -->
+                    <!-- Extra spacing after Chips section -->
                     <div style="height: 250px;"></div>
 
                 </div>
@@ -2932,7 +2925,7 @@
                         <div class="filter-tabs">
                             <button class="filter-tab active" data-filter="cane" onclick="filterBaskets('cane', this)">Cane</button>
                             <button class="filter-tab" data-filter="bamboo" onclick="filterBaskets('bamboo', this)">Bamboo</button>
-                            <button class="filter-tab" data-filter="premium" onclick="filterBaskets('premium', this)">Premium</button>
+                            <button class="filter-tab" data-filter="metal" onclick="filterBaskets('metal', this)">Metal</button>
                         </div>
                     </div>
                     
@@ -3021,11 +3014,11 @@
                         </div>
                     </div>
 
-                    <!-- Premium Baskets Section -->
-                    <div class="category-section" id="premium-section">
-                        <h3 class="category-section-title">Premium Baskets</h3>
+                    <!-- Metal Baskets Section -->
+                    <div class="category-section" id="metal-section">
+                        <h3 class="category-section-title">Metal Baskets</h3>
                         <div class="category-items">
-                            <div class="product-card" data-type="basket" data-category="premium" data-product="Luxury Wicker Collection" data-price="799">
+                            <div class="product-card" data-type="basket" data-category="metal" data-product="Luxury Wicker Collection" data-price="799">
                                 <div class="product-image-wrapper">
                                     <img src="PREMIUM/1.png" alt="Luxury Wicker Collection" class="product-image">
                                     <div class="product-add-indicator">+</div>
@@ -3036,7 +3029,7 @@
                                 </div>
                             </div>
 
-                            <div class="product-card" data-type="basket" data-category="premium" data-product="Artisan Crafted Premium" data-price="799">
+                            <div class="product-card" data-type="basket" data-category="metal" data-product="Artisan Crafted Premium" data-price="799">
                                 <div class="product-image-wrapper">
                                     <img src="PREMIUM/2.png" alt="Artisan Crafted Premium" class="product-image">
                                     <div class="product-add-indicator">+</div>
@@ -3047,7 +3040,7 @@
                                 </div>
                             </div>
 
-                            <div class="product-card" data-type="basket" data-category="premium" data-product="Executive Gift Basket" data-price="799">
+                            <div class="product-card" data-type="basket" data-category="metal" data-product="Executive Gift Basket" data-price="799">
                                 <div class="product-image-wrapper">
                                     <img src="PREMIUM/3.png" alt="Executive Gift Basket" class="product-image">
                                     <div class="product-add-indicator">+</div>
@@ -3060,7 +3053,7 @@
                         </div>
                     </div>
 
-                    <!-- Extra spacing after Premium section -->
+                    <!-- Extra spacing after Metal section -->
                     <div style="height: 250px;"></div>
 
                 </div>
@@ -3405,6 +3398,14 @@
         <!-- RIGHT COLUMN: Cart -->
         <aside class="cart-summary" id="cartSummary">
             <img src="logo.png" alt="Flyberry Logo" class="cart-logo">
+            
+            <!-- Home Icon -->
+            <a href="index.html" class="home-icon" title="Go to Home">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3 12L5 10M5 10L12 3L19 10M5 10V20C5 20.5523 5.44772 21 6 21H9M19 10L21 12M19 10V20C19 20.5523 18.5523 21 18 21H15M9 21C9.55228 21 10 20.5523 10 20V16C10 15.4477 10.4477 15 11 15H13C13.5523 15 14 15.4477 14 16V20C14 20.5523 14.4477 21 15 21M9 21H15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </a>
+            
             <div class="cart-header">
                 <h3 class="cart-title" id="cartTitle">{username's} gift basket</h3>
                 <button class="cart-toggle-btn" id="cartToggleBtn" title="Expand/Collapse Cart">
@@ -3744,55 +3745,6 @@
                 images: ["CHIPS/CHIKPEA.jpg"],
                 variants: [
                     { name: "25g", price: 49 }
-                ]
-            },
-            // Gifting
-            "Blossom Gift Box": {
-                description: "Elegant Blossom gift box perfect for special occasions. This is a mixture of carefully assorted: Trail Mix, Cashew Peri Peri, Green Raisins, Date Bites.\n\nSize: 200g",
-                images: [
-                    "GIFTING/Blossom Gift box/1.png",
-                    "GIFTING/Blossom Gift box/3.png",
-                    "GIFTING/Blossom Gift box/4.png",
-                    "GIFTING/Blossom Gift box/5.png"
-                ],
-                variants: [
-                    { name: "200g", price: 449 }
-                ]
-            },
-            "Cadeau Gift Box": {
-                description: "Sophisticated Cadeau gift box designed for discerning recipients. This is a mixture of carefully assorted: Trail Mix, Cashew Peri Peri, Green Raisins, Date Bites.\n\nSize: 200g",
-                images: [
-                    "GIFTING/Cadeau Gift box/1.png",
-                    "GIFTING/Cadeau Gift box/3.png",
-                    "GIFTING/Cadeau Gift box/4.png",
-                    "GIFTING/Cadeau Gift box/5.png"
-                ],
-                variants: [
-                    { name: "200g", price: 329 }
-                ]
-            },
-            "Ethic Gift Box": {
-                description: "Thoughtfully curated Ethic gift box with sustainable and ethical products. This is a mixture of carefully assorted: Trail Mix, Cashew Peri Peri, Green Raisins, Date Bites.\n\nSize: 200g",
-                images: [
-                    "GIFTING/Ethic Gift Box/1.png",
-                    "GIFTING/Ethic Gift Box/3.png",
-                    "GIFTING/Ethic Gift Box/4.png",
-                    "GIFTING/Ethic Gift Box/5.png"
-                ],
-                variants: [
-                    { name: "200g", price: 379 }
-                ]
-            },
-            "Fleur Gift Box": {
-                description: "Beautiful Fleur gift box with floral-themed presentation. This is a mixture of carefully assorted: Trail Mix, Cashew Peri Peri, Green Raisins, Date Bites.\n\nSize: 200g",
-                images: [
-                    "GIFTING/Fleur Gift box/1.png",
-                    "GIFTING/Fleur Gift box/3.png",
-                    "GIFTING/Fleur Gift box/4.png",
-                    "GIFTING/Fleur Gift box/5.png"
-                ],
-                variants: [
-                    { name: "200g", price: 399 }
                 ]
             }
         };
@@ -4911,8 +4863,7 @@
             const sections = [
                 { id: 'dates-section', category: 'dates' },
                 { id: 'nuts-section', category: 'nuts' },
-                { id: 'chips-section', category: 'chips' },
-                { id: 'gifting-section', category: 'gifting' }
+                { id: 'chips-section', category: 'chips' }
             ];
             
             function detectCurrentSection() {
